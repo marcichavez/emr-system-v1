@@ -1,0 +1,32 @@
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="side" class="right-side-panel">
+    <h1>EMR</h1>
+    <section class="nav-section">
+      <div
+        class="nav-btn"
+        *ngFor="let navLink of navRouterLinks"
+        routerLinkActive="active"
+      >
+        <div [routerLink]="[navLink.routerLink]">
+          <p>{{ navLink.name }}</p>
+        </div>
+      </div>
+    </section>
+  </mat-drawer>
+
+  <div class="main-panel">
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>{{ drawer.opened ? "close" : "menu" }}</mat-icon>
+      </button>
+      <div class="spacer"></div>
+      <button mat-icon-button class="account-btn" [routerLink]="['my-account']">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <span></span>
+    </mat-toolbar>
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+</mat-drawer-container>

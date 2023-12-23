@@ -1,0 +1,24 @@
+@import "/src/assets/styles/variables.scss";
+::ng-deep .mat-card-header .mat-card-header-text {
+  margin: 0;
+  color: $accent;
+}
+
+.div-tile {
+  height: max-content;
+}
+
+.vital-signs span {
+  font-size: x-small;
+  padding: 4px;
+  border-radius: 50%;
+  background-color: aquamarine;
+}
+
+.appointments-btngrp button {
+  margin-left: 8px !important;
+}
+
+.name-alert {
+  color: $warn;
+}
