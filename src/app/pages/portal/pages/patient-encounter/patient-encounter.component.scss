@@ -71,4 +71,8 @@
     font-weight: 500;
     color: $primary;
   }
+
+  mat-panel-description small {
+    color: $gray;
+  }
 }

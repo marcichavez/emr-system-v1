@@ -1,6 +1,6 @@
 <h2 class="portal-page-title">Patient Encounter</h2>
 <div class="w-full flex flex-row consultation-section">
-  <section class="patient-profile w-1/5">
+  <section class="patient-profile w-3/12">
     <mat-card class="mb-2">
       <mat-card-header>
         <mat-card-title> Profile </mat-card-title>
@@ -10,7 +10,7 @@
       </mat-card-header>
       <mat-card-content>
         <div class="flex flex-row">
-          <div class="w-[12rem]">
+          <div class="w-[8rem]">
             <img [src]="mockPatient.profile_pic" class="profile-picture" />
           </div>
           <div class="w-full patient-profile pl-4">
@@ -47,9 +47,7 @@
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content class="max-h-52 overflow-scroll">
-        <div class="per-timeline">
-          <div class="subjective"></div>
-        </div>
+        <div class="per-timeline">##[[need further research]]</div>
       </mat-card-content>
     </mat-card>
     <mat-card class="mb-2">
@@ -60,6 +58,10 @@
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Search for Calculator</mat-label>
+          <input matInput [(ngModel)]="calculatorType" />
+        </mat-form-field>
         <iframe
           src="https://qxmd.com/calculate/calculator_240/due-date-by-lmp?embed=1"
           class="w-full h-[30rem]"
@@ -67,7 +69,7 @@
       </mat-card-content>
     </mat-card>
   </section>
-  <section class="telecon w-2/5">
+  <section class="telecon w-4/12">
     <mat-card class="sticky top-0 z-10">
       <mat-card-header>
         <mat-card-title> Teleconsultation </mat-card-title>
@@ -84,13 +86,40 @@
           <div class="w-1/5">
             <img [src]="doctorOnVideoImgSrc" class="mb-2" />
             <img [src]="nurseOnVideoImgSrc" class="mb-4" />
-            <button mat-stroked-button class="w-full">Invite</button>
+            <button mat-stroked-button class="w-full invite-btn">Invite</button>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content class="telecon-details">
+        <div class="grid grid-cols-2">
+          <div class="col-1">
+            <small>Encounter ID</small>
+            <p><b>1xab7bdef2718170001</b></p>
+          </div>
+
+          <div class="col-1 text-right">
+            <small>Presenter</small>
+            <p><b>Evangeline Acosta</b></p>
+          </div>
+
+          <div class="col-1">
+            <small>Elapsed Time</small>
+            <p><b>14:00:00</b></p>
+          </div>
+
+          <div class="col-1 text-right">
+            <small>Clinician</small>
+            <p><b>Dr. Joaquin Guillermo</b></p>
+          </div>
+
+          <div class="col-1">
+            <button mat-stroked-button color="warn">End Encounter</button>
           </div>
         </div>
       </mat-card-content>
     </mat-card>
   </section>
-  <section class="soap w-2/5">
+  <section class="soap w-5/12">
     <mat-card>
       <mat-card-header>
         <mat-card-title> SOAP </mat-card-title>
@@ -104,7 +133,7 @@
             <mat-expansion-panel-header>
               <mat-panel-title> <b>S</b>ubjective </mat-panel-title>
               <mat-panel-description>
-                Patient-reported symptoms, history
+                <small>Patient-reported symptoms, history</small>
                 <mat-icon>assignment</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
@@ -174,7 +203,7 @@
             <mat-expansion-panel-header>
               <mat-panel-title> <b>O</b>bjective </mat-panel-title>
               <mat-panel-description>
-                Measurable, observable examination findings
+                <small> Measurable, observable examination findings</small>
                 <mat-icon>visibility</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
@@ -189,7 +218,7 @@
             <mat-expansion-panel-header>
               <mat-panel-title> <b>A</b>ssessment </mat-panel-title>
               <mat-panel-description>
-                Provider's diagnosis and judgment
+                <small>Provider's diagnosis and judgment</small>
                 <mat-icon>assessment</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
@@ -199,7 +228,7 @@
             <mat-expansion-panel-header>
               <mat-panel-title> <b>P</b>lan </mat-panel-title>
               <mat-panel-description>
-                Treatment and follow-up actions
+                <small>Treatment and follow-up actions</small>
                 <mat-icon>playlist_add_check</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>

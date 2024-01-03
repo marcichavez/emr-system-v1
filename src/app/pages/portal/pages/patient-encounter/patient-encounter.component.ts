@@ -45,7 +45,7 @@ export class PatientEncounterComponent implements OnInit {
     },
   };
 
-  currentPosition = window.pageYOffset;
+  calculatorType: string = '';
 
   constructor() {}
 
