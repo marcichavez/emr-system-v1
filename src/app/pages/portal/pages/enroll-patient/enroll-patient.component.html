@@ -1,0 +1,40 @@
+<h2 class="portal-page-title">Enroll a Patient</h2>
+<mat-stepper #stepper class="w-2/3">
+  <mat-step [stepControl]="healthProfileFG">
+    <form [formGroup]="healthProfileFG">
+      <ng-template matStepLabel>Health Profile </ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" required />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" required />
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="reviewOfSystemsFG" label="Fill out your address">
+    <form [formGroup]="reviewOfSystemsFG">
+      <mat-form-field appearance="outline">
+        <mat-label>Chief Complaint</mat-label>
+        <input matInput formControlName="chiefComplaint" required />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>

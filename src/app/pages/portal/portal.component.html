@@ -1,5 +1,5 @@
 <mat-drawer-container autosize>
-  <mat-drawer #drawer mode="side" class="right-side-panel">
+  <mat-drawer #drawerLeft mode="side" class="left-side-panel">
     <h1>EMR</h1>
     <section class="nav-section">
       <div
@@ -14,12 +14,57 @@
     </section>
   </mat-drawer>
 
+  <mat-drawer #drawerRight mode="side" class="right-side-panel" position="end">
+    <h1>Chatbar</h1>
+    <section class="chat-section">
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Search People</mat-label>
+        <input matInput placeholder="Input personnel name" />
+        <button matSuffix mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </section>
+  </mat-drawer>
+
   <div class="main-panel">
     <mat-toolbar color="primary">
-      <button mat-icon-button (click)="drawer.toggle()">
-        <mat-icon>{{ drawer.opened ? "close" : "menu" }}</mat-icon>
+      <!-- Menu -->
+
+      <button mat-icon-button (click)="drawerLeft.toggle()" class="pr-2">
+        <mat-icon>chevron_{{ drawerLeft.opened ? "left" : "right" }}</mat-icon>
       </button>
+
+      <!-- Clinics -->
+      <div class="current-care-group">
+        <small class="subheader">Care Group</small>
+        <h1
+          class="active-clinic-label"
+          [matMenuTriggerFor]="menu"
+          matTooltip="Click to Switch Care Group"
+        >
+          {{ selectedClinic.value }}
+        </h1>
+      </div>
+
+      <mat-menu #menu="matMenu">
+        <button
+          mat-menu-item
+          *ngFor="let clinic of clinicsList"
+          (click)="loadSelectedClinic(clinic)"
+        >
+          {{ clinic }}
+        </button>
+      </mat-menu>
+
       <div class="spacer"></div>
+
+      <!-- Account Button -->
+
+      <button mat-icon-button class="chat-btn" (click)="drawerRight.toggle()">
+        <mat-icon>chat{{ drawerRight.opened ? "_bubble" : "" }}</mat-icon>
+      </button>
+
       <button mat-icon-button class="account-btn" [routerLink]="['my-account']">
         <mat-icon>account_circle</mat-icon>
       </button>

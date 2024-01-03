@@ -22,3 +22,12 @@
 .name-alert {
   color: $warn;
 }
+
+.summary-cards {
+  h1 {
+    font-weight: bold;
+  }
+  small {
+    color: $gray;
+  }
+}

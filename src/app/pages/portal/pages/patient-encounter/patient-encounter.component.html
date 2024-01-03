@@ -1,0 +1,211 @@
+<h2 class="portal-page-title">Patient Encounter</h2>
+<div class="w-full flex flex-row consultation-section">
+  <section class="patient-profile w-1/5">
+    <mat-card class="mb-2">
+      <mat-card-header>
+        <mat-card-title> Profile </mat-card-title>
+        <mat-card-subtitle>
+          Vital patient data for medical analysis and coordination
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="flex flex-row">
+          <div class="w-[12rem]">
+            <img [src]="mockPatient.profile_pic" class="profile-picture" />
+          </div>
+          <div class="w-full patient-profile pl-4">
+            <p>
+              Name:
+              <b>{{ mockPatient.first_name }} {{ mockPatient.last_name }}</b>
+            </p>
+            <p>
+              DOB:
+              <b>{{ mockPatient.date_of_birth | date }}</b>
+            </p>
+            <p>
+              Age:
+              <b>{{ mockPatient.age }}</b>
+            </p>
+            <p>
+              Height:
+              <b>{{ mockPatient.health_information.height }}</b>
+            </p>
+            <p>
+              Weight:
+              <b>{{ mockPatient.health_information.weight }}</b>
+            </p>
+            <b class="payment-type">Philc Pay</b>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="mb-2">
+      <mat-card-header>
+        <mat-card-title> Timeline </mat-card-title>
+        <mat-card-subtitle>
+          Chronological record of patient health events and history
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="max-h-52 overflow-scroll">
+        <div class="per-timeline">
+          <div class="subjective"></div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="mb-2">
+      <mat-card-header>
+        <mat-card-title> QxMD Calculate </mat-card-title>
+        <mat-card-subtitle>
+          A next-generation clinical calculator and decision support tool
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <iframe
+          src="https://qxmd.com/calculate/calculator_240/due-date-by-lmp?embed=1"
+          class="w-full h-[30rem]"
+        ></iframe>
+      </mat-card-content>
+    </mat-card>
+  </section>
+  <section class="telecon w-2/5">
+    <mat-card class="sticky top-0 z-10">
+      <mat-card-header>
+        <mat-card-title> Teleconsultation </mat-card-title>
+        <mat-card-subtitle
+          >Remote healthcare communication for diagnosis, advice, and treatment
+          planning</mat-card-subtitle
+        >
+      </mat-card-header>
+      <mat-card-content>
+        <div class="flex">
+          <div class="w-4/5 mr-2">
+            <img [src]="patientOnVideoImgSrc" />
+          </div>
+          <div class="w-1/5">
+            <img [src]="doctorOnVideoImgSrc" class="mb-2" />
+            <img [src]="nurseOnVideoImgSrc" class="mb-4" />
+            <button mat-stroked-button class="w-full">Invite</button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+  <section class="soap w-2/5">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> SOAP </mat-card-title>
+        <mat-card-subtitle>
+          Patient data format facilitating healthcare communication.
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-accordion class="headers-align" multi>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> <b>S</b>ubjective </mat-panel-title>
+              <mat-panel-description>
+                Patient-reported symptoms, history
+                <mat-icon>assignment</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <small>[Chief Complaint]</small>
+            <mat-form-field class="w-full" appearance="fill">
+              <mat-label>Chief Complaint</mat-label>
+              <textarea
+                rows="5"
+                matInput
+                placeholder="Ex. It makes me feel..."
+              ></textarea>
+            </mat-form-field>
+            <small>[History of Present Illness]</small>
+            <mat-form-field class="w-full" appearance="fill">
+              <mat-label>History of Present Illness</mat-label>
+              <textarea
+                rows="5"
+                matInput
+                placeholder="Ex. It makes me feel..."
+              ></textarea>
+            </mat-form-field>
+
+            <small>[Past Medical Hx]</small>
+            <div class="past-medical-history p-3 mat-elevation-z1 mb-5">
+              <div class="flex">
+                <p class="font-bold w-1/6">2022</p>
+                <p class="font-bold w-2/6">J010: Asthma</p>
+                <p class="w-3/6">Nebulizer of Inhalation, Verlix</p>
+              </div>
+              <div class="flex">
+                <p class="font-bold w-1/6">2022</p>
+                <p class="font-bold w-2/6">J010: Asthma</p>
+                <p class="w-3/6">Nebulizer of Inhalation, Verlix</p>
+              </div>
+              <div class="flex">
+                <mat-form-field class="w-1/6">
+                  <mat-label>Year</mat-label>
+                  <input matInput />
+                </mat-form-field>
+                <mat-form-field class="w-2/6">
+                  <mat-label>Disease</mat-label>
+                  <input matInput />
+                </mat-form-field>
+                <mat-form-field class="w-3/6">
+                  <mat-label>Medication</mat-label>
+                  <input matInput />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <small>[Family Medical Hx]</small>
+            <div class="past-medical-history p-3 mat-elevation-z1 mb-5">
+              Tabular or Genegram
+            </div>
+
+            <small>[Personal-Social Hx]</small>
+            <div class="past-medical-history p-3 mat-elevation-z1 mb-5">
+              Need further research
+            </div>
+
+            <small>[Review of System]</small>
+            <div class="past-medical-history p-3 mat-elevation-z1 mb-5">
+              Need further research
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> <b>O</b>bjective </mat-panel-title>
+              <mat-panel-description>
+                Measurable, observable examination findings
+                <mat-icon>visibility</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Country</mat-label>
+              <input matInput />
+            </mat-form-field>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> <b>A</b>ssessment </mat-panel-title>
+              <mat-panel-description>
+                Provider's diagnosis and judgment
+                <mat-icon>assessment</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> <b>P</b>lan </mat-panel-title>
+              <mat-panel-description>
+                Treatment and follow-up actions
+                <mat-icon>playlist_add_check</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</div>

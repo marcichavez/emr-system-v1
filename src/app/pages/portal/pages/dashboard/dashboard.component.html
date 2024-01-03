@@ -1,96 +1,181 @@
 <h2 class="portal-page-title">Dashboard</h2>
 <div class="flex flex-row flex-wrap">
-  <div class="pr-2 pb-2 lg:w-1/3 w-full">
-    <mat-card class="mb-4">
+  <div class="pr-2 pb-2 lg:w-1/4 w-full">
+    <mat-card class="w-full mb-2">
       <mat-card-header>
-        <mat-card-title>Status</mat-card-title>
+        <mat-card-title>Summary</mat-card-title>
+        <mat-card-subtitle>Availability and Summary</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p class="font-bold">
-          Click the buttons below to make yourself 'Available'.
-        </p>
-        <div class="flex mb-2">
-          <div class="w-1/2">
-            <p>On Call:</p>
-            <mat-slide-toggle [(ngModel)]="me.onCallStatus">
-              I am {{ me.onCallStatus ? "" : "Not " }} Available
-            </mat-slide-toggle>
-          </div>
-          <div class="w-1/2">
-            <p>Consultant:</p>
-            <mat-slide-toggle [(ngModel)]="me.consultantStatus">
-              I am {{ me.consultantStatus ? "" : "Not " }} Available
-            </mat-slide-toggle>
-          </div>
+        <div class="w-full mb-4">
+          <b class="mr-4">Available for Consult:</b>
+          <mat-slide-toggle></mat-slide-toggle>
         </div>
-      </mat-card-content>
-      <mat-card-content>
-        <p class="font-bold">Assessments Alerts</p>
-        <p>The following assessment results are in alert status.</p>
-        <p>- No Alerts -</p>
-      </mat-card-content>
-      <mat-card-content>
-        <p class="font-bold">Monitoring Alerts</p>
-        <p>The following patients may require immediate attentions</p>
-        <p class="font-bold name-alert">James Dunn</p>
-      </mat-card-content>
-      <mat-card-content>
-        <p class="font-bold">Messaging Alerts</p>
-        <div>
-          <span>Coding not done</span>
-          <span class="float-right">07/30/2020</span>
-        </div>
-        <div>
-          <span>Billing error</span>
-          <span class="float-right">08/19/2020</span>
+        <div class="flex flex-wrap summary-cards">
+          <div class="w-1/3 p-1">
+            <div class="text-center py-5 px-2 mat-elevation-z1">
+              <h1>{{ summary.totalAppointments }}</h1>
+              <small>Total Appointments</small>
+            </div>
+          </div>
+          <div class="w-1/3 p-1">
+            <div class="text-center py-5 px-2 mat-elevation-z1">
+              <h1>{{ summary.totalNewPatients }}</h1>
+              <small>Total New Patients</small>
+            </div>
+          </div>
+          <div class="w-1/3 p-1">
+            <div class="text-center py-5 px-2 mat-elevation-z1">
+              <h1>{{ summary.totalFollowUps }}</h1>
+              <small>Total Follow-ups</small>
+            </div>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>
 
-    <mat-card>
+    <mat-card class="w-full mb-2">
       <mat-card-header>
-        <mat-card-title>
-          <p>Prescription/Lab Notification</p>
-        </mat-card-title>
+        <mat-card-title>Laboratory results entered</mat-card-title>
+        <mat-card-subtitle> Laboratory results </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p>No Prescription Notifications</p>
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label> Patient </mat-label>
+          <input matInput placeholder="Input Patient Name" />
+          <button matSuffix mat-icon-button>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="w-full mb-2">
+      <mat-card-header>
+        <mat-card-title>Pharmacy Stocks</mat-card-title>
+        <mat-card-subtitle> Medicine inventory and status</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label> Medicine </mat-label>
+          <input matInput placeholder="Input medicine name" />
+          <button matSuffix mat-icon-button>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+        <div>
+          <table
+            mat-table
+            [dataSource]="dsrc_Medicines"
+            class="mat-elevation-z1 w-full"
+          >
+            <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="brand">
+              <th mat-header-cell *matHeaderCellDef>Brand</th>
+              <td mat-cell *matCellDef="let element">{{ element.brand }}</td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef>Qty</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.quantity }} <small>{{ element.unit }}</small>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price_per_unit">
+              <th mat-header-cell *matHeaderCellDef>Price</th>
+              <td mat-cell *matCellDef="let element">
+                P{{ element.price_per_unit }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expiry_date">
+              <th mat-header-cell *matHeaderCellDef>Expiration</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.expiry_date | date }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="dcol_Medicines"></tr>
+            <tr mat-row *matRowDef="let row; columns: dcol_Medicines"></tr>
+          </table>
+        </div>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-icon-button color="primary" class="float-right">
-          <mat-icon>refresh</mat-icon>
-        </button>
+        <button mat-flat-button>See all</button>
       </mat-card-actions>
     </mat-card>
+
+    <mat-card class="w-full mb-2">
+      <mat-card-header>
+        <mat-card-title>Admin Corner</mat-card-title>
+        <mat-card-subtitle> Clinic's Summary</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="flex flex-wrap summary-cards">
+          <div class="w-1/3 p-1">
+            <div class="text-center py-5 px-2 mat-elevation-z1">
+              <h1>{{ adminCornerSummary.totalEnrolled }}</h1>
+              <small>Total Enrolled</small>
+            </div>
+          </div>
+          <div class="w-1/3 p-1">
+            <div class="text-center py-5 px-2 mat-elevation-z1">
+              <h1>{{ adminCornerSummary.totalConsulted }}</h1>
+              <small>Total Consulted</small>
+            </div>
+          </div>
+          <div class="w-1/3 p-1">
+            <div class="text-center py-5 px-2 mat-elevation-z1">
+              <h1>{{ adminCornerSummary.totalRequestedWithLab }}</h1>
+              <small> Requested w/ Lab</small>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-  <div class="pr-2 pb-2 flex-card lg:w-2/3 w-full">
-    <mat-card>
+  <div class="pr-2 pb-2 flex-card lg:w-3/4 w-full">
+    <mat-card class="w-full">
       <mat-card-header>
         <mat-card-title>Appointments</mat-card-title>
+        <mat-card-subtitle>List of appointment for the today</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <div class="w-full flex justify-between">
           <mat-form-field class="w-96" appearance="outline">
             <mat-label>Patient Name</mat-label>
-            <input matInput placeholder="Input patient name here..." />
-            <button matSuffix mat-icon-button>
+            <input matInput type="text" placeholder="Input Patient Name" />
+            <button matSuffix mat-icone-button>
               <mat-icon>search</mat-icon>
             </button>
             <button matSuffix mat-icon-button>
               <mat-icon>filter_alt</mat-icon>
             </button>
           </mat-form-field>
-
           <div class="appointments-btngrp">
-            <button mat-raised-button color="primary">Enroll Patient</button>
-            <button mat-raised-button>Readiness Test</button>
+            <button mat-raised-button>Today</button>
+            <button
+              mat-raised-button
+              color="primary"
+              [routerLink]="['/portal/enroll-patient']"
+              routerLinkActive="router-link-active"
+            >
+              Enroll Patient
+            </button>
           </div>
         </div>
-        <table
-          mat-table
-          [dataSource]="dataSource"
-          class="mat-elevation-z1 w-full"
-        >
+        <table mat-table [dataSource]="dsrc_Appointments" class="w-full">
           <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
@@ -101,51 +186,45 @@
           </ng-container>
 
           <!-- Name Column -->
-
-          <ng-container matColumnDef="heartRate">
-            <th mat-header-cell *matHeaderCellDef>HxRx</th>
-            <td mat-cell *matCellDef="let element">
-              <span>{{ element.vitalSigns.heartRate }}</span>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="respiratoryRate">
-            <th mat-header-cell *matHeaderCellDef>Resp. Rx</th>
-            <td mat-cell *matCellDef="let element">
-              <span>{{ element.vitalSigns.respiratoryRate }} </span>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="bloodPressure">
-            <th mat-header-cell *matHeaderCellDef>Blood Prx</th>
-            <td mat-cell *matCellDef="let element">
-              <span>{{ element.vitalSigns.bloodPressure }} </span>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="bodyTemperature">
-            <th mat-header-cell *matHeaderCellDef>Body Temp.</th>
-            <td mat-cell *matCellDef="let element">
-              <span> {{ element.vitalSigns.bodyTemperature }}</span>
-            </td>
-          </ng-container>
-
-          <!-- Weight Column -->
           <ng-container matColumnDef="age">
             <th mat-header-cell *matHeaderCellDef>Age</th>
             <td mat-cell *matCellDef="let element">{{ element.age }}</td>
           </ng-container>
 
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef>Status</th>
-            <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+          <!-- Weight Column -->
+          <ng-container matColumnDef="chiefComplaint">
+            <th mat-header-cell *matHeaderCellDef>Chief Complaint</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.chiefComplaint }}
+            </td>
           </ng-container>
 
-          <ng-container matColumnDef="reasonForVisit">
-            <th mat-header-cell *matHeaderCellDef>Reason for Visit</th>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="bloodPressure">
+            <th mat-header-cell *matHeaderCellDef>BP</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.reasonForVisit }}
+              {{ element.vitalSigns.bloodPressure }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="heartRate">
+            <th mat-header-cell *matHeaderCellDef>HR</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.vitalSigns.heartRate }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="respiratoryRate">
+            <th mat-header-cell *matHeaderCellDef>RR</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.vitalSigns.respiratoryRate }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="bodyTemperature">
+            <th mat-header-cell *matHeaderCellDef>Temp</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.vitalSigns.bodyTemperature }}
             </td>
           </ng-container>
 
@@ -156,15 +235,39 @@
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="time">
-            <th mat-header-cell *matHeaderCellDef>Time</th>
+          <ng-container matColumnDef="timeOfVisit">
+            <th mat-header-cell *matHeaderCellDef>timeOfVisit</th>
             <td mat-cell *matCellDef="let element">
               {{ element.timeOfVisit }}
             </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <ng-container matColumnDef="paymentType">
+            <th mat-header-cell *matHeaderCellDef>Payment Type</th>
+            <td mat-cell *matCellDef="let element">Phic Pay</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button>
+                <mat-icon>chevron_right</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="dcol_appointments"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: dcol_appointments"
+            [routerLink]="['/portal/patient-encounter/' + row._id]"
+            routerLinkActive="router-link-active"
+          ></tr>
         </table>
       </mat-card-content>
     </mat-card>

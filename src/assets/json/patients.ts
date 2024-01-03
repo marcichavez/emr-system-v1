@@ -1,5 +1,6 @@
 export const PATIENTS = [
   {
+    _id: 1,
     patient: 'John Doe',
     vitalSigns: {
       heartRate: 75,
@@ -9,12 +10,13 @@ export const PATIENTS = [
     },
     age: 35,
     status: 'Completed',
-    reasonForVisit: 'Annual Checkup',
+    chiefComplaint: 'Annual Checkup',
     placeOfService: 'Face to Face',
     dateOfVisit: '2023-01-05',
     timeOfVisit: '09:30 AM',
   },
   {
+    _id: 2,
     patient: 'Jane Smith',
     vitalSigns: {
       heartRate: 82,
@@ -24,12 +26,13 @@ export const PATIENTS = [
     },
     age: 45,
     status: 'Waiting',
-    reasonForVisit: 'Fever and Cough',
+    chiefComplaint: 'Fever and Cough',
     placeOfService: 'Face to Face',
     dateOfVisit: '2023-02-10',
     timeOfVisit: '02:15 PM',
   },
   {
+    _id: 3,
     patient: 'David Johnson',
     vitalSigns: {
       heartRate: 65,
@@ -39,12 +42,13 @@ export const PATIENTS = [
     },
     age: 28,
     status: 'Cancelled',
-    reasonForVisit: 'Minor Injury',
+    chiefComplaint: 'Minor Injury',
     placeOfService: 'Online',
     dateOfVisit: '2023-03-15',
     timeOfVisit: '10:45 AM',
   },
   {
+    _id: 4,
     patient: 'Emily Brown',
     vitalSigns: {
       heartRate: 90,
@@ -54,12 +58,13 @@ export const PATIENTS = [
     },
     age: 55,
     status: 'Completed',
-    reasonForVisit: 'High Blood Pressure',
+    chiefComplaint: 'High Blood Pressure',
     placeOfService: 'Face to Face',
     dateOfVisit: '2023-04-20',
     timeOfVisit: '01:30 PM',
   },
   {
+    _id: 5,
     patient: 'Michael Wilson',
     vitalSigns: {
       heartRate: 72,
@@ -69,12 +74,13 @@ export const PATIENTS = [
     },
     age: 40,
     status: 'Waiting',
-    reasonForVisit: 'General Health Check',
+    chiefComplaint: 'General Health Check',
     placeOfService: 'Face to Face',
     dateOfVisit: '2023-05-25',
     timeOfVisit: '11:00 AM',
   },
   {
+    _id: 6,
     patient: 'Olivia Miller',
     vitalSigns: {
       heartRate: 78,
@@ -84,12 +90,13 @@ export const PATIENTS = [
     },
     age: 32,
     status: 'Completed',
-    reasonForVisit: 'Pregnancy Checkup',
+    chiefComplaint: 'Pregnancy Checkup',
     placeOfService: 'Face to Face',
     dateOfVisit: '2023-06-30',
     timeOfVisit: '03:45 PM',
   },
   {
+    _id: 7,
     patient: 'William Davis',
     vitalSigns: {
       heartRate: 88,
@@ -99,12 +106,13 @@ export const PATIENTS = [
     },
     age: 50,
     status: 'Cancelled',
-    reasonForVisit: 'Flu Symptoms',
+    chiefComplaint: 'Flu Symptoms',
     placeOfService: 'Online',
     dateOfVisit: '2023-07-05',
     timeOfVisit: '09:20 AM',
   },
   {
+    _id: 8,
     patient: 'Sophia White',
     vitalSigns: {
       heartRate: 68,
@@ -114,12 +122,13 @@ export const PATIENTS = [
     },
     age: 60,
     status: 'Waiting',
-    reasonForVisit: 'Arthritis Consultation',
+    chiefComplaint: 'Arthritis Consultation',
     placeOfService: 'Face to Face',
     dateOfVisit: '2023-08-10',
     timeOfVisit: '10:00 AM',
   },
   {
+    _id: 9,
     patient: 'Daniel Taylor',
     vitalSigns: {
       heartRate: 75,
@@ -129,12 +138,13 @@ export const PATIENTS = [
     },
     age: 45,
     status: 'Completed',
-    reasonForVisit: 'Back Pain',
+    chiefComplaint: 'Back Pain',
     placeOfService: 'Face to Face',
     dateOfVisit: '2023-09-15',
     timeOfVisit: '02:45 PM',
   },
   {
+    _id: 10,
     patient: 'Ava Anderson',
     vitalSigns: {
       heartRate: 82,
@@ -144,12 +154,13 @@ export const PATIENTS = [
     },
     age: 28,
     status: 'Cancelled',
-    reasonForVisit: 'Allergy Symptoms',
+    chiefComplaint: 'Allergy Symptoms',
     placeOfService: 'Online',
     dateOfVisit: '2023-10-20',
     timeOfVisit: '11:30 AM',
   },
   {
+    _id: 11,
     patient: 'Ethan Moore',
     vitalSigns: {
       heartRate: 65,
@@ -159,12 +170,13 @@ export const PATIENTS = [
     },
     age: 35,
     status: 'Waiting',
-    reasonForVisit: 'Eye Irritation',
+    chiefComplaint: 'Eye Irritation',
     placeOfService: 'Face to Face',
     dateOfVisit: '2023-11-25',
     timeOfVisit: '09:15 AM',
   },
   {
+    _id: 12,
     patient: 'Isabella King',
     vitalSigns: {
       heartRate: 90,
@@ -174,7 +186,7 @@ export const PATIENTS = [
     },
     age: 48,
     status: 'Completed',
-    reasonForVisit: 'Diabetes Management',
+    chiefComplaint: 'Diabetes Management',
     placeOfService: 'Face to Face',
     dateOfVisit: '2023-12-30',
     timeOfVisit: '01:00 PM',

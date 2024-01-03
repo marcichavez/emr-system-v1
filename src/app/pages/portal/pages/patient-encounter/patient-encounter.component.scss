@@ -1,0 +1,74 @@
+@import "/src/assets/styles/variables.scss";
+
+.consultation-section {
+  section {
+    margin-right: 0.5rem;
+  }
+}
+
+::ng-deep .mat-card-header .mat-card-header-text {
+  margin: 0;
+  color: $accent;
+}
+
+.profile-picture {
+  width: 100%;
+}
+
+.patient-profile {
+  p {
+    margin: 0;
+    b {
+      float: right;
+    }
+  }
+}
+
+.telecon {
+  position: sticky;
+  top: 0;
+  img {
+    border: 1px solid $gray;
+  }
+}
+
+.payment-type {
+  color: $accent;
+  font-weight: bold;
+}
+
+.action-buttons {
+  padding-bottom: 20px;
+}
+
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headers-align .mat-form-field + .mat-form-field {
+  margin-left: 1px;
+}
+
+.telecon mat-card {
+  position: sticky !important;
+  top: 0;
+}
+
+.past-medical-history {
+  p {
+    margin: 0;
+  }
+}
+
+.soap {
+  small {
+    font-weight: 500;
+    color: $primary;
+  }
+}

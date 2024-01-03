@@ -14,3 +14,45 @@ body {
   font-weight: 550 !important;
   color: $primary;
 }
+
+mat-card-title {
+  font-size: medium !important;
+}
+
+mat-card-subtitle {
+  font-size: 12px !important;
+  opacity: 0.5 !important;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: $primary #ffffff;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: $primary #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $primary;
+  border-radius: 0px;
+  border: 0px none #ffffff;
+}
+
+.mat-row:hover {
+  background-color: $white;
+}
