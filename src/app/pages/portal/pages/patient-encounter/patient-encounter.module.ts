@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   declarations: [PatientEncounterComponent],
@@ -26,6 +27,7 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     MatSelectModule,
     MatInputModule,
+    ComponentsModule,
   ],
 })
 export class PatientEncounterModule {}

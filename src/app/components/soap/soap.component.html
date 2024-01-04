@@ -1,0 +1,239 @@
+<mat-card class="soap">
+  <mat-card-header>
+    <mat-card-title> SOAP </mat-card-title>
+    <mat-card-subtitle>
+      Patient data format facilitating healthcare communication.
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-accordion class="headers-align" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> <b>S</b>ubjective </mat-panel-title>
+          <mat-panel-description>
+            <small>Patient-reported symptoms, history</small>
+            <mat-icon>assignment</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="col-span-2">
+            <mat-form-field class="w-full">
+              <mat-label>Chief Complaint</mat-label>
+              <textarea
+                rows="4"
+                matInput
+                placeholder="Ex. It makes me feel..."
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <div class="col-span-2">
+            <mat-form-field class="w-full">
+              <mat-label>History of Present Illness</mat-label>
+              <textarea
+                rows="5"
+                matInput
+                placeholder="Ex. It makes me feel..."
+              ></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="col-span-2">
+            <mat-form-field class="w-full">
+              <mat-label>Blood Type</mat-label>
+              <input matInput type="text" />
+            </mat-form-field>
+          </div>
+          <div class="col-span-2 pb-4">
+            <small>Past Medical Hx</small>
+            <div class="grid grid-cols-12 mt-4">
+              <p class="col-span-1"><mat-checkbox></mat-checkbox></p>
+              <p class="col-span-2">Asthma</p>
+              <p class="col-span-2">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="year"
+                />
+              </p>
+              <p class="col-span-4">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="medication"
+                />
+              </p>
+              <p class="col-span-3">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="laboratory"
+                />
+              </p>
+
+              <!--  -->
+
+              <p class="col-span-1"><mat-checkbox></mat-checkbox></p>
+              <p class="col-span-2">Diabetes</p>
+              <p class="col-span-2">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="year"
+                />
+              </p>
+              <p class="col-span-4">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="medication"
+                />
+              </p>
+              <p class="col-span-3">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="laboratory"
+                />
+              </p>
+            </div>
+          </div>
+
+          <div class="col-span-2 pb-6">
+            <small>Allergies</small>
+            <div class="grid grid-cols-12 mt-4">
+              <p class="col-span-5">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Allergy"
+                />
+              </p>
+              <p class="col-span-6">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Medication"
+                />
+              </p>
+              <p class="col-span-1 text-center">+</p>
+
+              <!--  -->
+
+              <p class="col-span-5 allergies">Peanuts</p>
+              <p class="col-span-6 allergies">None</p>
+              <p class="col-span-1 text-center">-</p>
+            </div>
+          </div>
+
+          <div class="col-span-2 pb-6">
+            <small>Surgeries</small>
+            <div class="grid grid-cols-12 mt-4">
+              <p class="col-span-3">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Surgery"
+                />
+              </p>
+              <p class="col-span-2">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="When"
+                />
+              </p>
+              <p class="col-span-3">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Where"
+                />
+              </p>
+              <p class="col-span-3">
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Outcome"
+                />
+              </p>
+              <p class="col-span-1 text-center">+</p>
+
+              <!--  -->
+
+              <p class="col-span-3 allergies">Kneecap</p>
+              <p class="col-span-2 allergies">2023</p>
+              <p class="col-span-3 allergies">Makati Medical</p>
+              <p class="col-span-3 allergies">None</p>
+              <p class="col-span-1 text-center">-</p>
+            </div>
+          </div>
+
+          <div class="col-span-2 pb-6">
+            <small>Family Medical Hx</small>
+            <div class="past-medical-history p-3 mat-elevation-z1 mb-5">
+              Tabular or Genegram
+            </div>
+          </div>
+          <div class="col-span-2 pb-6">
+            <small>Personal-Social Hx</small>
+            <div class="past-medical-history p-3 mat-elevation-z1 mb-5">
+              Need further research
+            </div>
+          </div>
+          <div class="col-span-2 pb-6">
+            <small>Review of System</small>
+            <div class="past-medical-history p-3 mat-elevation-z1 mb-5">
+              Need further research
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> <b>O</b>bjective </mat-panel-title>
+          <mat-panel-description>
+            <small> Measurable, observable examination findings</small>
+            <mat-icon>visibility</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Country</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> <b>A</b>ssessment </mat-panel-title>
+          <mat-panel-description>
+            <small>Provider's diagnosis and judgment</small>
+            <mat-icon>assessment</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> <b>P</b>lan </mat-panel-title>
+          <mat-panel-description>
+            <small>Treatment and follow-up actions</small>
+            <mat-icon>playlist_add_check</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+</mat-card>

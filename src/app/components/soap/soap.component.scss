@@ -1,0 +1,36 @@
+@import "/src/assets/styles/variables.scss";
+
+::ng-deep .mat-card-header .mat-card-header-text {
+  margin: 0;
+  color: $accent;
+}
+
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headers-align .mat-form-field + .mat-form-field {
+  margin-left: 1px;
+}
+
+.soap {
+  .grid small {
+    color: $gray;
+    font-size: 75% !important;
+  }
+
+  mat-panel-description small {
+    color: $gray;
+  }
+}
+
+.table-input,
+.allergies {
+  border-bottom: 1px solid $light-gray;
+}
