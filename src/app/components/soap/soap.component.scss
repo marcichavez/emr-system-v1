@@ -34,3 +34,12 @@
 .allergies {
   border-bottom: 1px solid $light-gray;
 }
+
+.highlight {
+  color: $primary !important;
+}
+
+mat-select .table-input {
+  height: 20px;
+  font-size: 15px;
+}
