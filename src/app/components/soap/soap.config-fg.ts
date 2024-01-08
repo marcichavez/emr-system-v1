@@ -73,12 +73,10 @@ export function family_medical_hx_fg() {
     name: new FormControl(''),
     relation: new FormControl(''),
     past_medical_hx: new FormGroup({
-      chronic_medical_condition: new FormArray([]),
+      chronic_medical_conditions: new FormArray([]),
       allergies: new FormArray([]),
       surgeries: new FormArray([]),
-      obgyne: new FormArray([]),
-      chronological_obgyne: new FormArray([]),
-      birth_control: new FormArray([]),
+      medications: new FormArray([]),
     }),
   });
 }

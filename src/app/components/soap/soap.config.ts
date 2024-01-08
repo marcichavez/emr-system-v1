@@ -55,7 +55,7 @@ export const soap = new FormGroup({
         consumption: new FormControl(''), // monthly
       }),
       sexual_activity: new FormGroup({
-        is_active: new FormControl(''),
+        status: new FormControl(''),
         is_multiple_partner: new FormControl(''),
       }),
       physical_activity: new FormArray([]),
@@ -76,74 +76,74 @@ export const soap = new FormGroup({
         description: new FormControl('', [Validators.required]),
         hazards: new FormControl('', [Validators.required]),
       }),
-      review_of_system: new FormGroup({
-        constitutional: new FormGroup({
-          general: new FormControl(''),
-          appetite: new FormControl(''),
-          energy_level: new FormControl(''),
-        }),
-        integumentary: new FormGroup({
-          skin: new FormControl(''),
-          hair: new FormControl(''),
-          nails: new FormControl(''),
-        }),
-        heent: new FormGroup({
-          head: new FormControl(''),
-          eyes: new FormControl(''),
-          ears: new FormControl(''),
-          nose: new FormControl(''),
-          throat: new FormControl(''),
-        }),
-        respiratory: new FormGroup({
-          shortness_of_breath: new FormControl(''),
-          chest_pain: new FormControl(''),
-        }),
-        cardiovascular: new FormGroup({
-          chest_pain: new FormControl(''),
-          palpitations: new FormControl(''),
-          swelling_in_extremities: new FormControl(''),
-        }),
-        gastrointestinal: new FormGroup({
-          abdominal_pain: new FormControl(''),
-          nausea: new FormControl(''),
-          vomiting: new FormControl(''),
-          bowel_changes: new FormControl(''),
-        }),
-        genitourinary: new FormGroup({
-          dysuria: new FormControl(''),
-          hematuria: new FormControl(''),
-          urinary_changes: new FormControl(''),
-        }),
-        menstrual_hx: new FormGroup({
-          irregular_cycles: new FormControl(''),
-          excessive_bleeding: new FormControl(''),
-          pain: new FormControl(''),
-        }),
-        musculoskeletal: new FormGroup({
-          joint_pain: new FormControl(''),
-          stiffness: new FormControl(''),
-          swelling: new FormControl(''),
-        }),
-        neurological: new FormGroup({
-          headaches: new FormControl(''),
-          seizures: new FormControl(''),
-          changes_in_coordination: new FormControl(''),
-        }),
-        psychiatric: new FormGroup({
-          depression: new FormControl(''),
-          anxiety: new FormControl(''),
-          sleep_disturbance: new FormControl(''),
-        }),
-        endocrine: new FormGroup({
-          excessive_thirst: new FormControl(''),
-          hunger: new FormControl(''),
-          changes_in_weight: new FormControl(''),
-        }),
-        hematologic_lymphatic: new FormGroup({
-          hx_of_bleeding_disorder: new FormControl(''),
-          easy_bruising: new FormControl(''),
-          swollen_lymph_nodes: new FormControl(''),
-        }),
+    }),
+    review_of_system: new FormGroup({
+      constitutional: new FormGroup({
+        general: new FormControl(''),
+        appetite: new FormControl(''),
+        energy_level: new FormControl(''),
+      }),
+      integumentary: new FormGroup({
+        skin: new FormControl(''),
+        hair: new FormControl(''),
+        nails: new FormControl(''),
+      }),
+      heent: new FormGroup({
+        head: new FormControl(''),
+        eyes: new FormControl(''),
+        ears: new FormControl(''),
+        nose: new FormControl(''),
+        throat: new FormControl(''),
+      }),
+      respiratory: new FormGroup({
+        shortness_of_breath: new FormControl(''),
+        chest_pain: new FormControl(''),
+      }),
+      cardiovascular: new FormGroup({
+        chest_pain: new FormControl(''),
+        palpitations: new FormControl(''),
+        swelling_in_extremities: new FormControl(''),
+      }),
+      gastrointestinal: new FormGroup({
+        abdominal_pain: new FormControl(''),
+        nausea: new FormControl(''),
+        vomiting: new FormControl(''),
+        bowel_changes: new FormControl(''),
+      }),
+      genitourinary: new FormGroup({
+        dysuria: new FormControl(''),
+        hematuria: new FormControl(''),
+        urinary_changes: new FormControl(''),
+      }),
+      menstrual_hx: new FormGroup({
+        irregular_cycles: new FormControl(''),
+        excessive_bleeding: new FormControl(''),
+        pain: new FormControl(''),
+      }),
+      musculoskeletal: new FormGroup({
+        joint_pain: new FormControl(''),
+        stiffness: new FormControl(''),
+        swelling: new FormControl(''),
+      }),
+      neurological: new FormGroup({
+        headaches: new FormControl(''),
+        seizures: new FormControl(''),
+        changes_in_coordination: new FormControl(''),
+      }),
+      psychiatric: new FormGroup({
+        depression: new FormControl(''),
+        anxiety: new FormControl(''),
+        sleep_disturbance: new FormControl(''),
+      }),
+      endocrine: new FormGroup({
+        excessive_thirst: new FormControl(''),
+        hunger: new FormControl(''),
+        changes_in_weight: new FormControl(''),
+      }),
+      hematologic_lymphatic: new FormGroup({
+        hx_of_bleeding_disorder: new FormControl(''),
+        easy_bruising: new FormControl(''),
+        swollen_lymph_nodes: new FormControl(''),
       }),
     }),
   }),

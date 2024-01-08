@@ -19,6 +19,28 @@ export const chronic_medical_conditions = [
   'Others',
 ];
 
+export const chronic_medical_conditions_fam = [
+  'Allergies',
+  'Asthma',
+  'Cancer',
+  'Cerebrovascular',
+  'Coronary Artery',
+  'Diabetes Mellitus',
+  'Emphysema',
+  'Epilepsy/Seizure ',
+  'Hepatitis',
+  'Hyperlipidemia',
+  'Hypertension',
+  'Peptic Ulcer',
+  'Pneumonia',
+  'Thyroid',
+  'Pulmonary TB',
+  'Extrapulmonary TB',
+  'UTI',
+  'Mental Illness',
+  'Others',
+];
+
 export const allergy_severity = ['Mild', 'Moderate', 'Severe'];
 
 export const blood_types = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];

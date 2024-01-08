@@ -31,6 +31,20 @@ export class SoapComponent implements OnInit {
     }
   }
 
+  update_selected_chronic_disease_fam(disease: string, i: number) {
+    var index = this.fmhx_chronic_medical_conditions(i).value.findIndex(
+      (o: any) => o.name == disease
+    );
+
+    if (index == -1) {
+      var fg = SubFG.chronic_medical_condition_fg();
+      fg.get('name')?.setValue(disease);
+      this.fmhx_chronic_medical_conditions(i).push(fg);
+    } else {
+      this.fmhx_chronic_medical_conditions(i).removeAt(index);
+    }
+  }
+
   update_selected_adulthood(vaccine: string) {
     console.log(vaccine);
     var index = this.adulthood.value.findIndex((o: any) => o.name == vaccine);
@@ -134,6 +148,18 @@ export class SoapComponent implements OnInit {
     ).get('adulthood') as FormArray;
   }
 
+  get family_medical_hx() {
+    return (this.soapForm.get('subjective') as FormGroup).get(
+      'family_medical_hx'
+    ) as FormArray;
+  }
+
+  fmhx_chronic_medical_conditions(i: number) {
+    return (
+      this.family_medical_hx.at(i).get('past_medical_hx') as FormGroup
+    ).get('chronic_medical_conditions') as FormArray;
+  }
+
   get ob() {
     return (
       (this.soapForm.get('subjective') as FormGroup).get(
@@ -180,6 +206,14 @@ export class SoapComponent implements OnInit {
     this.birth_control_methods.removeAt(i);
   }
 
+  onAddFamilyMember() {
+    this.family_medical_hx.push(SubFG.family_medical_hx_fg());
+  }
+
+  onRemoveFamilyMember(i: number) {
+    this.family_medical_hx.removeAt(i);
+  }
+
   showValue() {
     console.log({
       soap: this.soapForm,
@@ -190,6 +224,14 @@ export class SoapComponent implements OnInit {
   isChronicSelected(disease: string) {
     return (
       this.chronic_medical_conditions.value.findIndex(
+        (o: any) => o.name == disease
+      ) > -1
+    );
+  }
+
+  isChronicInFamilySelected(disease: string, i: number) {
+    return (
+      this.fmhx_chronic_medical_conditions(i).value.findIndex(
         (o: any) => o.name == disease
       ) > -1
     );

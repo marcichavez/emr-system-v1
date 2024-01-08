@@ -713,356 +713,688 @@
             </div>
           </ng-container>
 
-          <div class="col-span-2 pb-6">
+          <div class="col-span-2">
             <small class="highlight">Family Medical Hx</small>
-            <div class="grid grid-cols-12 mt-4">
-              <p class="col-span-2">
-                <input class="table-input" matInput value="Mother" />
-              </p>
-              <div class="col-span-10">
-                <div class="grid grid-cols-4">
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
+          </div>
+          <div class="col-span-2 pb-6" formArrayName="family_medical_hx">
+            <div
+              class="grid grid-cols-12"
+              *ngFor="let control of family_medical_hx.controls; let i = index"
+            >
+              <ng-container [formGroupName]="i">
+                <div class="col-span-3 pr-4">
+                  <p class="font-bold accent">Member #{{ i + 1 }}</p>
+
+                  <p>
+                    <input
+                      class="table-input"
+                      matInput
+                      placeholder="Name"
+                      formControlName="name"
+                    />
+                    <input
+                      class="table-input"
+                      matInput
+                      placeholder="Relation"
+                      formControlName="relation"
+                    />
+                  </p>
+                  <a
+                    class="cursor-pointer hover:font-bold underline"
+                    (click)="onRemoveFamilyMember(i)"
+                  >
+                    Remove
+                  </a>
+                </div>
+
+                <div class="col-span-9" formGroupName="past_medical_hx">
+                  <div class="grid grid-cols-4">
+                    <!-- working here -->
+
+                    <ng-container formArrayName="chronic_medical_conditions">
+                      <ng-container
+                        *ngFor="
+                          let cmc_form of fmhx_chronic_medical_conditions(i)
+                            .controls;
+                          let j = index
+                        "
+                      >
+                        <div
+                          class="col-span-2 overflow-hidden pr-4 pb-2"
+                          [formGroupName]="j"
+                        >
+                          <mat-checkbox
+                            (change)="
+                              update_selected_chronic_disease_fam(
+                                cmc_form.value.name,
+                                i
+                              )
+                            "
+                            [checked]="true"
+                          >
+                            {{ cmc_form.value.name }}
+                          </mat-checkbox>
+
+                          <input
+                            class="table-input"
+                            matInput
+                            type="text"
+                            placeholder="Year"
+                            formControlName="when"
+                          />
+
+                          <input
+                            class="table-input"
+                            matInput
+                            type="text"
+                            placeholder="Medication"
+                            formControlName="medication"
+                          />
+
+                          <input
+                            class="table-input"
+                            matInput
+                            type="text"
+                            placeholder="Diagnostic Peformed"
+                            formControlName="diagnostic_performed"
+                          />
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <p
+                      class="col-span-4 m-0"
+                      *ngIf="fmhx_chronic_medical_conditions(i).length"
+                    ></p>
+                    <!-- end here -->
+                    <ng-container
+                      *ngFor="
+                        let disease of LIST.chronic_medical_conditions_fam
+                      "
+                    >
+                      <p
+                        class="col-span-2 overflow-hidden pr-4 pb-2"
+                        *ngIf="!isChronicInFamilySelected(disease, i)"
+                      >
+                        <mat-checkbox
+                          (change)="
+                            update_selected_chronic_disease_fam(disease, i)
+                          "
+                        >
+                          {{ disease }}
+                        </mat-checkbox>
+                      </p>
+                    </ng-container>
                   </div>
                 </div>
-              </div>
+              </ng-container>
+              <div class="mb-4 divider"></div>
             </div>
-            <div class="grid grid-cols-12 mt-4">
-              <p class="col-span-2">
-                <input class="table-input" matInput value="Mother" />
-              </p>
-              <div class="col-span-10">
-                <div class="grid grid-cols-4">
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-span-1 pl-2 pb-4">
-                    <p><mat-checkbox>Asthma</mat-checkbox></p>
-                    <div>
-                      <input class="table-input" matInput placeholder="When" />
-                      <input class="table-input" matInput placeholder="Meds" />
-                      <input
-                        class="table-input"
-                        matInput
-                        placeholder="Outcome"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <a
+              class="cursor-pointer hover:font-bold mt-4"
+              (click)="onAddFamilyMember()"
+            >
+              + Add Family Member
+            </a>
           </div>
 
           <div class="col-span-2 pb-6">
-            <small class="highlight">Family Medical Hx</small>
-            <div class="past-medical-history p-3 mat-elevation-z1 mb-5">
-              Tabular or Genegram
-            </div>
-          </div>
-          <div class="col-span-2 pb-6">
             <small class="highlight">Personal-Social Hx</small>
-            <div class="past-medical-history p-3 mat-elevation-z1 mb-5">
-              Need further research
+            <div
+              class="grid grid-cols-12 mt-4"
+              formGroupName="personal_social_hx"
+            >
+              <ng-container>
+                <p class="col-span-3 pr-2">
+                  <input
+                    type="text"
+                    matInput
+                    class="table-input"
+                    value="Smoker"
+                    readonly
+                  />
+                </p>
+                <ng-container formGroupName="smoker">
+                  <p class="col-span-3 pr-2">
+                    <input
+                      type="text"
+                      matInput
+                      class="table-input"
+                      placeholder="Status"
+                      formControlName="status"
+                    />
+                  </p>
+                  <p class="col-span-3 pr-2">
+                    <input
+                      type="text"
+                      matInput
+                      class="table-input"
+                      placeholder="Type"
+                      formControlName="type"
+                    />
+                  </p>
+                  <p class="col-span-3 pr-2">
+                    <input
+                      type="text"
+                      matInput
+                      class="table-input"
+                      placeholder="Consumption"
+                      formControlName="consumption"
+                    />
+                  </p>
+                </ng-container>
+              </ng-container>
+
+              <ng-container>
+                <p class="col-span-3 pr-2">
+                  <input
+                    type="text"
+                    matInput
+                    class="table-input"
+                    value="Alcohol"
+                    readonly
+                  />
+                </p>
+                <ng-container formGroupName="alcohol">
+                  <p class="col-span-3 pr-2">
+                    <input
+                      type="text"
+                      matInput
+                      class="table-input"
+                      placeholder="Status"
+                      formControlName="status"
+                    />
+                  </p>
+                  <p class="col-span-3 pr-2">
+                    <input
+                      type="text"
+                      matInput
+                      class="table-input"
+                      placeholder="Type"
+                      formControlName="type"
+                    />
+                  </p>
+                  <p class="col-span-3 pr-2">
+                    <input
+                      type="text"
+                      matInput
+                      class="table-input"
+                      placeholder="Consumption"
+                      formControlName="consumption"
+                    />
+                  </p>
+                </ng-container>
+              </ng-container>
+              <ng-container>
+                <p class="col-span-3 pr-2">
+                  <input
+                    type="text"
+                    matInput
+                    class="table-input"
+                    value="Drug"
+                    readonly
+                  />
+                </p>
+                <ng-container formGroupName="drug">
+                  <p class="col-span-3 pr-2">
+                    <input
+                      type="text"
+                      matInput
+                      class="table-input"
+                      placeholder="Status"
+                      formControlName="status"
+                    />
+                  </p>
+                  <p class="col-span-3 pr-2">
+                    <input
+                      type="text"
+                      matInput
+                      class="table-input"
+                      placeholder="Type"
+                      formControlName="type"
+                    />
+                  </p>
+                  <p class="col-span-3 pr-2">
+                    <input
+                      type="text"
+                      matInput
+                      class="table-input"
+                      placeholder="Consumption"
+                      formControlName="consumption"
+                    />
+                  </p>
+                </ng-container>
+              </ng-container>
+
+              <ng-container>
+                <p class="col-span-3 pr-2">
+                  <input
+                    type="text"
+                    matInput
+                    class="table-input"
+                    value="Sexual Activity"
+                    readonly
+                  />
+                </p>
+                <ng-container formGroupName="drug">
+                  <p class="col-span-3 pr-2">
+                    <input
+                      type="text"
+                      matInput
+                      class="table-input"
+                      placeholder="Status"
+                      formControlName="status"
+                    />
+                  </p>
+                  <p class="col-span-3 pr-2">
+                    <input
+                      type="text"
+                      matInput
+                      class="table-input"
+                      placeholder="Multiple Partner?"
+                      formControlName="is_multiple_partner"
+                    />
+                  </p>
+                  <p class="col-span-3 pr-2"></p>
+                </ng-container>
+              </ng-container>
+              <ng-container>
+                <p class="col-span-3 pr-2">
+                  <input
+                    type="text"
+                    matInput
+                    class="table-input"
+                    value="Physical Activity"
+                    readonly
+                  />
+                </p>
+                <ng-container formGroupName="physical_activity">
+                  <div class="col-span-9 pr-2">
+                    <a
+                      class="cursor-pointer hover:font-bold hover:opacity-100 opacity-50"
+                    >
+                      + Add
+                    </a>
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <ng-container>
+                <p class="col-span-3 pr-2">
+                  <input
+                    type="text"
+                    matInput
+                    class="table-input"
+                    value="Dietary Hx"
+                    readonly
+                  />
+                </p>
+                <ng-container formGroupName="dietary_hx">
+                  <div class="col-span-9 pr-2">
+                    <a
+                      class="cursor-pointer hover:font-bold hover:opacity-100 opacity-50"
+                    >
+                      + Add
+                    </a>
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <ng-container>
+                <p class="col-span-3 pr-2">
+                  <input
+                    type="text"
+                    matInput
+                    class="table-input"
+                    value="Carbonated Drinks"
+                    readonly
+                  />
+                </p>
+                <ng-container formGroupName="carbonated_drinks">
+                  <div class="col-span-9 pr-2">
+                    <a
+                      class="cursor-pointer hover:font-bold hover:opacity-100 opacity-50"
+                    >
+                      + Add
+                    </a>
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <ng-container>
+                <p class="col-span-3 pr-2">
+                  <input
+                    type="text"
+                    matInput
+                    class="table-input"
+                    value="Living Conditions"
+                    readonly
+                  />
+                </p>
+                <ng-container formGroupName="living_condition">
+                  <div class="col-span-9 pr-2">
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        placeholder="Living Area"
+                        formControlName="living_area"
+                      />
+                    </p>
+                    <!--  -->
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        placeholder="Type of House"
+                        formControlName="type_of_house"
+                      />
+                    </p>
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        placeholder="House Populated"
+                        formControlName="how_populated"
+                      />
+                    </p>
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        placeholder="Ventilation"
+                        formControlName="ventilation"
+                      />
+                    </p>
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        placeholder="Water Source"
+                        formControlName="water"
+                      />
+                    </p>
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        placeholder="Toilet Type"
+                        formControlName="toilet"
+                      />
+                    </p>
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        placeholder="Sewage"
+                        formControlName="sewage"
+                      />
+                    </p>
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        placeholder="Garbage Disposal"
+                        formControlName="garbage_disposal"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <ng-container>
+                <p class="col-span-3 pr-2">
+                  <input
+                    type="text"
+                    matInput
+                    class="table-input"
+                    value="Occupational Hx"
+                    readonly
+                  />
+                </p>
+                <ng-container formGroupName="occupational_hx">
+                  <div class="col-span-9 pr-2">
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        placeholder="Work"
+                        formControlName="work"
+                      />
+                    </p>
+                    <!--  -->
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        placeholder="Description"
+                        formControlName="description"
+                      />
+                    </p>
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        placeholder="Hazards"
+                        formControlName="hazards"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+              </ng-container>
             </div>
           </div>
           <div class="col-span-2 pb-6">
             <small class="highlight">Review of System</small>
-            <div class="past-medical-history p-3 mat-elevation-z1 mb-5">
-              Need further research
+            <div
+              class="grid grid-cols-12 mt-4"
+              formGroupName="review_of_system"
+            >
+              <ng-container formGroupName="constitutional">
+                <p class="col-span-12">
+                  <small>Constitutional</small>
+                </p>
+                <ng-container>
+                  <div class="col-span-3">
+                    <p>General</p>
+                  </div>
+                  <div class="col-span-9">
+                    <p>
+                      <input
+                        matInput
+                        type="text"
+                        class="table-input"
+                        placeholder="e.g. Weight Changes, Fatigue, Fever"
+                        formControlName="general"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div class="col-span-3">
+                    <p>Appetite</p>
+                  </div>
+                  <div class="col-span-9">
+                    <p>
+                      <input
+                        matInput
+                        type="text"
+                        class="table-input"
+                        placeholder="e.g. Loss of appetite, Dietary Changes"
+                        formControlName="appetite"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div class="col-span-3">
+                    <p>Energy Level</p>
+                  </div>
+                  <div class="col-span-9">
+                    <p>
+                      <input
+                        matInput
+                        type="text"
+                        class="table-input"
+                        placeholder="e.g. Excessive Fatigue, Lethargy"
+                        formControlName="energy_level"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <ng-container formGroupName="integumentary">
+                <p class="col-span-12">
+                  <small>Integumentary</small>
+                </p>
+                <ng-container>
+                  <div class="col-span-3">
+                    <p>Skin</p>
+                  </div>
+                  <div class="col-span-9">
+                    <p>
+                      <input
+                        matInput
+                        type="text"
+                        class="table-input"
+                        placeholder="e.g. Skin Discoloration, Rashes"
+                        formControlName="skin"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div class="col-span-3">
+                    <p>Hair</p>
+                  </div>
+                  <div class="col-span-9">
+                    <p>
+                      <input
+                        matInput
+                        type="text"
+                        class="table-input"
+                        placeholder="e.g. Hair loss, Brittle Hair"
+                        formControlName="hair"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div class="col-span-3">
+                    <p>Nails</p>
+                  </div>
+                  <div class="col-span-9">
+                    <p>
+                      <input
+                        matInput
+                        type="text"
+                        class="table-input"
+                        placeholder="e.g. Nail Discoloration, Brittle"
+                        formControlName="nails"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <ng-container formGroupName="heent">
+                <p class="col-span-12">
+                  <small>HEENT</small>
+                </p>
+                <ng-container>
+                  <div class="col-span-3">
+                    <p>Head</p>
+                  </div>
+                  <div class="col-span-9">
+                    <p>
+                      <input
+                        matInput
+                        type="text"
+                        class="table-input"
+                        placeholder="e.g. Headaches"
+                        formControlName="head"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div class="col-span-3">
+                    <p>Eyes</p>
+                  </div>
+                  <div class="col-span-9">
+                    <p>
+                      <input
+                        matInput
+                        type="text"
+                        class="table-input"
+                        placeholder="e.g. Blurred Vision, Irritation"
+                        formControlName="eyes"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div class="col-span-3">
+                    <p>Ears</p>
+                  </div>
+                  <div class="col-span-9">
+                    <p>
+                      <input
+                        matInput
+                        type="text"
+                        class="table-input"
+                        placeholder="e.g. Hearing Loss, Ear pain"
+                        formControlName="ears"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+
+                <ng-container>
+                  <div class="col-span-3">
+                    <p>Nose</p>
+                  </div>
+                  <div class="col-span-9">
+                    <p>
+                      <input
+                        matInput
+                        type="text"
+                        class="table-input"
+                        placeholder="e.g. Nasal Congestion"
+                        formControlName="nose"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+
+                <ng-container>
+                  <div class="col-span-3">
+                    <mat-checkbox>Throat</mat-checkbox>
+                  </div>
+                  <div class="col-span-9">
+                    <p>
+                      <input
+                        matInput
+                        type="text"
+                        class="table-input"
+                        placeholder="e.g. Sorethroat, difficulty in swallowing"
+                        formControlName="throat"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+              </ng-container>
             </div>
           </div>
         </div>
