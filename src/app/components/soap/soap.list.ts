@@ -353,6 +353,25 @@ export const adult_immunization_schedule = [
   },
 ];
 
+export const ob_immunization_schedule = [
+  {
+    vaccine: 'COVID-19',
+    recommended_age: [
+      {
+        from: 19,
+        to: null,
+        unit: 'years',
+        notes: '1 or more doses of updated (2023-2024 Formula) vaccine',
+      },
+    ],
+  },
+
+  {
+    vaccine: 'Mpox',
+    recommended_age: [{ from: 19, to: null, unit: 'years', notes: purple }],
+  },
+];
+
 export const per_system_reports = [
   {
     system: 'HEENT',

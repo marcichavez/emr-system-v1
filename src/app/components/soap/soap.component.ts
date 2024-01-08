@@ -57,6 +57,19 @@ export class SoapComponent implements OnInit {
     }
   }
 
+  update_selected_ob(vaccine: string) {
+    console.log(vaccine);
+    var index = this.ob.value.findIndex((o: any) => o.name == vaccine);
+
+    if (index == -1) {
+      var fg = SubFG.immunization_hx_fg();
+      fg.get('name')?.setValue(vaccine);
+      this.ob.push(fg);
+    } else {
+      this.ob.removeAt(index);
+    }
+  }
+
   get chronic_medical_conditions() {
     return (
       (this.soapForm.get('subjective') as FormGroup).get(
@@ -121,6 +134,14 @@ export class SoapComponent implements OnInit {
     ).get('adulthood') as FormArray;
   }
 
+  get ob() {
+    return (
+      (this.soapForm.get('subjective') as FormGroup).get(
+        'immunization_hx'
+      ) as FormGroup
+    ).get('ob') as FormArray;
+  }
+
   onAddAllergy() {
     this.allergies.push(SubFG.allergy_fg());
   }
@@ -180,5 +201,9 @@ export class SoapComponent implements OnInit {
 
   isAdulthoodImmunizationSelected(vaccine: string) {
     return this.adulthood.value.findIndex((o: any) => o.name == vaccine) > -1;
+  }
+
+  isObImmunizationSelected(vaccine: string) {
+    return this.ob.value.findIndex((o: any) => o.name == vaccine) > -1;
   }
 }

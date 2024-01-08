@@ -502,12 +502,15 @@
           </ng-container>
 
           <ng-container [formGroupName]="'immunization_hx'">
-            <div class="col-span-2 pb-6">
-              <small class="highlight">Childhood Immunization</small>
+            <div class="col-span-2">
+              <small class="highlight"> Immunization Hx</small>
             </div>
             <div class="col-span-2">
+              <div class="col-span-12">
+                <small> Childhood Immunization </small>
+              </div>
               <div class="grid grid-cols-12 mt-4">
-                <p class="col-span-12 overflow-hidden pr-4 pb-2">
+                <p class="col-span-12 overflow-hidden pr-4">
                   <mat-checkbox
                     [checked]="childhood.length == 0"
                     [disabled]="true"
@@ -520,14 +523,11 @@
                   </small>
                 </p>
                 <ng-container formArrayName="childhood">
-                  <div class="col-span-12">
-                    <small> Childhood Immunization </small>
-                  </div>
                   <ng-container
                     *ngFor="let immunx_fg of childhood.controls; let i = index"
                   >
                     <div
-                      class="col-span-6 overflow-hidden pr-4 pb-2"
+                      class="col-span-6 overflow-hidden pr-4"
                       [formGroupName]="i"
                     >
                       <mat-checkbox
@@ -576,9 +576,11 @@
                   </p>
                 </ng-container>
               </div>
-
+              <div class="col-span-12 mt-4">
+                <small> Adulthood Immunization </small>
+              </div>
               <div class="grid grid-cols-12 mt-4">
-                <p class="col-span-12 overflow-hidden pr-4 pb-2">
+                <p class="col-span-12 overflow-hidden pr-4">
                   <mat-checkbox
                     [checked]="adulthood.length == 0"
                     [disabled]="true"
@@ -591,9 +593,6 @@
                   </small>
                 </p>
                 <ng-container formArrayName="adulthood">
-                  <div class="col-span-12">
-                    <small> Adulthood Immunization </small>
-                  </div>
                   <ng-container
                     *ngFor="let immunx_fg of adulthood.controls; let i = index"
                   >
@@ -642,6 +641,70 @@
                     <mat-checkbox
                       (change)="update_selected_adulthood(immun.vaccine)"
                     >
+                      {{ immun.vaccine }}
+                    </mat-checkbox>
+                  </p>
+                </ng-container>
+              </div>
+
+              <div class="col-span-12 mt-4">
+                <small> OB Immunization </small>
+              </div>
+              <div class="grid grid-cols-12 mt-4">
+                <p class="col-span-12 overflow-hidden pr-4">
+                  <mat-checkbox [checked]="ob.length == 0" [disabled]="true">
+                    None
+                  </mat-checkbox>
+                  <br />
+                  <small>
+                    Automatic None if there are no selected immunization
+                  </small>
+                </p>
+                <ng-container formArrayName="ob">
+                  <ng-container
+                    *ngFor="let immunx_fg of ob.controls; let i = index"
+                  >
+                    <div
+                      class="col-span-6 overflow-hidden pr-4 pb-2"
+                      [formGroupName]="i"
+                    >
+                      <mat-checkbox
+                        (change)="update_selected_ob(immunx_fg.value.name)"
+                        [checked]="true"
+                      >
+                        {{ immunx_fg.value.name }}
+                      </mat-checkbox>
+
+                      <input
+                        class="table-input"
+                        matInput
+                        type="text"
+                        placeholder="Year"
+                        formControlName="when"
+                      />
+
+                      <input
+                        class="table-input"
+                        matInput
+                        type="text"
+                        placeholder="Where"
+                        formControlName="where"
+                      />
+                    </div>
+                  </ng-container>
+                </ng-container>
+                <p class="col-span-12 m-0"></p>
+                <ng-container
+                  *ngFor="
+                    let immun of LIST.ob_immunization_schedule;
+                    let i = index
+                  "
+                >
+                  <p
+                    class="col-span-6 overflow-hidden pr-4 pb-2"
+                    *ngIf="!isObImmunizationSelected(immun.vaccine)"
+                  >
+                    <mat-checkbox (change)="update_selected_ob(immun.vaccine)">
                       {{ immun.vaccine }}
                     </mat-checkbox>
                   </p>
