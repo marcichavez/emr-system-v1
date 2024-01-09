@@ -500,3 +500,281 @@ export const obgyne_hxs_fields = [
     ],
   },
 ];
+
+export const ros_fields = [
+  {
+    label: 'Constitutional',
+    fcname: 'constitutional',
+    choices: [
+      'Weight Loss',
+      'Fever',
+      'Loss of Appetite',
+      'Fatigue',
+      'Lethargic',
+      'Night Sweats',
+    ],
+  },
+  {
+    label: 'Integumentary',
+    fcname: 'integumentary',
+    choices: [
+      'Rashes',
+      'Lesions',
+      'Hair Loss',
+      'Changes in Hair Texture',
+      'Nail Changes',
+      'Dry Skin',
+    ],
+  },
+  {
+    label: 'HEENT',
+    fcname: 'heent',
+    choices: [
+      'Headaches',
+      'Vision Changes',
+      'Hearing Loss',
+      'Nasal Congestion',
+      'Sore Throat',
+      'Dizziness',
+    ],
+  },
+  {
+    label: 'Respiratory',
+    fcname: 'respiratory',
+    choices: [
+      'Shortness of Breath',
+      'Chest Pain',
+      'Cough',
+      'Wheezing',
+      'Sputum Production',
+      'Blood in Sputum',
+    ],
+  },
+  {
+    label: 'Cardiovascular',
+    fcname: 'cardiovascular',
+    choices: [
+      'Chest Pain',
+      'Palpitations',
+      'Swelling in Extremities',
+      'High Blood Pressure',
+      'Shortness of Breath on Exertion',
+      'Irregular Heartbeat',
+    ],
+  },
+  {
+    label: 'Gastrointestinal',
+    fcname: 'gastrointestinal',
+    choices: [
+      'Abdominal Pain',
+      'Nausea',
+      'Vomiting',
+      'Bowel Changes',
+      'Abdominal Distension',
+      'Bloody Stool',
+    ],
+  },
+  {
+    label: 'Genitourinary',
+    fcname: 'genitourinary',
+    choices: [
+      'Dysuria',
+      'Hematuria',
+      'Urinary Changes',
+      'Frequency of Urination',
+      'Urgency of Urination',
+      'Incontinence',
+    ],
+  },
+  {
+    label: 'Menstrual Hx',
+    fcname: 'menstrual_hx',
+    choices: [
+      'Irregular Cycles',
+      'Excessive Bleeding',
+      'Painful Menstruation',
+      'Menstrual Clots',
+      'Premenstrual Symptoms',
+      'Missed Periods',
+    ],
+  },
+  {
+    label: 'Musculoskeletal',
+    fcname: 'musculoskeletal',
+    choices: [
+      'Joint Pain',
+      'Stiffness',
+      'Swelling',
+      'Decreased Range of Motion',
+      'Muscle Weakness',
+      'Joint Deformity',
+    ],
+  },
+  {
+    label: 'Neurological',
+    fcname: 'neurological',
+    choices: [
+      'Headaches',
+      'Seizures',
+      'Changes in Coordination',
+      'Numbness or Tingling',
+      'Memory Changes',
+      'Dizziness or Lightheadedness',
+    ],
+  },
+  {
+    label: 'Psychiatric',
+    fcname: 'psychiatric',
+    choices: [
+      'Depression',
+      'Anxiety',
+      'Sleep Disturbance',
+      'Irritability',
+      'Mood Swings',
+      'Difficulty Concentrating',
+    ],
+  },
+  {
+    label: 'Endocrine',
+    fcname: 'endocrine',
+    choices: [
+      'Excessive Thirst',
+      'Hunger',
+      'Changes in Weight',
+      'Heat or Cold Intolerance',
+      'Sweating',
+      'Tremors',
+    ],
+  },
+  {
+    label: 'Hematologic Lymphatic',
+    fcname: 'hematologic_lymphatic',
+    choices: [
+      'Hx of Bleeding Disorder',
+      'Easy Bruising',
+      'Swollen Lymph Nodes',
+      'Night Sweats',
+      'Unexplained Weight Loss',
+      'Frequent Infections',
+    ],
+  },
+];
+
+export const objective_fields = [
+  {
+    label: 'General',
+    fgname: 'general',
+    fcs: [
+      {
+        label: 'Appearance',
+        fcname: 'appearance',
+      },
+      {
+        label: 'Behaviour',
+        fcname: 'behaviour',
+      },
+      {
+        label: 'Level of Consciousness',
+        fcname: 'level_of_consciousness',
+      },
+    ],
+  },
+  {
+    label: 'Vital Signs',
+    fgname: 'vital_sigs',
+    fcs: [
+      {
+        label: 'Blood Pressure',
+        fcname: 'bp',
+      },
+      {
+        label: 'Heart Rate',
+        fcname: 'hr',
+      },
+      {
+        label: 'Respiratory Rate',
+        fcname: 'rr',
+      },
+      {
+        label: 'Temperature',
+        fcname: 'temp',
+      },
+    ],
+  },
+  {
+    label: 'Anthropometrics',
+    fgname: 'anthropometrics',
+    fcs: [
+      {
+        label: 'Height',
+        fcname: 'height',
+      },
+      {
+        label: 'Weight',
+        fcname: 'weight',
+      },
+      {
+        label: 'BMI',
+        fcname: 'bmi',
+      },
+      {
+        label: 'Waist and Hip Circ',
+        fcname: 'waist_and_hip',
+      },
+      {
+        label: 'MUAC',
+        fcname: 'muac',
+      },
+      {
+        label: 'Head Circ',
+        fcname: 'head_circ',
+      },
+      {
+        label: 'Waist Circ',
+        fcname: 'waist_circ',
+      },
+      {
+        label: 'Hips Circ',
+        fcname: 'hips_circ',
+      },
+      {
+        label: 'Limb Circ',
+        fcname: 'limb_circ',
+      },
+      {
+        label: 'Skin Fold Thickness',
+        fcname: 'skin_fold',
+      },
+    ],
+  },
+  {
+    label: 'Per System Report',
+    fgname: 'per_system_report',
+    fcs: [
+      {
+        label: 'HEENT',
+        fcname: 'heent',
+      },
+      {
+        label: 'Chest',
+        fcname: 'chest',
+      },
+      {
+        label: 'Heart',
+        fcname: 'heart',
+      },
+      {
+        label: 'Abdomen',
+        fcname: 'abdomen',
+      },
+      {
+        label: 'Genitourinary',
+        fcname: 'genitourinary',
+      },
+      {
+        label: 'DRE',
+        fcname: 'dre',
+      },
+    ],
+  },
+];

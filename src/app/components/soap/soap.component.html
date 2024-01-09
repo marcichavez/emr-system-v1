@@ -975,7 +975,7 @@
                     readonly
                   />
                 </p>
-                <ng-container formGroupName="drug">
+                <ng-container formGroupName="sexual_activity">
                   <p class="col-span-3 pr-2">
                     <input
                       type="text"
@@ -1200,200 +1200,17 @@
               class="grid grid-cols-12 mt-4"
               formGroupName="review_of_system"
             >
-              <ng-container formGroupName="constitutional">
+              <ng-container *ngFor="let field of LIST.ros_fields">
                 <p class="col-span-12">
-                  <small>Constitutional</small>
+                  <small>{{ field.label }}</small>
                 </p>
-                <ng-container>
-                  <div class="col-span-3">
-                    <p>General</p>
-                  </div>
-                  <div class="col-span-9">
-                    <p>
-                      <input
-                        matInput
-                        type="text"
-                        class="table-input"
-                        placeholder="e.g. Weight Changes, Fatigue, Fever"
-                        formControlName="general"
-                      />
-                    </p>
-                  </div>
-                </ng-container>
-                <ng-container>
-                  <div class="col-span-3">
-                    <p>Appetite</p>
-                  </div>
-                  <div class="col-span-9">
-                    <p>
-                      <input
-                        matInput
-                        type="text"
-                        class="table-input"
-                        placeholder="e.g. Loss of appetite, Dietary Changes"
-                        formControlName="appetite"
-                      />
-                    </p>
-                  </div>
-                </ng-container>
-                <ng-container>
-                  <div class="col-span-3">
-                    <p>Energy Level</p>
-                  </div>
-                  <div class="col-span-9">
-                    <p>
-                      <input
-                        matInput
-                        type="text"
-                        class="table-input"
-                        placeholder="e.g. Excessive Fatigue, Lethargy"
-                        formControlName="energy_level"
-                      />
-                    </p>
-                  </div>
-                </ng-container>
-              </ng-container>
-
-              <ng-container formGroupName="integumentary">
-                <p class="col-span-12">
-                  <small>Integumentary</small>
-                </p>
-                <ng-container>
-                  <div class="col-span-3">
-                    <p>Skin</p>
-                  </div>
-                  <div class="col-span-9">
-                    <p>
-                      <input
-                        matInput
-                        type="text"
-                        class="table-input"
-                        placeholder="e.g. Skin Discoloration, Rashes"
-                        formControlName="skin"
-                      />
-                    </p>
-                  </div>
-                </ng-container>
-                <ng-container>
-                  <div class="col-span-3">
-                    <p>Hair</p>
-                  </div>
-                  <div class="col-span-9">
-                    <p>
-                      <input
-                        matInput
-                        type="text"
-                        class="table-input"
-                        placeholder="e.g. Hair loss, Brittle Hair"
-                        formControlName="hair"
-                      />
-                    </p>
-                  </div>
-                </ng-container>
-                <ng-container>
-                  <div class="col-span-3">
-                    <p>Nails</p>
-                  </div>
-                  <div class="col-span-9">
-                    <p>
-                      <input
-                        matInput
-                        type="text"
-                        class="table-input"
-                        placeholder="e.g. Nail Discoloration, Brittle"
-                        formControlName="nails"
-                      />
-                    </p>
-                  </div>
-                </ng-container>
-              </ng-container>
-
-              <ng-container formGroupName="heent">
-                <p class="col-span-12">
-                  <small>HEENT</small>
-                </p>
-                <ng-container>
-                  <div class="col-span-3">
-                    <p>Head</p>
-                  </div>
-                  <div class="col-span-9">
-                    <p>
-                      <input
-                        matInput
-                        type="text"
-                        class="table-input"
-                        placeholder="e.g. Headaches"
-                        formControlName="head"
-                      />
-                    </p>
-                  </div>
-                </ng-container>
-                <ng-container>
-                  <div class="col-span-3">
-                    <p>Eyes</p>
-                  </div>
-                  <div class="col-span-9">
-                    <p>
-                      <input
-                        matInput
-                        type="text"
-                        class="table-input"
-                        placeholder="e.g. Blurred Vision, Irritation"
-                        formControlName="eyes"
-                      />
-                    </p>
-                  </div>
-                </ng-container>
-                <ng-container>
-                  <div class="col-span-3">
-                    <p>Ears</p>
-                  </div>
-                  <div class="col-span-9">
-                    <p>
-                      <input
-                        matInput
-                        type="text"
-                        class="table-input"
-                        placeholder="e.g. Hearing Loss, Ear pain"
-                        formControlName="ears"
-                      />
-                    </p>
-                  </div>
-                </ng-container>
-
-                <ng-container>
-                  <div class="col-span-3">
-                    <p>Nose</p>
-                  </div>
-                  <div class="col-span-9">
-                    <p>
-                      <input
-                        matInput
-                        type="text"
-                        class="table-input"
-                        placeholder="e.g. Nasal Congestion"
-                        formControlName="nose"
-                      />
-                    </p>
-                  </div>
-                </ng-container>
-
-                <ng-container>
-                  <div class="col-span-3">
-                    <mat-checkbox>Throat</mat-checkbox>
-                  </div>
-                  <div class="col-span-9">
-                    <p>
-                      <input
-                        matInput
-                        type="text"
-                        class="table-input"
-                        placeholder="e.g. Sorethroat, difficulty in swallowing"
-                        formControlName="throat"
-                      />
-                    </p>
-                  </div>
-                </ng-container>
+                <div class="col-span-12 grid grid-cols-2">
+                  <p class="col-span-1" *ngFor="let item of field.choices">
+                    <mat-checkbox>
+                      {{ item }}
+                    </mat-checkbox>
+                  </p>
+                </div>
               </ng-container>
             </div>
           </div>
@@ -1408,10 +1225,32 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Country</mat-label>
-          <input matInput />
-        </mat-form-field>
+        <div class="grid grid-cols-2" [formGroupName]="'objective'">
+          <div class="col-span-2 pb-6 grid grid-cols-12 mt-4">
+            <ng-container *ngFor="let field of LIST.objective_fields">
+              <p class="col-span-12">
+                <small>{{ field.label }}</small>
+              </p>
+              <ng-container [formGroupName]="field.fgname">
+                <ng-container *ngFor="let control of field.fcs">
+                  <div class="col-span-5">
+                    <p>{{ control.label }}</p>
+                  </div>
+                  <div class="col-span-7">
+                    <p>
+                      <input
+                        type="text"
+                        matInput
+                        class="table-input"
+                        [formControlName]="control.fcname"
+                      />
+                    </p>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
