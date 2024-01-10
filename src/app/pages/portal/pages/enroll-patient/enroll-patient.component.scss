@@ -33,3 +33,8 @@ mat-form-field {
 input {
   border-bottom: 1px;
 }
+
+.scrollable {
+  height: calc(100vh - 10rem);
+  overflow: scroll;
+}

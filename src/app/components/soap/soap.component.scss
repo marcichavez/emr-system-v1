@@ -51,3 +51,24 @@ mat-select .table-input {
 .accent {
   color: $accent;
 }
+
+.underline-add {
+  border-bottom: 1px solid rgb(189, 189, 189);
+  height: 20px;
+  margin-bottom: 7px;
+}
+
+.mat-expansion-panel {
+  overflow: inherit !important;
+}
+
+.mat-expansion-panel-body {
+  overflow: hidden; // This rule fixes extra whitespace
+}
+
+.mat-expansion-panel-header.mat-expanded {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+}

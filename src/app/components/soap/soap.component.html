@@ -8,7 +8,7 @@
   <mat-card-content>
     <mat-accordion class="headers-align" multi>
       <mat-expansion-panel [formGroupName]="'subjective'" [expanded]="true">
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header class="sticky top-0">
           <mat-panel-title> <b>S</b>ubjective </mat-panel-title>
           <mat-panel-description>
             <small>Patient-reported symptoms, history</small>
@@ -998,6 +998,7 @@
                 </ng-container>
               </ng-container>
               <ng-container>
+                <p class="col-span-12 my-2"></p>
                 <p class="col-span-3 pr-2">
                   <input
                     type="text"
@@ -1007,18 +1008,55 @@
                     readonly
                   />
                 </p>
-                <ng-container formGroupName="physical_activity">
-                  <div class="col-span-9 pr-2">
-                    <a
-                      class="cursor-pointer hover:font-bold hover:opacity-100 opacity-50"
+                <ng-container formArrayName="physical_activities">
+                  <div class="col-span-9 pr-2 grid grid-cols-12">
+                    <ng-container
+                      *ngFor="
+                        let control of physical_activities.controls;
+                        let i = index
+                      "
+                      [formGroupName]="i"
                     >
-                      + Add
-                    </a>
+                      <p class="col-span-5 pr-2">
+                        <input
+                          type="text"
+                          matInput
+                          class="table-input"
+                          formControlName="type"
+                          placeholder="Type"
+                        />
+                      </p>
+                      <p class="col-span-6">
+                        <input
+                          type="text"
+                          matInput
+                          class="table-input"
+                          formControlName="hours_per_week"
+                          placeholder="Hours/Week"
+                        />
+                      </p>
+                      <p
+                        class="col-span-1 text-right cursor-pointer"
+                        (click)="onRemovePhysicalActivity(i)"
+                      >
+                        X
+                      </p>
+                    </ng-container>
+
+                    <div class="underline-add col-span-12">
+                      <a
+                        (click)="onAddPhysicalActivity()"
+                        class="cursor-pointer hover:font-bold"
+                      >
+                        + Add
+                      </a>
+                    </div>
                   </div>
                 </ng-container>
               </ng-container>
 
               <ng-container>
+                <p class="col-span-12 my-2"></p>
                 <p class="col-span-3 pr-2">
                   <input
                     type="text"
@@ -1028,18 +1066,52 @@
                     readonly
                   />
                 </p>
-                <ng-container formGroupName="dietary_hx">
-                  <div class="col-span-9 pr-2">
-                    <a
-                      class="cursor-pointer hover:font-bold hover:opacity-100 opacity-50"
+                <ng-container formArrayName="dietary_hx">
+                  <div class="col-span-9 pr-2 grid grid-cols-12">
+                    <ng-container
+                      *ngFor="let control of dietary_hx.controls; let i = index"
+                      [formGroupName]="i"
                     >
-                      + Add
-                    </a>
+                      <p class="col-span-5 pr-2">
+                        <input
+                          type="text"
+                          matInput
+                          class="table-input"
+                          formControlName="type"
+                          placeholder="Type"
+                        />
+                      </p>
+                      <p class="col-span-6">
+                        <input
+                          type="text"
+                          matInput
+                          class="table-input"
+                          formControlName="duration"
+                          placeholder="Duration"
+                        />
+                      </p>
+                      <p
+                        class="col-span-1 text-right cursor-pointer"
+                        (click)="onRemoveDietaryHx(i)"
+                      >
+                        X
+                      </p>
+                    </ng-container>
+
+                    <div class="underline-add col-span-12">
+                      <a
+                        (click)="onAddDietaryHx()"
+                        class="cursor-pointer hover:font-bold"
+                      >
+                        + Add
+                      </a>
+                    </div>
                   </div>
                 </ng-container>
               </ng-container>
 
               <ng-container>
+                <p class="col-span-12 my-2"></p>
                 <p class="col-span-3 pr-2">
                   <input
                     type="text"
@@ -1049,18 +1121,55 @@
                     readonly
                   />
                 </p>
-                <ng-container formGroupName="carbonated_drinks">
-                  <div class="col-span-9 pr-2">
-                    <a
-                      class="cursor-pointer hover:font-bold hover:opacity-100 opacity-50"
+                <ng-container formArrayName="carbonated_drinks">
+                  <div class="col-span-9 pr-2 grid grid-cols-12">
+                    <ng-container
+                      *ngFor="
+                        let control of carbonated_drinks.controls;
+                        let i = index
+                      "
+                      [formGroupName]="i"
                     >
-                      + Add
-                    </a>
+                      <p class="col-span-5 pr-2">
+                        <input
+                          type="text"
+                          matInput
+                          class="table-input"
+                          formControlName="type"
+                          placeholder="Type"
+                        />
+                      </p>
+                      <p class="col-span-6">
+                        <input
+                          type="text"
+                          matInput
+                          class="table-input"
+                          formControlName="hours_per_week"
+                          placeholder="Hours/Week"
+                        />
+                      </p>
+                      <p
+                        class="col-span-1 text-right cursor-pointer"
+                        (click)="onRemoveCarbonatedDrink(i)"
+                      >
+                        X
+                      </p>
+                    </ng-container>
+
+                    <div class="underline-add col-span-12">
+                      <a
+                        (click)="onAddCarbonatedDrink()"
+                        class="cursor-pointer hover:font-bold"
+                      >
+                        + Add
+                      </a>
+                    </div>
                   </div>
                 </ng-container>
               </ng-container>
 
               <ng-container>
+                <p class="col-span-12 my-2"></p>
                 <p class="col-span-3 pr-2">
                   <input
                     type="text"
@@ -1150,6 +1259,7 @@
               </ng-container>
 
               <ng-container>
+                <p class="col-span-12 my-2"></p>
                 <p class="col-span-3 pr-2">
                   <input
                     type="text"

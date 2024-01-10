@@ -58,7 +58,7 @@ export const soap = new FormGroup({
         status: new FormControl(''),
         is_multiple_partner: new FormControl(''),
       }),
-      physical_activity: new FormArray([]),
+      physical_activities: new FormArray([]),
       dietary_hx: new FormArray([]),
       carbonated_drinks: new FormArray([]),
       living_condition: new FormGroup({

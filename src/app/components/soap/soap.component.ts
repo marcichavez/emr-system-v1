@@ -154,6 +154,30 @@ export class SoapComponent implements OnInit {
     ) as FormArray;
   }
 
+  get physical_activities() {
+    return (
+      (this.soapForm.get('subjective') as FormGroup).get(
+        'personal_social_hx'
+      ) as FormGroup
+    ).get('physical_activities') as FormArray;
+  }
+
+  get dietary_hx() {
+    return (
+      (this.soapForm.get('subjective') as FormGroup).get(
+        'personal_social_hx'
+      ) as FormGroup
+    ).get('dietary_hx') as FormArray;
+  }
+
+  get carbonated_drinks() {
+    return (
+      (this.soapForm.get('subjective') as FormGroup).get(
+        'personal_social_hx'
+      ) as FormGroup
+    ).get('carbonated_drinks') as FormArray;
+  }
+
   fmhx_chronic_medical_conditions(i: number) {
     return (
       this.family_medical_hx.at(i).get('past_medical_hx') as FormGroup
@@ -212,6 +236,30 @@ export class SoapComponent implements OnInit {
 
   onRemoveFamilyMember(i: number) {
     this.family_medical_hx.removeAt(i);
+  }
+
+  onAddPhysicalActivity() {
+    this.physical_activities.push(SubFG.physical_activity_fg());
+  }
+
+  onRemovePhysicalActivity(i: number) {
+    this.physical_activities.removeAt(i);
+  }
+
+  onAddDietaryHx() {
+    this.dietary_hx.push(SubFG.dietary_hx_fg());
+  }
+
+  onRemoveDietaryHx(i: number) {
+    this.dietary_hx.removeAt(i);
+  }
+
+  onAddCarbonatedDrink() {
+    this.carbonated_drinks.push(SubFG.carbonated_drink_fg());
+  }
+
+  onRemoveCarbonatedDrink(i: number) {
+    this.carbonated_drinks.removeAt(i);
   }
 
   showValue() {

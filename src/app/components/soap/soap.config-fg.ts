@@ -63,7 +63,21 @@ export function immunization_hx_fg() {
 
 export function physical_activity_fg() {
   return new FormGroup({
-    type_of_activity: new FormControl('', [Validators.required]),
+    type: new FormControl('', [Validators.required]),
+    hours_per_week: new FormControl('', [Validators.required]),
+  });
+}
+
+export function dietary_hx_fg() {
+  return new FormGroup({
+    type: new FormControl('', [Validators.required]),
+    duration: new FormControl('', [Validators.required]),
+  });
+}
+
+export function carbonated_drink_fg() {
+  return new FormGroup({
+    type: new FormControl('', [Validators.required]),
     hours_per_week: new FormControl('', [Validators.required]),
   });
 }

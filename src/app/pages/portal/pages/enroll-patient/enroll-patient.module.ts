@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [EnrollPatientComponent],
@@ -26,6 +27,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
     ReactiveFormsModule,
     MatSelectModule,
     ComponentsModule,
+    MatTooltipModule,
   ],
 })
 export class EnrollPatientModule {}
