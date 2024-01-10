@@ -41,6 +41,7 @@ export class EnrollPatientComponent implements OnInit {
     suffix: new FormControl(''),
     sex: new FormControl(''),
     dob: new FormControl('', [Validators.required]),
+    age: new FormControl('', [Validators.required]),
     contactNo: new FormControl('', [Validators.required]),
     email: new FormControl(''),
     pin: new FormControl(''),
@@ -54,6 +55,7 @@ export class EnrollPatientComponent implements OnInit {
   });
 
   payorList = ['Phic Pay', 'Patient Pay', 'Other Medical Insurance'];
+  sexes = ['Male', 'Female'];
 
   summary: any = {};
 
@@ -90,6 +92,19 @@ export class EnrollPatientComponent implements OnInit {
       localStorage.setItem('summary', JSON.stringify(this.summary));
     });
 
+    this.healthProfileFG.get('dob')?.valueChanges.subscribe((o) => {
+      var ageBreakdown = this.calculateAge(new Date(o));
+      this.healthProfileFG.get('age')?.setValue(ageBreakdown.years);
+      // if (ageBreakdown.years >= 21) {
+      //   this.guardianProfileFG.reset();
+      // }
+    });
+
+    this.guardianProfileFG.get('dob')?.valueChanges.subscribe((o) => {
+      var ageBreakdown = this.calculateAge(new Date(o));
+      this.guardianProfileFG.get('age')?.setValue(ageBreakdown.years);
+    });
+
     this.guardianProfileFG.valueChanges.subscribe((o) => {
       this.summary['guardian'] = o;
       localStorage.setItem('summary', JSON.stringify(this.summary));
@@ -105,4 +120,45 @@ export class EnrollPatientComponent implements OnInit {
   autofillPatient() {}
 
   autofillGuardian() {}
+
+  calculateAge(dob: Date) {
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    var yearNow = now.getFullYear();
+    var monthNow = now.getMonth();
+    var dateNow = now.getDate();
+
+    var yearDob = dob.getFullYear();
+    var monthDob = dob.getMonth();
+    var dateDob = dob.getDate();
+
+    var yearAge = yearNow - yearDob;
+
+    if (monthNow >= monthDob) var monthAge = monthNow - monthDob;
+    else {
+      yearAge--;
+      var monthAge = 12 + monthNow - monthDob;
+    }
+
+    if (dateNow >= dateDob) var dateAge = dateNow - dateDob;
+    else {
+      monthAge--;
+      var temp = new Date(yearNow, monthDob + 1, 1);
+      temp.setDate(temp.getDate() - 1);
+      var maxDate = temp.getDate();
+      var dateAge = maxDate + dateNow - dateDob;
+
+      if (monthAge < 0) {
+        monthAge = 11;
+        yearAge--;
+      }
+    }
+
+    return {
+      years: yearAge,
+      months: monthAge,
+      days: dateAge,
+    };
+  }
 }

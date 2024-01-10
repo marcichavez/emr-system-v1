@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [EnrollPatientComponent],
@@ -27,6 +28,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     MatSelectModule,
     ComponentsModule,
+    MatDatepickerModule,
     MatTooltipModule,
   ],
 })
