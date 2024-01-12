@@ -43,7 +43,17 @@ export const chronic_medical_conditions_fam = [
 
 export const allergy_severity = ['Mild', 'Moderate', 'Severe'];
 
-export const blood_types = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+export const blood_types = [
+  'Unknown',
+  'A+',
+  'A-',
+  'B+',
+  'B-',
+  'AB+',
+  'AB-',
+  'O+',
+  'O-',
+];
 
 export const child_immunization_schedule = [
   {
@@ -778,3 +788,136 @@ export const objective_fields = [
     ],
   },
 ];
+
+export const formArrays = [
+  {
+    fa: 'chronic_medical_conditions',
+    fg: 'chronic_medical_condition_fg',
+    path: 'subjective.past_medical_hx.chronic_medical_conditions',
+  },
+  {
+    fa: 'allergies',
+    fg: 'allergy_fg',
+    path: 'subjective.past_medical_hx.allergies',
+  },
+  {
+    fa: 'surgeries',
+    fg: 'surgery_fg',
+    path: 'subjective.past_medical_hx.surgeries',
+  },
+  {
+    fa: 'medications',
+    fg: 'medication_fg',
+    path: 'subjective.past_medical_hx.medications',
+  },
+  {
+    fa: 'chronologic_ob_hxs',
+    fg: 'chronologic_ob_hx_fg',
+    path: 'subjective.past_medical_hx.chronologic_ob_hxs',
+  },
+  {
+    fa: 'birth_control_methods',
+    fg: 'birth_control_methods_fg',
+    path: 'subjective.past_medical_hx.birth_control_methods',
+  },
+  {
+    fa: 'family_medical_hx',
+    fg: 'family_medical_hx_fg',
+    path: 'subjective.family_medical_hx',
+  },
+  {
+    fa: 'physical_activities',
+    fg: 'physical_activity_fg',
+    path: 'subjective.personal_social_hx.physical_activities',
+  },
+  {
+    fa: 'dietary_hx',
+    fg: 'dietary_hx_fg',
+    path: 'subjective.personal_social_hx.dietary_hx',
+  },
+  {
+    fa: 'carbonated_drinks',
+    fg: 'carbonated_drink_fg',
+    path: 'subjective.personal_social_hx.carbonated_drinks',
+  },
+
+  {
+    fa: 'childhood',
+    fg: 'immunization_hx_fg',
+    path: 'subjective.immunization_hx.childhood',
+  },
+  {
+    fa: 'adulthood',
+    fg: 'immunization_hx_fg',
+    path: 'subjective.immunization_hx.adulthood',
+  },
+  {
+    fa: 'ob',
+    fg: 'immunization_hx_fg',
+    path: 'subjective.immunization_hx.ob',
+  },
+  {
+    fa: 'diagnoses',
+    fg: 'diagnosis_fg',
+    path: 'assessment.diagnoses',
+  },
+
+  {
+    fa: 'constitutional',
+    path: 'subjective.review_of_system.constitutional',
+  },
+
+  {
+    fa: 'integumentary',
+    path: 'subjective.review_of_system.integumentary',
+  },
+
+  {
+    fa: 'heent',
+    path: 'subjective.review_of_system.heent',
+  },
+
+  {
+    fa: 'respiratory',
+    path: 'subjective.review_of_system.respiratory',
+  },
+
+  {
+    fa: 'cardiovascular',
+    path: 'subjective.review_of_system.cardiovascular',
+  },
+  {
+    fa: 'gastrointestinal',
+    path: 'subjective.review_of_system.gastrointestinal',
+  },
+  {
+    fa: 'genitourinary',
+    path: 'subjective.review_of_system.genitourinary',
+  },
+  {
+    fa: 'menstrual_hx',
+    path: 'subjective.review_of_system.menstrual_hx',
+  },
+  {
+    fa: 'musculoskeletal',
+    path: 'subjective.review_of_system.musculoskeletal',
+  },
+  {
+    fa: 'neurological',
+    path: 'subjective.review_of_system.neurological',
+  },
+  {
+    fa: 'psychiatric',
+    path: 'subjective.review_of_system.psychiatric',
+  },
+  {
+    fa: 'endocrine',
+    path: 'subjective.review_of_system.endocrine',
+  },
+  {
+    fa: 'hematologic_lymphatic',
+    path: 'subjective.review_of_system.hematologic_lymphatic',
+  },
+];
+
+export const DIAGNOSIS_STATUSES = ['Uncontrolled', 'Controlled', 'Resolved'];

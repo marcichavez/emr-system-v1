@@ -1,5 +1,5 @@
 <mat-drawer-container autosize>
-  <mat-drawer #drawerLeft mode="side" class="left-side-panel">
+  <mat-drawer #drawerLeft mode="over" class="left-side-panel">
     <h1>EMR</h1>
     <section class="nav-section">
       <div
@@ -28,7 +28,7 @@
   </mat-drawer>
 
   <div class="main-panel">
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" class="sticky top-0 z-50">
       <!-- Menu -->
 
       <button mat-icon-button (click)="drawerLeft.toggle()" class="pr-2">

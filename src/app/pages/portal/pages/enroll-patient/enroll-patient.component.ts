@@ -8,6 +8,15 @@ import { PhLocationService } from 'src/app/services/api/ph-location/ph-location.
   styleUrls: ['./enroll-patient.component.scss'],
 })
 export class EnrollPatientComponent implements OnInit {
+  regions: any[] = [];
+  provinces: any[] = [];
+  citymuns: any[] = [];
+  barangays: any[] = [];
+
+  g_provinces: any[] = [];
+  g_citymuns: any[] = [];
+  g_barangays: any[] = [];
+
   healthProfileFG = new FormGroup({
     lastName: new FormControl('', [Validators.required]),
     firstName: new FormControl('', [Validators.required]),
@@ -24,13 +33,12 @@ export class EnrollPatientComponent implements OnInit {
       payor: new FormControl('', [Validators.required]),
       atc: new FormControl(''),
     }),
-
     address: new FormGroup({
       address1: new FormControl(''),
-      brgy: new FormControl('', [Validators.required]),
-      cityMun: new FormControl('', [Validators.required]),
-      prov: new FormControl('', [Validators.required]),
-      reg: new FormControl('', [Validators.required]),
+      brgy: new FormControl(''),
+      cityMun: new FormControl(''),
+      prov: new FormControl(''),
+      reg: new FormControl(''),
     }),
   });
 
@@ -47,10 +55,10 @@ export class EnrollPatientComponent implements OnInit {
     pin: new FormControl(''),
     address: new FormGroup({
       address1: new FormControl(''),
-      brgy: new FormControl('', [Validators.required]),
-      cityMun: new FormControl('', [Validators.required]),
-      prov: new FormControl('', [Validators.required]),
-      reg: new FormControl('', [Validators.required]),
+      brgy: new FormControl(''),
+      cityMun: new FormControl(''),
+      prov: new FormControl(''),
+      reg: new FormControl(''),
     }),
   });
 
@@ -60,8 +68,8 @@ export class EnrollPatientComponent implements OnInit {
   summary: any = {};
 
   constructor(private ph: PhLocationService) {
-    ph.getBarangays().subscribe((o: any) => {
-      console.log(o.length);
+    ph.getRegions().subscribe((o: any) => {
+      this.regions = o;
     });
   }
 
@@ -95,9 +103,72 @@ export class EnrollPatientComponent implements OnInit {
     this.healthProfileFG.get('dob')?.valueChanges.subscribe((o) => {
       var ageBreakdown = this.calculateAge(new Date(o));
       this.healthProfileFG.get('age')?.setValue(ageBreakdown.years);
-      // if (ageBreakdown.years >= 21) {
-      //   this.guardianProfileFG.reset();
-      // }
+    });
+
+    var address = this.healthProfileFG.get('address');
+
+    address?.get('reg')?.valueChanges.subscribe((o) => {
+      if (!o) return;
+      address?.get('prov')?.reset();
+      address?.get('cityMun')?.reset();
+      address?.get('brgy')?.reset();
+      this.ph.getProvince().subscribe((provs: any) => {
+        this.provinces = provs.filter((f: any) => f.reg_code === o.reg_code);
+      });
+    });
+
+    address?.get('prov')?.valueChanges.subscribe((o) => {
+      if (!o) return;
+      address?.get('cityMun')?.reset();
+      address?.get('brgy')?.reset();
+      this.ph.getCityMuns().subscribe((citymuns: any) => {
+        console.log({ citymuns });
+        this.citymuns = citymuns.filter(
+          (f: any) => f.prov_code === o.prov_code
+        );
+      });
+    });
+
+    address?.get('cityMun')?.valueChanges.subscribe((o) => {
+      if (!o) return;
+      address?.get('brgy')?.reset();
+      this.ph.getBarangays().subscribe((brgys: any) => {
+        console.log(brgys);
+        this.barangays = brgys.filter((f: any) => f.mun_code === o.mun_code);
+      });
+    });
+
+    var addressGuardian = this.guardianProfileFG.get('address');
+
+    addressGuardian?.get('reg')?.valueChanges.subscribe((o) => {
+      if (!o) return;
+      addressGuardian?.get('prov')?.reset();
+      addressGuardian?.get('cityMun')?.reset();
+      addressGuardian?.get('brgy')?.reset();
+      this.ph.getProvince().subscribe((provs: any) => {
+        this.g_provinces = provs.filter((f: any) => f.reg_code === o.reg_code);
+      });
+    });
+
+    addressGuardian?.get('prov')?.valueChanges.subscribe((o) => {
+      if (!o) return;
+      addressGuardian?.get('cityMun')?.reset();
+      addressGuardian?.get('brgy')?.reset();
+      this.ph.getCityMuns().subscribe((citymuns: any) => {
+        console.log({ citymuns });
+        this.g_citymuns = citymuns.filter(
+          (f: any) => f.prov_code === o.prov_code
+        );
+      });
+    });
+
+    addressGuardian?.get('cityMun')?.valueChanges.subscribe((o) => {
+      if (!o) return;
+      addressGuardian?.get('brgy')?.reset();
+      this.ph.getBarangays().subscribe((brgys: any) => {
+        console.log(brgys);
+        this.g_barangays = brgys.filter((f: any) => f.mun_code === o.mun_code);
+      });
     });
 
     this.guardianProfileFG.get('dob')?.valueChanges.subscribe((o) => {
@@ -123,7 +194,6 @@ export class EnrollPatientComponent implements OnInit {
 
   calculateAge(dob: Date) {
     var now = new Date();
-    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
     var yearNow = now.getFullYear();
     var monthNow = now.getMonth();
@@ -160,5 +230,9 @@ export class EnrollPatientComponent implements OnInit {
       months: monthAge,
       days: dateAge,
     };
+  }
+
+  displayFn(ph_location: any): string {
+    return ph_location && ph_location.name ? ph_location.name : '';
   }
 }

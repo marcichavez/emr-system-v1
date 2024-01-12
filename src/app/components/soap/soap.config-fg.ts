@@ -94,3 +94,29 @@ export function family_medical_hx_fg() {
     }),
   });
 }
+
+export function diagnosis_fg() {
+  return new FormGroup({
+    icd_code: new FormControl('', [Validators.required]),
+    is_unspecified: new FormControl(''),
+    status: new FormControl('', [Validators.required]),
+    medicines: new FormArray([]),
+  });
+}
+
+export function diagnostic_fg() {
+  return new FormGroup({
+    icd: new FormArray([]),
+    diagnostic: new FormArray([]),
+  });
+}
+
+export function medicine_fg() {
+  return new FormGroup({
+    drug: new FormControl(),
+    dose: new FormControl(),
+    preparation: new FormControl(),
+    dispense_no: new FormControl(),
+    sig: new FormControl(),
+  });
+}

@@ -1,8 +1,5 @@
-<h2 class="portal-page-title">Enroll a Patient</h2>
+<h2 class="portal-page-title" (click)="showForm()">Enroll a Patient</h2>
 
-<!-- <button mat-stroked-button (click)="showForm()" class="mb-2">
-  Console Form
-</button> -->
 <div class="grid grid-cols-12 gap-4">
   <div class="col-span-7">
     <mat-stepper #stepper>
@@ -85,7 +82,7 @@
             <div class="col-span-1">
               <mat-form-field class="w-full" appearance="fill">
                 <mat-label>Suffix</mat-label>
-                <input matInput formControlName="middleName" />
+                <input matInput formControlName="suffix" />
               </mat-form-field>
             </div>
 
@@ -138,30 +135,91 @@
             </div>
 
             <ng-container [formGroupName]="'address'">
-              <div class="col-span-1">
+              <div class="col-span-2">
                 <mat-form-field class="w-full" appearance="fill">
                   <mat-label>Region</mat-label>
-                  <input matInput formControlName="prov" />
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="reg"
+                    [matAutocomplete]="reg_auto"
+                  />
+                  <mat-autocomplete
+                    #reg_auto="matAutocomplete"
+                    [displayWith]="displayFn"
+                  >
+                    <mat-option *ngFor="let option of regions" [value]="option">
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
               </div>
-              <div class="col-span-1">
+              <div class="col-span-2">
                 <mat-form-field class="w-full" appearance="fill">
                   <mat-label>Province</mat-label>
-                  <input matInput formControlName="prov" />
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="prov"
+                    [matAutocomplete]="prov_auto"
+                  />
+                  <mat-autocomplete
+                    #prov_auto="matAutocomplete"
+                    [displayWith]="displayFn"
+                  >
+                    <mat-option
+                      *ngFor="let option of provinces"
+                      [value]="option"
+                    >
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
               </div>
 
-              <div class="col-span-1">
+              <div class="col-span-2">
                 <mat-form-field class="w-full" appearance="fill">
                   <mat-label>City/Municipality</mat-label>
-                  <input matInput formControlName="prov" />
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="cityMun"
+                    [matAutocomplete]="cityMun_auto"
+                  />
+                  <mat-autocomplete
+                    #cityMun_auto="matAutocomplete"
+                    [displayWith]="displayFn"
+                  >
+                    <mat-option
+                      *ngFor="let option of citymuns"
+                      [value]="option"
+                    >
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
               </div>
 
-              <div class="col-span-1">
+              <div class="col-span-2">
                 <mat-form-field class="w-full" appearance="fill">
                   <mat-label>Barangay</mat-label>
-                  <input matInput formControlName="prov" />
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="brgy"
+                    [matAutocomplete]="brgy_auto"
+                  />
+                  <mat-autocomplete
+                    #brgy_auto="matAutocomplete"
+                    [displayWith]="displayFn"
+                  >
+                    <mat-option
+                      *ngFor="let option of barangays"
+                      [value]="option"
+                    >
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
               </div>
 
@@ -170,7 +228,7 @@
                   <mat-label>
                     House No.Unit No., Bldg. Name, Street/Purok, Subd./Village
                   </mat-label>
-                  <input matInput formControlName="prov" />
+                  <input matInput formControlName="address1" />
                 </mat-form-field>
               </div>
             </ng-container>
@@ -181,25 +239,25 @@
               </div>
             </div>
 
-            <div class="col-span-1">
+            <div class="col-span-2">
               <mat-form-field class="w-full" appearance="fill">
                 <mat-label> Contact No. </mat-label>
                 <input matInput formControlName="contactNo" />
               </mat-form-field>
             </div>
 
-            <div class="col-span-1">
+            <div class="col-span-2">
               <mat-form-field class="w-full" appearance="fill">
                 <mat-label> Email </mat-label>
                 <input matInput formControlName="email" />
               </mat-form-field>
             </div>
           </div>
-
-          <div>
-            <button mat-raised-button matStepperNext>Next</button>
-          </div>
         </form>
+        <div class="pt-4 flex justify-between">
+          <p></p>
+          <button mat-raised-button matStepperNext>Next</button>
+        </div>
       </mat-step>
       <mat-step
         [stepControl]="guardianProfileFG"
@@ -256,7 +314,7 @@
             <div class="col-span-1">
               <mat-form-field class="w-full" appearance="fill">
                 <mat-label>Suffix</mat-label>
-                <input matInput formControlName="middleName" />
+                <input matInput formControlName="suffix" />
               </mat-form-field>
             </div>
 
@@ -302,30 +360,91 @@
             </div>
 
             <ng-container [formGroupName]="'address'">
-              <div class="col-span-1">
+              <div class="col-span-2">
                 <mat-form-field class="w-full" appearance="fill">
                   <mat-label>Region</mat-label>
-                  <input matInput formControlName="prov" />
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="reg"
+                    [matAutocomplete]="reg_auto"
+                  />
+                  <mat-autocomplete
+                    #reg_auto="matAutocomplete"
+                    [displayWith]="displayFn"
+                  >
+                    <mat-option *ngFor="let option of regions" [value]="option">
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
               </div>
-              <div class="col-span-1">
+              <div class="col-span-2">
                 <mat-form-field class="w-full" appearance="fill">
                   <mat-label>Province</mat-label>
-                  <input matInput formControlName="prov" />
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="prov"
+                    [matAutocomplete]="prov_auto"
+                  />
+                  <mat-autocomplete
+                    #prov_auto="matAutocomplete"
+                    [displayWith]="displayFn"
+                  >
+                    <mat-option
+                      *ngFor="let option of g_provinces"
+                      [value]="option"
+                    >
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
               </div>
 
-              <div class="col-span-1">
+              <div class="col-span-2">
                 <mat-form-field class="w-full" appearance="fill">
                   <mat-label>City/Municipality</mat-label>
-                  <input matInput formControlName="prov" />
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="cityMun"
+                    [matAutocomplete]="cityMun_auto"
+                  />
+                  <mat-autocomplete
+                    #cityMun_auto="matAutocomplete"
+                    [displayWith]="displayFn"
+                  >
+                    <mat-option
+                      *ngFor="let option of g_citymuns"
+                      [value]="option"
+                    >
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
               </div>
 
-              <div class="col-span-1">
+              <div class="col-span-2">
                 <mat-form-field class="w-full" appearance="fill">
                   <mat-label>Barangay</mat-label>
-                  <input matInput formControlName="prov" />
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="brgy"
+                    [matAutocomplete]="brgy_auto"
+                  />
+                  <mat-autocomplete
+                    #brgy_auto="matAutocomplete"
+                    [displayWith]="displayFn"
+                  >
+                    <mat-option
+                      *ngFor="let option of g_barangays"
+                      [value]="option"
+                    >
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
               </div>
 
@@ -334,7 +453,7 @@
                   <mat-label>
                     House No.Unit No., Bldg. Name, Street/Purok, Subd./Village
                   </mat-label>
-                  <input matInput formControlName="prov" />
+                  <input matInput formControlName="address1" />
                 </mat-form-field>
               </div>
             </ng-container>
@@ -345,58 +464,57 @@
               </div>
             </div>
 
-            <div class="col-span-1">
+            <div class="col-span-2">
               <mat-form-field class="w-full" appearance="fill">
                 <mat-label> Contact No. </mat-label>
                 <input matInput formControlName="contactNo" />
               </mat-form-field>
             </div>
 
-            <div class="col-span-1">
+            <div class="col-span-2">
               <mat-form-field class="w-full" appearance="fill">
                 <mat-label> Email </mat-label>
                 <input matInput formControlName="email" />
               </mat-form-field>
             </div>
           </div>
-
-          <div>
-            <button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-raised-button matStepperNext>Next</button>
-          </div>
         </form>
+        <div class="pt-4 flex justify-between">
+          <button mat-raised-button matStepperPrevious>Back</button>
+          <button mat-raised-button matStepperNext>Next</button>
+        </div>
       </mat-step>
 
       <mat-step *ngIf="summary.profile">
         <ng-template matStepLabel>Summary of Details</ng-template>
-        <div class="grid grid-cols-4">
-          <div class="col-span-4">
+        <div class="grid grid-cols-4 gap-x-2 summary">
+          <div class="col-span-4 pb-2">
             <div class="underline-emphasis">
               <p>Encounter Details</p>
             </div>
           </div>
-          <div class="col-span-1 py-4">
+          <div class="col-span-1">
             <small>Payor</small>
             <p class="highlight">{{ summary.profile.encounter.payor }}</p>
           </div>
 
-          <div class="col-span-1 py-4">
+          <div class="col-span-1">
             <small>ATC</small>
             <p class="highlight">{{ summary.profile.encounter.atc }}</p>
           </div>
 
-          <div class="col-span-4">
+          <div class="col-span-4 pb-2">
             <div class="underline-emphasis">
               <p>Patients Details</p>
             </div>
           </div>
 
-          <div class="col-span-4 py-4">
+          <div class="col-span-1">
             <small>PIN</small>
             <p>{{ summary.profile.pin }}</p>
           </div>
 
-          <div class="col-span-1 py-4">
+          <div class="col-span-1">
             <small>Name</small>
             <p>
               {{
@@ -411,60 +529,60 @@
             </p>
           </div>
 
-          <div class="col-span-1 py-4">
+          <div class="col-span-1">
             <small>Date of Birth</small>
             <p>{{ summary.profile.dob | date }}</p>
           </div>
 
-          <div class="col-span-1 py-4">
+          <div class="col-span-1">
             <small>Age</small>
             <p>{{ summary.profile.age }}</p>
           </div>
 
-          <div class="col-span-1 py-4">
+          <div class="col-span-1">
             <small>Sex</small>
             <p>{{ summary.profile.sex }}</p>
           </div>
 
-          <div class="col-span-1 py-4">
+          <div class="col-span-1">
             <small>Contact No.</small>
             <p>{{ summary.profile.contactNo }}</p>
           </div>
 
-          <div class="col-span-1 py-4">
+          <div class="col-span-1">
             <small>Email</small>
             <p>{{ summary.profile.email }}</p>
           </div>
 
-          <div class="col-span-3 py-4">
+          <div class="col-span-4">
             <small>Address</small>
             <p>
               {{
                 summary.profile.address.address1 +
-                  ", Brgy." +
-                  summary.profile.address.brgy +
+                  ", Brgy. " +
+                  summary.profile.address.brgy.name +
                   " " +
-                  summary.profile.address.cityMun +
+                  summary.profile.address.cityMun.name +
                   " " +
-                  summary.profile.address.prov +
+                  summary.profile.address.prov.name +
                   " " +
-                  summary.profile.address.reg
+                  summary.profile.address.reg.name
               }}
             </p>
           </div>
           <ng-container *ngIf="summary.guardian">
-            <div class="col-span-4">
+            <div class="col-span-4 pb-2">
               <div class="underline-emphasis">
                 <p>Guardian's Details <span>(for patient below 21)</span></p>
               </div>
             </div>
 
-            <div class="col-span-4 py-4">
+            <div class="col-span-1">
               <small>PIN</small>
               <p>{{ summary.guardian.pin }}</p>
             </div>
 
-            <div class="col-span-1 py-4">
+            <div class="col-span-1">
               <small>Name</small>
               <p>
                 {{
@@ -479,60 +597,68 @@
               </p>
             </div>
 
-            <div class="col-span-1 py-4">
+            <div class="col-span-1">
               <small>Date of Birth</small>
-              <p>{{ summary.guardian.dob }}</p>
+              <p>{{ summary.guardian.dob | date }}</p>
             </div>
 
-            <div class="col-span-1 py-4">
+            <div class="col-span-1">
               <small>Age</small>
               <p>{{ summary.guardian.age }}</p>
             </div>
 
-            <div class="col-span-1 py-4">
+            <div class="col-span-1">
               <small>Sex</small>
               <p>{{ summary.guardian.sex }}</p>
             </div>
 
-            <div class="col-span-1 py-4">
+            <div class="col-span-1">
               <small>Contact No.</small>
               <p>{{ summary.guardian.sex }}</p>
             </div>
 
-            <div class="col-span-1 py-4">
+            <div class="col-span-1">
               <small>Email</small>
               <p>{{ summary.guardian.email }}</p>
             </div>
 
-            <div class="col-span-3 py-4">
+            <div class="col-span-4">
               <small>Address</small>
               <p>
                 {{
                   summary.guardian.address.address1 +
-                    ", Brgy." +
-                    summary.guardian.address.brgy +
+                    ", Brgy. " +
+                    summary.guardian.address.brgy.name +
                     " " +
-                    summary.guardian.address.cityMun +
+                    summary.guardian.address.cityMun.name +
                     " " +
-                    summary.guardian.address.prov +
+                    summary.guardian.address.prov.name +
                     " " +
-                    summary.guardian.address.reg
+                    summary.guardian.address.reg.name
                 }}
               </p>
             </div>
           </ng-container>
         </div>
 
-        <div>
-          <button mat-raised-button matStepperPrevious>Back</button>&nbsp;
-          <button mat-raised-button matStepperNext>Next</button>
+        <div class="pt-4 flex justify-between">
+          <button mat-raised-button matStepperPrevious>Back</button>
+          <div>
+            <button mat-raised-button color="primary">
+              Save to DB and Proceed to SOAP
+            </button>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>Save to DB Only</button>
+            </mat-menu>
+          </div>
         </div>
       </mat-step>
     </mat-stepper>
   </div>
   <div class="col-span-5">
-    <div class="scrollable">
-      <app-soap></app-soap>
-    </div>
+    <app-soap></app-soap>
   </div>
 </div>

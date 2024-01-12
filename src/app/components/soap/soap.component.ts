@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { soap } from './soap.config';
 import * as SubFG from './soap.config-fg';
 import * as LIST from './soap.list';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-soap',
@@ -15,7 +15,13 @@ export class SoapComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.autofillForm();
+
+    this.soapForm.valueChanges.subscribe((o) => {
+      localStorage.setItem('soap', JSON.stringify(this.soapForm.value));
+    });
+  }
 
   update_selected_chronic_disease(disease: string) {
     var index = this.chronic_medical_conditions.value.findIndex(
@@ -46,7 +52,6 @@ export class SoapComponent implements OnInit {
   }
 
   update_selected_adulthood(vaccine: string) {
-    console.log(vaccine);
     var index = this.adulthood.value.findIndex((o: any) => o.name == vaccine);
 
     if (index == -1) {
@@ -59,7 +64,6 @@ export class SoapComponent implements OnInit {
   }
 
   update_selected_childhood(vaccine: string) {
-    console.log(vaccine);
     var index = this.childhood.value.findIndex((o: any) => o.name == vaccine);
 
     if (index == -1) {
@@ -72,7 +76,6 @@ export class SoapComponent implements OnInit {
   }
 
   update_selected_ob(vaccine: string) {
-    console.log(vaccine);
     var index = this.ob.value.findIndex((o: any) => o.name == vaccine);
 
     if (index == -1) {
@@ -84,98 +87,69 @@ export class SoapComponent implements OnInit {
     }
   }
 
+  subjective_fg = this.soapForm.get('subjective') as FormGroup;
+  past_medical_hx_fg = this.subjective_fg.get('past_medical_hx') as FormGroup;
+
   get chronic_medical_conditions() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'past_medical_hx'
-      ) as FormGroup
-    ).get('chronic_medical_conditions') as FormArray;
-  }
-
-  get allergies() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'past_medical_hx'
-      ) as FormGroup
-    ).get('allergies') as FormArray;
-  }
-
-  get surgeries() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'past_medical_hx'
-      ) as FormGroup
-    ).get('surgeries') as FormArray;
-  }
-
-  get medications() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'past_medical_hx'
-      ) as FormGroup
-    ).get('medications') as FormArray;
-  }
-
-  get chronologic_ob_hxs() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'past_medical_hx'
-      ) as FormGroup
-    ).get('chronologic_ob_hxs') as FormArray;
-  }
-
-  get birth_control_methods() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'past_medical_hx'
-      ) as FormGroup
-    ).get('birth_control_methods') as FormArray;
-  }
-
-  get childhood() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'immunization_hx'
-      ) as FormGroup
-    ).get('childhood') as FormArray;
-  }
-
-  get adulthood() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'immunization_hx'
-      ) as FormGroup
-    ).get('adulthood') as FormArray;
-  }
-
-  get family_medical_hx() {
-    return (this.soapForm.get('subjective') as FormGroup).get(
-      'family_medical_hx'
+    return this.past_medical_hx_fg.get(
+      'chronic_medical_conditions'
     ) as FormArray;
   }
 
+  get allergies() {
+    return this.past_medical_hx_fg.get('allergies') as FormArray;
+  }
+
+  get surgeries() {
+    return this.past_medical_hx_fg.get('surgeries') as FormArray;
+  }
+
+  get medications() {
+    return this.past_medical_hx_fg.get('medications') as FormArray;
+  }
+
+  get chronologic_ob_hxs() {
+    return this.past_medical_hx_fg.get('chronologic_ob_hxs') as FormArray;
+  }
+
+  get birth_control_methods() {
+    return this.past_medical_hx_fg.get('birth_control_methods') as FormArray;
+  }
+
+  immunization_hx_fg = this.subjective_fg.get('immunization_hx') as FormGroup;
+
+  get childhood() {
+    return this.immunization_hx_fg.get('childhood') as FormArray;
+  }
+
+  get adulthood() {
+    return this.immunization_hx_fg.get('adulthood') as FormArray;
+  }
+
+  get family_medical_hx() {
+    return this.subjective_fg.get('family_medical_hx') as FormArray;
+  }
+
+  personal_social_hx = this.subjective_fg.get(
+    'personal_social_hx'
+  ) as FormGroup;
+
   get physical_activities() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'personal_social_hx'
-      ) as FormGroup
-    ).get('physical_activities') as FormArray;
+    return this.personal_social_hx.get('physical_activities') as FormArray;
   }
 
   get dietary_hx() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'personal_social_hx'
-      ) as FormGroup
-    ).get('dietary_hx') as FormArray;
+    return this.personal_social_hx.get('dietary_hx') as FormArray;
   }
 
   get carbonated_drinks() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'personal_social_hx'
-      ) as FormGroup
-    ).get('carbonated_drinks') as FormArray;
+    return this.personal_social_hx.get('carbonated_drinks') as FormArray;
+  }
+
+  assessment_fg = this.soapForm.get('assessment') as FormGroup;
+
+  get diagnoses() {
+    return this.assessment_fg.get('diagnoses') as FormArray;
   }
 
   fmhx_chronic_medical_conditions(i: number) {
@@ -185,13 +159,10 @@ export class SoapComponent implements OnInit {
   }
 
   get ob() {
-    return (
-      (this.soapForm.get('subjective') as FormGroup).get(
-        'immunization_hx'
-      ) as FormGroup
-    ).get('ob') as FormArray;
+    return (this.subjective_fg.get('immunization_hx') as FormGroup).get(
+      'ob'
+    ) as FormArray;
   }
-
   onAddAllergy() {
     this.allergies.push(SubFG.allergy_fg());
   }
@@ -262,11 +233,18 @@ export class SoapComponent implements OnInit {
     this.carbonated_drinks.removeAt(i);
   }
 
+  onAddDiagnosis() {
+    this.diagnoses.push(SubFG.diagnosis_fg());
+  }
+
+  onRemoveDiagnosis(i: number) {
+    this.diagnoses.removeAt(i);
+  }
+
   showValue() {
     console.log({
       soap: this.soapForm,
     });
-    this.chronic_medical_conditions.at(0).get('when')?.setValue('Yes');
   }
 
   isChronicSelected(disease: string) {
@@ -295,5 +273,64 @@ export class SoapComponent implements OnInit {
 
   isObImmunizationSelected(vaccine: string) {
     return this.ob.value.findIndex((o: any) => o.name == vaccine) > -1;
+  }
+
+  fa_fgs = LIST.formArrays;
+
+  autofillForm() {
+    if (localStorage.getItem('soap')) {
+      var soap = JSON.parse(localStorage.getItem('soap') || '{}');
+      if (soap) {
+        this.soapForm.patchValue(soap);
+        // for formarrays
+        let local_SubFG: any = SubFG;
+        for (let fa_fg of this.fa_fgs) {
+          for (let value of this.deepValue(soap, fa_fg.path)) {
+            var fg;
+            if (fa_fg.fg) {
+              fg = local_SubFG[fa_fg.fg]();
+              fg.patchValue(value);
+            } else {
+              fg = new FormControl();
+              fg.setValue(value);
+            }
+            this.deepValueFormArray(this.soapForm, fa_fg.path).push(fg);
+          }
+        }
+      }
+    }
+  }
+
+  deepValue(obj: any, path: string) {
+    var objCopy = JSON.parse(JSON.stringify(obj));
+    var paths = path.split('.');
+    var len = paths.length;
+    for (var i = 0; i < len; i++) {
+      objCopy = objCopy[paths[i]];
+    }
+    return objCopy;
+  }
+
+  deepValueFormArray(fg: FormGroup, path: string) {
+    var paths = path.split('.');
+    var len = paths.length - 1;
+    for (var i = 0; i < len; i++) {
+      fg = fg.get(paths[i]) as FormGroup;
+    }
+    var fa = fg.get(paths[len]) as FormArray;
+    return fa;
+  }
+
+  review_of_system = this.subjective_fg.get('review_of_system');
+
+  ros_change(value: string, formArrayStr: string) {
+    var fa = this.review_of_system?.get(formArrayStr) as FormArray;
+    fa.push(new FormControl(value));
+  }
+
+  isChecked(value: string, formArrayStr: string) {
+    var fa = this.review_of_system?.get(formArrayStr) as FormArray;
+    if (fa.value) return fa.value.findIndex((o: string) => o == value) >= 0;
+    return false;
   }
 }

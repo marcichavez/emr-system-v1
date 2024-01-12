@@ -13,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [EnrollPatientComponent],
@@ -30,6 +32,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ComponentsModule,
     MatDatepickerModule,
     MatTooltipModule,
+    MatAutocompleteModule,
+    MatMenuModule,
   ],
 })
 export class EnrollPatientModule {}

@@ -38,3 +38,8 @@ input {
   height: calc(100vh - 10rem);
   overflow: scroll;
 }
+
+.summary small {
+  color: $gray;
+  opacity: 0.7;
+}

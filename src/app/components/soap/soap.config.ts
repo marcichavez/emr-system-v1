@@ -126,8 +126,15 @@ export const soap = new FormGroup({
       dre: new FormControl(''),
     }),
   }),
-  assessment: new FormGroup({}),
-  plan: new FormGroup({}),
+  assessment: new FormGroup({
+    remarks: new FormControl(''),
+    diagnoses: new FormArray([]),
+  }),
+  plan: new FormGroup({
+    notes: new FormControl(),
+    diagnostics: new FormArray([]),
+    medicines: new FormArray([]),
+  }),
 });
 
 // past medical hx
