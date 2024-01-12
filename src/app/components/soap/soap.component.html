@@ -16,7 +16,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-2 gap-2">
             <div class="col-span-2">
               <mat-form-field class="w-full">
                 <mat-label>Chief Complaint</mat-label>
@@ -55,10 +55,10 @@
             </div>
 
             <ng-container [formGroupName]="'past_medical_hx'">
-              <div class="col-span-2 pb-4">
-                <small class="highlight">Chronic Medical Condition</small>
-                <div class="grid grid-cols-12 mt-4">
-                  <p class="col-span-12 overflow-hidden pr-4 pb-2">
+              <div class="col-span-2">
+                <small class="highlight">Past Medical Condition</small>
+                <div class="grid grid-cols-12 pt-2 gap-2">
+                  <div class="col-span-12">
                     <mat-checkbox
                       [checked]="chronic_medical_conditions.length == 0"
                       [disabled]="true"
@@ -69,7 +69,7 @@
                     <small>
                       Automatic None if there are no selected conditions
                     </small>
-                  </p>
+                  </div>
                   <ng-container formArrayName="chronic_medical_conditions">
                     <ng-container
                       *ngFor="
@@ -78,7 +78,7 @@
                       "
                     >
                       <div
-                        class="col-span-6 overflow-hidden pr-4 pb-2"
+                        class="col-span-6 overflow-hidden"
                         [formGroupName]="i"
                       >
                         <mat-checkbox
@@ -113,18 +113,28 @@
                           placeholder="Diagnostic Peformed"
                           formControlName="diagnostic_performed"
                         />
+
+                        <mat-slide-toggle
+                          color="primary"
+                          formControlName="is_existing"
+                        >
+                          Existing Condition
+                        </mat-slide-toggle>
                       </div>
                     </ng-container>
                   </ng-container>
-                  <p class="col-span-12 m-0"></p>
+                  <div
+                    class="col-span-12"
+                    *ngIf="chronic_medical_conditions.length > 0"
+                  ></div>
                   <ng-container
                     *ngFor="
                       let disease of LIST.chronic_medical_conditions;
                       let i = index
                     "
                   >
-                    <p
-                      class="col-span-6 overflow-hidden pr-4 pb-2"
+                    <div
+                      class="col-span-6 overflow-hidden"
                       *ngIf="!isChronicSelected(disease)"
                     >
                       <mat-checkbox
@@ -132,33 +142,30 @@
                       >
                         {{ disease }}
                       </mat-checkbox>
-                    </p>
+                    </div>
                   </ng-container>
                 </div>
               </div>
 
-              <div class="col-span-2 pb-6" formArrayName="allergies">
+              <div class="col-span-2" formArrayName="allergies">
                 <small class="highlight">Allergies</small>
-                <div class="grid grid-cols-12 mt-4">
+                <div class="grid grid-cols-12 mt-4 gap-2">
                   <ng-container
                     *ngFor="let allergy of allergies.controls; let i = index"
                   >
                     <ng-container [formGroupName]="i">
-                      <p class="col-span-3 pr-4">
+                      <mat-form-field class="col-span-3">
+                        <mat-label>Allergy</mat-label>
                         <input
-                          class="table-input"
                           matInput
                           type="text"
-                          placeholder="Allergy"
+                          placeholder="e.g. Peanut"
                           formControlName="name"
                         />
-                      </p>
-                      <p class="col-span-3 pr-4">
-                        <mat-select
-                          formControlName="severity"
-                          placeholder="Severity"
-                          class="table-input"
-                        >
+                      </mat-form-field>
+                      <mat-form-field class="col-span-3">
+                        <mat-label>Severity</mat-label>
+                        <mat-select formControlName="severity">
                           <mat-option
                             *ngFor="let item of LIST.allergy_severity"
                             [value]="item"
@@ -166,26 +173,25 @@
                             {{ item }}
                           </mat-option>
                         </mat-select>
-                      </p>
-                      <p class="col-span-5 pr-4">
+                      </mat-form-field>
+                      <mat-form-field class="col-span-6">
+                        <mat-label>Medication</mat-label>
                         <input
-                          class="table-input"
                           matInput
                           type="text"
                           placeholder="Medication"
                           formControlName="medication"
                         />
-                      </p>
-                      <p
-                        class="col-span-1 text-right cursor-pointer"
-                        (click)="onRemoveAllergy(i)"
-                      >
-                        X
-                      </p>
+                        <button
+                          matSuffix
+                          mat-icon-button
+                          (click)="onRemoveAllergy(i)"
+                        >
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </mat-form-field>
                     </ng-container>
                   </ng-container>
-
-                  <!--  -->
                 </div>
                 <a
                   class="cursor-pointer hover:font-bold"
@@ -195,55 +201,56 @@
                 </a>
               </div>
 
-              <div class="col-span-2 pb-6" formArrayName="surgeries">
+              <div class="col-span-2" formArrayName="surgeries">
                 <small class="highlight">Surgeries</small>
-                <div class="grid grid-cols-12 mt-4">
+                <div class="grid grid-cols-12 mt-4 gap-2">
                   <ng-container
                     *ngFor="let surgery of surgeries.controls; let i = index"
                   >
                     <ng-container [formGroupName]="i">
-                      <p class="col-span-3 pr-4">
+                      <mat-form-field class="col-span-3">
+                        <mat-label>Surgery</mat-label>
                         <input
-                          class="table-input"
                           matInput
                           type="text"
-                          placeholder="Surgery"
+                          placeholder="e.g. Heart Transplant"
                           formControlName="name"
                         />
-                      </p>
-                      <p class="col-span-2 pr-4">
+                      </mat-form-field>
+                      <mat-form-field class="col-span-2">
+                        <mat-label>When</mat-label>
                         <input
-                          class="table-input"
                           matInput
                           type="text"
-                          placeholder="When"
+                          placeholder="e.g. 2010"
                           formControlName="when"
                         />
-                      </p>
-                      <p class="col-span-3 pr-4">
+                      </mat-form-field>
+                      <mat-form-field class="col-span-3">
+                        <mat-label>Where</mat-label>
                         <input
-                          class="table-input"
                           matInput
                           type="text"
-                          placeholder="Where"
+                          placeholder="e.g. Manila Doctor's"
                           formControlName="where"
                         />
-                      </p>
-                      <p class="col-span-3 pr-4">
+                      </mat-form-field>
+                      <mat-form-field class="col-span-4">
+                        <mat-label>Outcome</mat-label>
                         <input
-                          class="table-input"
                           matInput
                           type="text"
-                          placeholder="Outcome"
+                          placeholder="e.g. Successful"
                           formControlName="outcome"
                         />
-                      </p>
-                      <p
-                        class="col-span-1 text-right cursor-pointer"
-                        (click)="onRemoveSurgery(i)"
-                      >
-                        X
-                      </p>
+                        <button
+                          matSuffix
+                          mat-icon-button
+                          (click)="onRemoveSurgery(i)"
+                        >
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </mat-form-field>
                     </ng-container>
                   </ng-container>
 
@@ -257,9 +264,9 @@
                 </a>
               </div>
 
-              <div class="col-span-2 pb-6" formArrayName="medications">
+              <div class="col-span-2" formArrayName="medications">
                 <small class="highlight">Other Medications Taken</small>
-                <div class="grid grid-cols-12 mt-4">
+                <div class="grid grid-cols-12 mt-4 gap-2">
                   <ng-container
                     *ngFor="
                       let medication of medications.controls;
@@ -267,48 +274,37 @@
                     "
                   >
                     <ng-container [formGroupName]="i">
-                      <p class="col-span-3 pr-4">
+                      <mat-form-field class="col-span-3">
+                        <mat-label>Medication Name</mat-label>
+                        <input matInput type="text" formControlName="name" />
+                      </mat-form-field>
+                      <mat-form-field class="col-span-2">
+                        <mat-label>When</mat-label>
+                        <input matInput type="text" formControlName="when" />
+                      </mat-form-field>
+                      <mat-form-field class="col-span-2">
+                        <mat-label>Duration</mat-label>
                         <input
-                          class="table-input"
                           matInput
                           type="text"
-                          placeholder="Medication Name"
-                          formControlName="name"
-                        />
-                      </p>
-                      <p class="col-span-2 pr-4">
-                        <input
-                          class="table-input"
-                          matInput
-                          type="text"
-                          placeholder="When"
-                          formControlName="when"
-                        />
-                      </p>
-                      <p class="col-span-2 pr-4">
-                        <input
-                          class="table-input"
-                          matInput
-                          type="text"
-                          placeholder="Duration"
                           formControlName="duration"
                         />
-                      </p>
-                      <p class="col-span-4 pr-4">
+                      </mat-form-field>
+                      <mat-form-field class="col-span-5">
+                        <mat-label>Indication</mat-label>
                         <input
-                          class="table-input"
                           matInput
                           type="text"
-                          placeholder="Indication"
                           formControlName="indication"
                         />
-                      </p>
-                      <p
-                        class="col-span-1 text-right cursor-pointer"
-                        (click)="onRemoveMedication(i)"
-                      >
-                        X
-                      </p>
+                        <button
+                          matSuffix
+                          mat-icon-button
+                          (click)="onRemoveMedication(i)"
+                        >
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </mat-form-field>
                     </ng-container>
                   </ng-container>
 
@@ -322,70 +318,55 @@
                 </a>
               </div>
 
-              <div class="col-span-2 pb-6" formGroupName="obgyne">
+              <div
+                class="col-span-2"
+                formGroupName="obgyne"
+                *ngIf="parameters.sex === 'Female'"
+              >
                 <small class="highlight">OB-Gyne Hx</small>
                 <div class="grid grid-cols-12 mt-4">
                   <ng-container *ngFor="let field of LIST.obgyne_hxs_fields">
                     <ng-container *ngIf="field.fcname">
-                      <p class="col-span-4 pr-4">
+                      <mat-form-field class="col-span-4 pr-4">
+                        <mat-label>{{ field.label }}</mat-label>
                         <input
-                          class="table-input"
-                          matInput
-                          type="text"
-                          readonly
-                          value="{{ field.label }}"
-                        />
-                      </p>
-                      <p class="col-span-2 pr-4">
-                        <input
-                          class="table-input"
                           matInput
                           type="text"
                           [placeholder]="field.placeholder"
                           [formControlName]="field.fcname"
                         />
-                      </p>
-                      <p class="col-span-6 pr-4"></p>
+                      </mat-form-field>
                     </ng-container>
                     <ng-container
                       *ngIf="field.fgname"
                       [formGroupName]="field.fgname"
                     >
-                      <small class="col-span-12 mb-4 mt-2">
-                        {{ field.label }}
-                      </small>
-                      <div
-                        class="col-span-12 grid grid-cols-12"
-                        *ngFor="let fgfield of field.fcs"
-                      >
-                        <p class="col-span-4 pr-4">
-                          <input
-                            class="table-input"
-                            matInput
-                            type="text"
-                            readonly
-                            value="{{ fgfield.label }}"
-                          />
-                        </p>
-                        <p class="col-span-2 pr-4">
-                          <input
-                            class="table-input"
-                            matInput
-                            type="text"
-                            [placeholder]="fgfield.placeholder || ''"
-                            [formControlName]="fgfield.fcname"
-                          />
-                        </p>
-                        <p class="col-span-6 pr-4"></p>
+                      <div class="col-span-12 pb-2">
+                        <small class="sub-highlight">
+                          {{ field.label }}
+                        </small>
                       </div>
+
+                      <mat-form-field
+                        *ngFor="let fgfield of field.fcs"
+                        class="col-span-4 pr-4"
+                      >
+                        <mat-label>{{ fgfield.label }}</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          [placeholder]="fgfield.placeholder || ''"
+                          [formControlName]="fgfield.fcname"
+                        />
+                      </mat-form-field>
                     </ng-container>
                   </ng-container>
                 </div>
               </div>
 
-              <div class="col-span-2 pb-6" formArrayName="chronologic_ob_hxs">
+              <div class="col-span-2" formArrayName="chronologic_ob_hxs">
                 <small class="highlight">Chronologic OB Hx</small>
-                <div class="grid grid-cols-12 mt-4">
+                <div class="grid grid-cols-12 mt-2 gap-2">
                   <ng-container
                     *ngFor="
                       let chr_ob_hx of chronologic_ob_hxs.controls;
@@ -393,39 +374,30 @@
                     "
                   >
                     <ng-container [formGroupName]="i">
-                      <p class="col-span-2 pr-4">
+                      <mat-form-field class="col-span-2">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" formControlName="name" />
+                      </mat-form-field>
+                      <mat-form-field class="col-span-2">
+                        <mat-label>When</mat-label>
                         <input
-                          class="table-input"
-                          matInput
-                          type="text"
-                          placeholder="Name"
-                          formControlName="name"
-                        />
-                      </p>
-                      <p class="col-span-2 pr-4">
-                        <input
-                          class="table-input"
                           matInput
                           type="text"
                           placeholder="When"
                           formControlName="when"
                         />
-                      </p>
-                      <p class="col-span-7 pr-4">
-                        <input
-                          class="table-input"
-                          matInput
-                          type="text"
-                          placeholder="Outcome/Presense of comorbidities"
-                          formControlName="remarks"
-                        />
-                      </p>
-                      <p
-                        class="col-span-1 text-right cursor-pointer"
-                        (click)="onRemoveChronologicOB(i)"
-                      >
-                        X
-                      </p>
+                      </mat-form-field>
+                      <mat-form-field class="col-span-8">
+                        <mat-label>Outcome/Presense of comorbidities</mat-label>
+                        <input matInput type="text" formControlName="remarks" />
+                        <button
+                          matSuffix
+                          mat-icon-button
+                          (click)="onRemoveChronologicOB(i)"
+                        >
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </mat-form-field>
                     </ng-container>
                   </ng-container>
 
@@ -439,12 +411,9 @@
                 </a>
               </div>
 
-              <div
-                class="col-span-2 pb-6"
-                formArrayName="birth_control_methods"
-              >
+              <div class="col-span-2" formArrayName="birth_control_methods">
                 <small class="highlight">Birth Control Methods</small>
-                <div class="grid grid-cols-12 mt-4">
+                <div class="grid grid-cols-12 mt-2 gap-2">
                   <ng-container
                     *ngFor="
                       let birth_control_method of birth_control_methods.controls;
@@ -452,52 +421,35 @@
                     "
                   >
                     <ng-container [formGroupName]="i">
-                      <p class="col-span-3 pr-4">
+                      <mat-form-field class="col-span-3">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" formControlName="name" />
+                      </mat-form-field>
+                      <mat-form-field class="col-span-2">
+                        <mat-label>When</mat-label>
+                        <input matInput type="text" formControlName="when" />
+                      </mat-form-field>
+                      <mat-form-field class="col-span-2">
+                        <mat-label>Duration</mat-label>
                         <input
-                          class="table-input"
                           matInput
                           type="text"
-                          placeholder="Name"
-                          formControlName="name"
-                        />
-                      </p>
-                      <p class="col-span-2 pr-4">
-                        <input
-                          class="table-input"
-                          matInput
-                          type="text"
-                          placeholder="When"
-                          formControlName="when"
-                        />
-                      </p>
-                      <p class="col-span-2 pr-4">
-                        <input
-                          class="table-input"
-                          matInput
-                          type="text"
-                          placeholder="Duration"
                           formControlName="duration"
                         />
-                      </p>
-                      <p class="col-span-4 pr-4">
-                        <input
-                          class="table-input"
-                          matInput
-                          type="text"
-                          placeholder="Remarks"
-                          formControlName="remarks"
-                        />
-                      </p>
-                      <p
-                        class="col-span-1 text-right cursor-pointer"
-                        (click)="onRemoveBirthControlMethod(i)"
-                      >
-                        X
-                      </p>
+                      </mat-form-field>
+                      <mat-form-field class="col-span-5">
+                        <mat-label>Remarks</mat-label>
+                        <input matInput type="text" formControlName="remarks" />
+                        <button
+                          matSuffix
+                          mat-icon-button
+                          (click)="onRemoveBirthControlMethod(i)"
+                        >
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </mat-form-field>
                     </ng-container>
                   </ng-container>
-
-                  <!--  -->
                 </div>
                 <a
                   class="cursor-pointer hover:font-bold"
@@ -514,10 +466,10 @@
               </div>
               <div class="col-span-2">
                 <div class="col-span-12">
-                  <small> Childhood Immunization </small>
+                  <small class="sub-highlight"> Childhood Immunization </small>
                 </div>
-                <div class="grid grid-cols-12 mt-4">
-                  <p class="col-span-12 overflow-hidden pr-4">
+                <div class="grid grid-cols-12 pt-2 gap-2">
+                  <div class="col-span-12">
                     <mat-checkbox
                       [checked]="childhood.length == 0"
                       [disabled]="true"
@@ -528,7 +480,7 @@
                     <small>
                       Automatic None if there are no selected immunization
                     </small>
-                  </p>
+                  </div>
                   <ng-container formArrayName="childhood">
                     <ng-container
                       *ngFor="
@@ -537,7 +489,7 @@
                       "
                     >
                       <div
-                        class="col-span-6 overflow-hidden pr-4 pb-2"
+                        class="col-span-6 overflow-hidden"
                         [formGroupName]="i"
                       >
                         <mat-checkbox
@@ -567,15 +519,15 @@
                       </div>
                     </ng-container>
                   </ng-container>
-                  <p class="col-span-12 m-0"></p>
+                  <div class="col-span-12"></div>
                   <ng-container
                     *ngFor="
                       let immun of LIST.child_immunization_schedule;
                       let i = index
                     "
                   >
-                    <p
-                      class="col-span-6 overflow-hidden pr-4 pb-2"
+                    <div
+                      class="col-span-6 overflow-hidden"
                       *ngIf="!isChildhoodImmunizationSelected(immun.vaccine)"
                     >
                       <mat-checkbox
@@ -583,14 +535,14 @@
                       >
                         {{ immun.vaccine }}
                       </mat-checkbox>
-                    </p>
+                    </div>
                   </ng-container>
                 </div>
-                <div class="col-span-12 mt-4">
-                  <small> Adulthood Immunization </small>
+                <div class="col-span-12 pt-4">
+                  <small class="sub-highlight"> Adulthood Immunization </small>
                 </div>
-                <div class="grid grid-cols-12 mt-4">
-                  <p class="col-span-12 overflow-hidden pr-4">
+                <div class="grid grid-cols-12 pt-2 gap-2">
+                  <div class="col-span-12 overflow-hidden">
                     <mat-checkbox
                       [checked]="adulthood.length == 0"
                       [disabled]="true"
@@ -601,7 +553,7 @@
                     <small>
                       Automatic None if there are no selected immunization
                     </small>
-                  </p>
+                  </div>
                   <ng-container formArrayName="adulthood">
                     <ng-container
                       *ngFor="
@@ -610,7 +562,7 @@
                       "
                     >
                       <div
-                        class="col-span-6 overflow-hidden pr-4 pb-2"
+                        class="col-span-6 overflow-hidden"
                         [formGroupName]="i"
                       >
                         <mat-checkbox
@@ -640,15 +592,15 @@
                       </div>
                     </ng-container>
                   </ng-container>
-                  <p class="col-span-12 m-0"></p>
+                  <div class="col-span-12"></div>
                   <ng-container
                     *ngFor="
                       let immun of LIST.adult_immunization_schedule;
                       let i = index
                     "
                   >
-                    <p
-                      class="col-span-6 overflow-hidden pr-4 pb-2"
+                    <div
+                      class="col-span-6 overflow-hidden"
                       *ngIf="!isAdulthoodImmunizationSelected(immun.vaccine)"
                     >
                       <mat-checkbox
@@ -656,15 +608,21 @@
                       >
                         {{ immun.vaccine }}
                       </mat-checkbox>
-                    </p>
+                    </div>
                   </ng-container>
                 </div>
 
-                <div class="col-span-12 mt-4">
-                  <small> OB Immunization </small>
+                <div
+                  class="col-span-12 mt-4"
+                  *ngIf="parameters.sex === 'Female'"
+                >
+                  <small class="sub-highlight"> OB Immunization </small>
                 </div>
-                <div class="grid grid-cols-12 mt-4">
-                  <p class="col-span-12 overflow-hidden pr-4">
+                <div
+                  class="grid grid-cols-12 mt-4 gap-2"
+                  *ngIf="parameters.sex === 'Female'"
+                >
+                  <div class="col-span-12 overflow-hidden">
                     <mat-checkbox [checked]="ob.length == 0" [disabled]="true">
                       None
                     </mat-checkbox>
@@ -672,13 +630,13 @@
                     <small>
                       Automatic None if there are no selected immunization
                     </small>
-                  </p>
+                  </div>
                   <ng-container formArrayName="ob">
                     <ng-container
                       *ngFor="let immunx_fg of ob.controls; let i = index"
                     >
                       <div
-                        class="col-span-6 overflow-hidden pr-4 pb-2"
+                        class="col-span-6 overflow-hidden"
                         [formGroupName]="i"
                       >
                         <mat-checkbox
@@ -706,15 +664,15 @@
                       </div>
                     </ng-container>
                   </ng-container>
-                  <p class="col-span-12 m-0"></p>
+                  <div class="col-span-12"></div>
                   <ng-container
                     *ngFor="
                       let immun of LIST.ob_immunization_schedule;
                       let i = index
                     "
                   >
-                    <p
-                      class="col-span-6 overflow-hidden pr-4 pb-2"
+                    <div
+                      class="col-span-6 overflow-hidden"
                       *ngIf="!isObImmunizationSelected(immun.vaccine)"
                     >
                       <mat-checkbox
@@ -722,7 +680,7 @@
                       >
                         {{ immun.vaccine }}
                       </mat-checkbox>
-                    </p>
+                    </div>
                   </ng-container>
                 </div>
               </div>
@@ -731,16 +689,16 @@
             <div class="col-span-2">
               <small class="highlight">Family Medical Hx</small>
             </div>
-            <div class="col-span-2 pb-6" formArrayName="family_medical_hx">
+            <div class="col-span-2" formArrayName="family_medical_hx">
               <div
-                class="grid grid-cols-12"
+                class="grid grid-cols-12 gap-2"
                 *ngFor="
                   let control of family_medical_hx.controls;
                   let i = index
                 "
               >
                 <ng-container [formGroupName]="i">
-                  <div class="col-span-3 pr-4">
+                  <div class="col-span-3">
                     <p class="font-bold accent">Member #{{ i + 1 }}</p>
 
                     <p>
@@ -766,7 +724,7 @@
                   </div>
 
                   <div class="col-span-9" formGroupName="past_medical_hx">
-                    <div class="grid grid-cols-4">
+                    <div class="grid grid-cols-4 gap-2">
                       <!-- working here -->
 
                       <ng-container formArrayName="chronic_medical_conditions">
@@ -778,7 +736,7 @@
                           "
                         >
                           <div
-                            class="col-span-2 overflow-hidden pr-4 pb-2"
+                            class="col-span-2 overflow-hidden"
                             [formGroupName]="j"
                           >
                             <mat-checkbox
@@ -819,18 +777,18 @@
                           </div>
                         </ng-container>
                       </ng-container>
-                      <p
-                        class="col-span-4 m-0"
+                      <div
+                        class="col-span-4"
                         *ngIf="fmhx_chronic_medical_conditions(i).length"
-                      ></p>
+                      ></div>
                       <!-- end here -->
                       <ng-container
                         *ngFor="
                           let disease of LIST.chronic_medical_conditions_fam
                         "
                       >
-                        <p
-                          class="col-span-2 overflow-hidden pr-4 pb-2"
+                        <div
+                          class="col-span-2 overflow-hidden"
                           *ngIf="!isChronicInFamilySelected(disease, i)"
                         >
                           <mat-checkbox
@@ -840,7 +798,7 @@
                           >
                             {{ disease }}
                           </mat-checkbox>
-                        </p>
+                        </div>
                       </ng-container>
                     </div>
                   </div>
@@ -855,179 +813,191 @@
               </a>
             </div>
 
-            <div class="col-span-2 pb-6">
+            <div class="col-span-2">
               <small class="highlight">Personal-Social Hx</small>
               <div
-                class="grid grid-cols-12 mt-4"
+                class="grid grid-cols-12 mt-2 gap-2"
                 formGroupName="personal_social_hx"
               >
-                <ng-container>
-                  <p class="col-span-3 pr-2">
-                    <input
-                      type="text"
-                      matInput
-                      class="table-input"
-                      value="Smoker"
-                      readonly
-                    />
-                  </p>
-                  <ng-container formGroupName="smoker">
-                    <p class="col-span-3 pr-2">
+                <ng-container formGroupName="smoker">
+                  <div class="col-span-12">
+                    <small class="sub-highlight">Smoking</small>
+                  </div>
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                      <mat-option
+                        *ngFor="let item of LIST.ADDICTION_STATUSES"
+                        [value]="item"
+                      >
+                        {{ item }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field
+                    class="col-span-4"
+                    *ngIf="personal_social_hx_fg.value.smoker.status === 'Quit'"
+                  >
+                    <mat-label>When</mat-label>
+                    <input type="text" matInput formControlName="when_quit" />
+                  </mat-form-field>
+                  <ng-container
+                    *ngIf="personal_social_hx_fg.value.smoker.status === 'Yes'"
+                  >
+                    <mat-form-field class="col-span-4">
+                      <mat-label>Type</mat-label>
+                      <input type="text" matInput formControlName="type" />
+                    </mat-form-field>
+                    <mat-form-field class="col-span-4">
+                      <mat-label>Sticks per Day</mat-label>
                       <input
                         type="text"
                         matInput
-                        class="table-input"
-                        placeholder="Status"
-                        formControlName="status"
+                        formControlName="sticks_day"
                       />
-                    </p>
-                    <p class="col-span-3 pr-2">
+                    </mat-form-field>
+                    <mat-form-field class="col-span-4">
+                      <mat-label>Years Smoking</mat-label>
                       <input
                         type="text"
                         matInput
-                        class="table-input"
-                        placeholder="Type"
-                        formControlName="type"
+                        formControlName="sticks_day"
                       />
-                    </p>
-                    <p class="col-span-3 pr-2">
+                    </mat-form-field>
+                    <mat-form-field class="col-span-4">
+                      <mat-label>Consumption</mat-label>
                       <input
                         type="text"
                         matInput
-                        class="table-input"
-                        placeholder="Consumption"
                         formControlName="consumption"
                       />
-                    </p>
+                      <mat-hint
+                        >(Sticks per Day x Years Smoking) / 20
+                      </mat-hint>
+                    </mat-form-field>
                   </ng-container>
                 </ng-container>
 
-                <ng-container>
-                  <p class="col-span-3 pr-2">
-                    <input
-                      type="text"
-                      matInput
-                      class="table-input"
-                      value="Alcohol"
-                      readonly
-                    />
-                  </p>
-                  <ng-container formGroupName="alcohol">
-                    <p class="col-span-3 pr-2">
+                <ng-container formGroupName="alcohol">
+                  <div class="col-span-12">
+                    <small class="sub-highlight">Alcohol</small>
+                  </div>
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                      <mat-option
+                        *ngFor="let item of LIST.ADDICTION_STATUSES"
+                        [value]="item"
+                      >
+                        {{ item }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field
+                    class="col-span-4"
+                    *ngIf="
+                      personal_social_hx_fg.value.alcohol.status === 'Quit'
+                    "
+                  >
+                    <mat-label>When</mat-label>
+                    <input type="text" matInput formControlName="when_quit" />
+                  </mat-form-field>
+                  <ng-container
+                    *ngIf="personal_social_hx_fg.value.alcohol.status === 'Yes'"
+                  >
+                    <mat-form-field class="col-span-4">
+                      <mat-label>Type</mat-label>
+                      <input type="text" matInput formControlName="type" />
+                    </mat-form-field>
+                    <mat-form-field class="col-span-4">
+                      <mat-label>Consumption</mat-label>
                       <input
                         type="text"
                         matInput
-                        class="table-input"
-                        placeholder="Status"
-                        formControlName="status"
-                      />
-                    </p>
-                    <p class="col-span-3 pr-2">
-                      <input
-                        type="text"
-                        matInput
-                        class="table-input"
-                        placeholder="Type"
-                        formControlName="type"
-                      />
-                    </p>
-                    <p class="col-span-3 pr-2">
-                      <input
-                        type="text"
-                        matInput
-                        class="table-input"
-                        placeholder="Consumption"
                         formControlName="consumption"
                       />
-                    </p>
-                  </ng-container>
-                </ng-container>
-                <ng-container>
-                  <p class="col-span-3 pr-2">
-                    <input
-                      type="text"
-                      matInput
-                      class="table-input"
-                      value="Drug"
-                      readonly
-                    />
-                  </p>
-                  <ng-container formGroupName="drug">
-                    <p class="col-span-3 pr-2">
-                      <input
-                        type="text"
-                        matInput
-                        class="table-input"
-                        placeholder="Status"
-                        formControlName="status"
-                      />
-                    </p>
-                    <p class="col-span-3 pr-2">
-                      <input
-                        type="text"
-                        matInput
-                        class="table-input"
-                        placeholder="Type"
-                        formControlName="type"
-                      />
-                    </p>
-                    <p class="col-span-3 pr-2">
-                      <input
-                        type="text"
-                        matInput
-                        class="table-input"
-                        placeholder="Consumption"
-                        formControlName="consumption"
-                      />
-                    </p>
+                    </mat-form-field>
                   </ng-container>
                 </ng-container>
 
-                <ng-container>
-                  <p class="col-span-3 pr-2">
-                    <input
-                      type="text"
-                      matInput
-                      class="table-input"
-                      value="Sexual Activity"
-                      readonly
-                    />
-                  </p>
-                  <ng-container formGroupName="sexual_activity">
-                    <p class="col-span-3 pr-2">
+                <ng-container formGroupName="drug">
+                  <div class="col-span-12">
+                    <small class="sub-highlight">Drugs</small>
+                  </div>
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                      <mat-option
+                        *ngFor="let item of LIST.ADDICTION_STATUSES"
+                        [value]="item"
+                      >
+                        {{ item }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field
+                    class="col-span-4"
+                    *ngIf="personal_social_hx_fg.value.drug.status === 'Quit'"
+                  >
+                    <mat-label>When</mat-label>
+                    <input type="text" matInput formControlName="when_quit" />
+                  </mat-form-field>
+                  <ng-container
+                    *ngIf="personal_social_hx_fg.value.drug.status === 'Yes'"
+                  >
+                    <mat-form-field class="col-span-4">
+                      <mat-label>Type</mat-label>
+                      <input type="text" matInput formControlName="type" />
+                    </mat-form-field>
+                    <mat-form-field class="col-span-4">
+                      <mat-label>Consumption</mat-label>
                       <input
                         type="text"
                         matInput
-                        class="table-input"
-                        placeholder="Status"
-                        formControlName="status"
+                        formControlName="consumption"
                       />
-                    </p>
-                    <p class="col-span-3 pr-2">
-                      <input
-                        type="text"
-                        matInput
-                        class="table-input"
-                        placeholder="Multiple Partner?"
-                        formControlName="is_multiple_partner"
-                      />
-                    </p>
-                    <p class="col-span-3 pr-2"></p>
+                    </mat-form-field>
                   </ng-container>
                 </ng-container>
+
+                <ng-container formGroupName="sexual_activity">
+                  <div class="col-span-12">
+                    <small class="sub-highlight">Sexual Activity</small>
+                  </div>
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                      <mat-option
+                        *ngFor="let item of LIST.YES_NO"
+                        [value]="item"
+                      >
+                        {{ item }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div
+                    class="col-span-4"
+                    *ngIf="
+                      personal_social_hx_fg.value.sexual_activity.status ===
+                      'Yes'
+                    "
+                  >
+                    <mat-checkbox
+                      formControlName="is_multiple_partner"
+                      class="pt-[10px] pl-[10px]"
+                    >
+                      is Multiple Partner?
+                    </mat-checkbox>
+                  </div>
+                </ng-container>
+
                 <ng-container>
-                  <p class="col-span-12 my-2"></p>
-                  <p class="col-span-3 pr-2">
-                    <input
-                      type="text"
-                      matInput
-                      class="table-input"
-                      value="Physical Activity"
-                      readonly
-                    />
-                  </p>
+                  <div class="col-span-12">
+                    <small class="sub-highlight">Physical Activity</small>
+                  </div>
+
                   <ng-container formArrayName="physical_activities">
-                    <div class="col-span-9 pr-2 grid grid-cols-12">
+                    <div class="col-span-12 grid grid-cols-12 gap-2">
                       <ng-container
                         *ngFor="
                           let control of physical_activities.controls;
@@ -1035,38 +1005,34 @@
                         "
                         [formGroupName]="i"
                       >
-                        <p class="col-span-5 pr-2">
+                        <mat-form-field class="col-span-6">
+                          <mat-label>Type</mat-label>
+                          <input type="text" matInput formControlName="type" />
+                        </mat-form-field>
+                        <mat-form-field class="col-span-6">
+                          <mat-label>Hours per Week</mat-label>
                           <input
                             type="text"
                             matInput
-                            class="table-input"
-                            formControlName="type"
-                            placeholder="Type"
-                          />
-                        </p>
-                        <p class="col-span-6">
-                          <input
-                            type="text"
-                            matInput
-                            class="table-input"
                             formControlName="hours_per_week"
                             placeholder="Hours/Week"
                           />
-                        </p>
-                        <p
-                          class="col-span-1 text-right cursor-pointer"
-                          (click)="onRemovePhysicalActivity(i)"
-                        >
-                          X
-                        </p>
+                          <button
+                            matSuffix
+                            mat-icon-button
+                            (click)="onRemovePhysicalActivity(i)"
+                          >
+                            <mat-icon>close</mat-icon>
+                          </button>
+                        </mat-form-field>
                       </ng-container>
 
-                      <div class="underline-add col-span-12">
+                      <div class="col-span-12">
                         <a
                           (click)="onAddPhysicalActivity()"
                           class="cursor-pointer hover:font-bold"
                         >
-                          + Add
+                          + Add Physical Activity
                         </a>
                       </div>
                     </div>
@@ -1074,278 +1040,194 @@
                 </ng-container>
 
                 <ng-container>
-                  <p class="col-span-12 my-2"></p>
-                  <p class="col-span-3 pr-2">
-                    <input
-                      type="text"
-                      matInput
-                      class="table-input"
-                      value="Dietary Hx"
-                      readonly
-                    />
-                  </p>
+                  <div class="col-span-12">
+                    <small class="sub-highlight">Dietary Hx</small>
+                  </div>
+
                   <ng-container formArrayName="dietary_hx">
-                    <div class="col-span-9 pr-2 grid grid-cols-12">
-                      <ng-container
-                        *ngFor="
-                          let control of dietary_hx.controls;
-                          let i = index
-                        "
-                        [formGroupName]="i"
-                      >
-                        <p class="col-span-5 pr-2">
-                          <input
-                            type="text"
-                            matInput
-                            class="table-input"
-                            formControlName="type"
-                            placeholder="Type"
-                          />
-                        </p>
-                        <p class="col-span-6">
-                          <input
-                            type="text"
-                            matInput
-                            class="table-input"
-                            formControlName="duration"
-                            placeholder="Duration"
-                          />
-                        </p>
-                        <p
-                          class="col-span-1 text-right cursor-pointer"
+                    <ng-container
+                      *ngFor="let control of dietary_hx.controls; let i = index"
+                      [formGroupName]="i"
+                    >
+                      <mat-form-field class="col-span-6">
+                        <mat-label>Type</mat-label>
+                        <input type="text" matInput formControlName="type" />
+                      </mat-form-field>
+                      <mat-form-field class="col-span-6">
+                        <mat-label>Duration</mat-label>
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="duration"
+                        />
+                        <button
+                          matSuffix
+                          mat-icon-button
                           (click)="onRemoveDietaryHx(i)"
                         >
-                          X
-                        </p>
-                      </ng-container>
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </mat-form-field>
+                    </ng-container>
 
-                      <div class="underline-add col-span-12">
-                        <a
-                          (click)="onAddDietaryHx()"
-                          class="cursor-pointer hover:font-bold"
-                        >
-                          + Add
-                        </a>
-                      </div>
+                    <div class="col-span-12">
+                      <a
+                        (click)="onAddDietaryHx()"
+                        class="cursor-pointer hover:font-bold"
+                      >
+                        + Add Diet
+                      </a>
                     </div>
                   </ng-container>
                 </ng-container>
 
                 <ng-container>
-                  <p class="col-span-12 my-2"></p>
-                  <p class="col-span-3 pr-2">
-                    <input
-                      type="text"
-                      matInput
-                      class="table-input"
-                      value="Carbonated Drinks"
-                      readonly
-                    />
-                  </p>
+                  <div class="col-span-12">
+                    <small class="sub-highlight">Carbonated Drinks</small>
+                  </div>
+
                   <ng-container formArrayName="carbonated_drinks">
-                    <div class="col-span-9 pr-2 grid grid-cols-12">
-                      <ng-container
-                        *ngFor="
-                          let control of carbonated_drinks.controls;
-                          let i = index
-                        "
-                        [formGroupName]="i"
-                      >
-                        <p class="col-span-5 pr-2">
-                          <input
-                            type="text"
-                            matInput
-                            class="table-input"
-                            formControlName="type"
-                            placeholder="Type"
-                          />
-                        </p>
-                        <p class="col-span-6">
-                          <input
-                            type="text"
-                            matInput
-                            class="table-input"
-                            formControlName="hours_per_week"
-                            placeholder="Hours/Week"
-                          />
-                        </p>
-                        <p
-                          class="col-span-1 text-right cursor-pointer"
+                    <ng-container
+                      *ngFor="
+                        let control of carbonated_drinks.controls;
+                        let i = index
+                      "
+                      [formGroupName]="i"
+                    >
+                      <mat-form-field class="col-span-6">
+                        <mat-label>Type</mat-label>
+                        <input type="text" matInput formControlName="type" />
+                      </mat-form-field>
+                      <mat-form-field class="col-span-6">
+                        <mat-label>Hours per Week</mat-label>
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="hours_per_week"
+                        />
+                        <button
+                          matSuffix
+                          mat-icon-button
                           (click)="onRemoveCarbonatedDrink(i)"
                         >
-                          X
-                        </p>
-                      </ng-container>
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </mat-form-field>
+                    </ng-container>
 
-                      <div class="underline-add col-span-12">
-                        <a
-                          (click)="onAddCarbonatedDrink()"
-                          class="cursor-pointer hover:font-bold"
-                        >
-                          + Add
-                        </a>
-                      </div>
+                    <div class="col-span-12">
+                      <a
+                        (click)="onAddCarbonatedDrink()"
+                        class="cursor-pointer hover:font-bold"
+                      >
+                        + Add Carbonated Drink
+                      </a>
                     </div>
                   </ng-container>
                 </ng-container>
 
-                <ng-container>
-                  <p class="col-span-12 my-2"></p>
-                  <p class="col-span-3 pr-2">
+                <ng-container formGroupName="living_condition">
+                  <div class="col-span-12">
+                    <small class="sub-highlight">Living Condition</small>
+                  </div>
+
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Living Area</mat-label>
+                    <input type="text" matInput formControlName="living_area" />
+                  </mat-form-field>
+
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Type of House</mat-label>
                     <input
                       type="text"
                       matInput
-                      class="table-input"
-                      value="Living Conditions"
-                      readonly
+                      formControlName="type_of_house"
                     />
-                  </p>
-                  <ng-container formGroupName="living_condition">
-                    <div class="col-span-9 pr-2">
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          placeholder="Living Area"
-                          formControlName="living_area"
-                        />
-                      </p>
-                      <!--  -->
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          placeholder="Type of House"
-                          formControlName="type_of_house"
-                        />
-                      </p>
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          placeholder="House Populated"
-                          formControlName="how_populated"
-                        />
-                      </p>
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          placeholder="Ventilation"
-                          formControlName="ventilation"
-                        />
-                      </p>
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          placeholder="Water Source"
-                          formControlName="water"
-                        />
-                      </p>
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          placeholder="Toilet Type"
-                          formControlName="toilet"
-                        />
-                      </p>
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          placeholder="Sewage"
-                          formControlName="sewage"
-                        />
-                      </p>
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          placeholder="Garbage Disposal"
-                          formControlName="garbage_disposal"
-                        />
-                      </p>
-                    </div>
-                  </ng-container>
+                  </mat-form-field>
+                  <mat-form-field class="col-span-4">
+                    <mat-label>House Populated</mat-label>
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="how_populated"
+                    />
+                  </mat-form-field>
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Ventilation</mat-label>
+                    <input type="text" matInput formControlName="ventilation" />
+                  </mat-form-field>
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Water Source</mat-label>
+                    <input type="text" matInput formControlName="water" />
+                  </mat-form-field>
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Toilet Type</mat-label>
+                    <input type="text" matInput formControlName="toilet" />
+                  </mat-form-field>
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Sewage</mat-label>
+                    <input type="text" matInput formControlName="sewage" />
+                  </mat-form-field>
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Garbage Disposal</mat-label>
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="garbage_disposal"
+                    />
+                  </mat-form-field>
                 </ng-container>
 
-                <ng-container>
-                  <p class="col-span-12 my-2"></p>
-                  <p class="col-span-3 pr-2">
-                    <input
-                      type="text"
-                      matInput
-                      class="table-input"
-                      value="Occupational Hx"
-                      readonly
-                    />
-                  </p>
-                  <ng-container formGroupName="occupational_hx">
-                    <div class="col-span-9 pr-2">
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          placeholder="Work"
-                          formControlName="work"
-                        />
-                      </p>
-                      <!--  -->
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          placeholder="Description"
-                          formControlName="description"
-                        />
-                      </p>
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          placeholder="Hazards"
-                          formControlName="hazards"
-                        />
-                      </p>
-                    </div>
-                  </ng-container>
+                <ng-container formGroupName="occupational_hx">
+                  <div class="col-span-12">
+                    <small class="sub-highlight">Living Condition</small>
+                  </div>
+
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Work</mat-label>
+                    <input type="text" matInput formControlName="work" />
+                  </mat-form-field>
+                  <!--  -->
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Description</mat-label>
+                    <input type="text" matInput formControlName="description" />
+                  </mat-form-field>
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Hazards</mat-label>
+                    <input type="text" matInput formControlName="hazards" />
+                  </mat-form-field>
                 </ng-container>
               </div>
             </div>
 
-            <div class="col-span-2 pb-6">
+            <div class="col-span-2">
               <small class="highlight">Review of System</small>
               <div
                 class="grid grid-cols-12 mt-4"
                 formGroupName="review_of_system"
               >
                 <ng-container *ngFor="let field of LIST.ros_fields">
-                  <p class="col-span-12">
-                    <small>{{ field.label }}</small>
-                  </p>
-                  <div class="col-span-12 grid grid-cols-2">
-                    <p class="col-span-1" *ngFor="let item of field.choices">
-                      <mat-checkbox
-                        (change)="ros_change(item, field.fcname)"
-                        [checked]="isChecked(item, field.fcname)"
-                      >
-                        {{ item }}
-                      </mat-checkbox>
+                  <ng-container
+                    *ngIf="
+                      field.label != 'Menstrual Hx' ||
+                      (field.label == 'Menstrual Hx' &&
+                        parameters.sex === 'Female')
+                    "
+                  >
+                    <p class="col-span-12">
+                      <small class="sub-highlight">{{ field.label }}</small>
                     </p>
-                  </div>
+                    <div class="col-span-12 grid grid-cols-2">
+                      <p class="col-span-1" *ngFor="let item of field.choices">
+                        <mat-checkbox
+                          (change)="ros_change(item, field.fcname)"
+                          [checked]="isChecked(item, field.fcname)"
+                        >
+                          {{ item }}
+                        </mat-checkbox>
+                      </p>
+                    </div></ng-container
+                  >
                 </ng-container>
               </div>
             </div>
@@ -1362,28 +1244,37 @@
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
           <div class="grid grid-cols-2" [formGroupName]="'objective'">
-            <div class="col-span-2 pb-6 grid grid-cols-12 mt-4">
+            <div class="col-span-2 grid grid-cols-12 gap-2">
               <ng-container *ngFor="let field of LIST.objective_fields">
-                <p class="col-span-12">
-                  <small>{{ field.label }}</small>
-                </p>
+                <div class="col-span-12">
+                  <small class="highlight">{{ field.label }}</small>
+                </div>
                 <ng-container [formGroupName]="field.fgname">
                   <ng-container *ngFor="let control of field.fcs">
-                    <div class="col-span-5">
-                      <p>{{ control.label }}</p>
-                    </div>
-                    <div class="col-span-7">
-                      <p>
-                        <input
-                          type="text"
-                          matInput
-                          class="table-input"
-                          [formControlName]="control.fcname"
-                        />
-                      </p>
-                    </div>
+                    <mat-form-field class="col-span-3">
+                      <mat-label>{{ control.label }}</mat-label>
+                      <input
+                        type="text"
+                        matInput
+                        [formControlName]="control.fcname"
+                      />
+                    </mat-form-field>
                   </ng-container>
                 </ng-container>
+              </ng-container>
+              <div class="col-span-12">
+                <small class="highlight">Per System Report</small>
+              </div>
+              <ng-container *ngFor="let field of LIST.per_system_reports">
+                <div class="col-span-12">
+                  <small class="sub-highlight">{{ field.system }}</small>
+                </div>
+                <div class="col-span-12">
+                  <mat-checkbox>Essentially Normal</mat-checkbox>
+                </div>
+                <div class="col-span-6" *ngFor="let f of field.findings">
+                  <mat-checkbox>{{ f }}</mat-checkbox>
+                </div>
               </ng-container>
             </div>
           </div>
@@ -1423,29 +1314,52 @@
                   >
                     <mat-icon>add</mat-icon>
                   </button>
-                  <mat-hint>
-                    Use the search bar to select specific diagnosis. Click "+"
-                    button to add blank diagnosis.
-                  </mat-hint>
                 </mat-form-field>
               </div>
               <div class="col-span-12" *ngIf="diagnoses.value.length">
-                <small>Diagnosis</small>
+                <small class="highlight">Diagnosis</small>
               </div>
 
               <ng-container
                 *ngFor="let cmc_form of diagnoses.controls; let i = index"
               >
                 <ng-container [formGroupName]="i">
-                  <div class="col-span-6">
+                  <div
+                    class="col-span-{{
+                      diagnoses.at(i).value.isSpecify ? 4 : 8
+                    }}"
+                  >
                     <mat-form-field class="w-full">
                       <mat-label>ICD Code</mat-label>
                       <input matInput type="text" formControlName="icd_code" />
-                      <mat-hint>Not specified in the ICD </mat-hint>
+                      <button
+                        matSuffix
+                        mat-icon-button
+                        (click)="updateSpecify(i)"
+                        matTooltip="Add Specify"
+                      >
+                        <mat-icon
+                          >radio_button_{{
+                            diagnoses.at(i).value.isSpecify
+                              ? "checked"
+                              : "unchecked"
+                          }}</mat-icon
+                        >
+                      </button>
                     </mat-form-field>
                   </div>
 
-                  <div class="col-span-6">
+                  <div
+                    class="col-span-4"
+                    *ngIf="diagnoses.at(i).value.isSpecify"
+                  >
+                    <mat-form-field class="w-full">
+                      <mat-label>Specify</mat-label>
+                      <input matInput type="text" formControlName="specify" />
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-span-4">
                     <mat-form-field class="w-full">
                       <mat-label>Status</mat-label>
                       <mat-select formControlName="status">
@@ -1468,6 +1382,10 @@
                   </div>
                 </ng-container>
               </ng-container>
+
+              <div class="col-span-12">
+                <small class="highlight">Existing Condition/s</small>
+              </div>
             </div>
           </div>
         </ng-template>
@@ -1482,10 +1400,99 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
-          <div class="grid grid-cols-2 pb-4" [formGroupName]="'assessment'">
+          <div class="grid grid-cols-2 pb-4" [formGroupName]="'plan'">
             <mat-form-field class="col-span-12">
-              <textarea matInput fr></textarea>
+              <mat-label>Notes</mat-label>
+              <textarea matInput></textarea>
             </mat-form-field>
+
+            <div class="col-span-12">
+              <small class="highlight">Diagnostics</small>
+            </div>
+            <ng-container formArrayName="diagnostics">
+              <ng-container
+                *ngFor="let diagnostic of diagnostics.controls; let i = index"
+              >
+                <p class="col-span-12 font-bold pt-6">
+                  {{ diagnostics.at(i).value.icd_code || "E11.1 Asthma" }}
+                </p>
+                <div class="col-span-12 grid grid-cols-12 gap-2">
+                  <ng-container *ngFor="let item of LIST.DIAGNOSTICS">
+                    <div class="col-span-4">
+                      <mat-checkbox>
+                        {{ item }}
+                      </mat-checkbox>
+                    </div>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </ng-container>
+
+            <div class="col-span-12 pt-6 pb-2">
+              <small class="highlight">Medicines</small>
+            </div>
+
+            <mat-form-field class="col-span-12">
+              <mat-label>Search for Drug</mat-label>
+              <input type="text" matInput />
+              <button matSuffix mat-icon-button (click)="onAddMedicine()">
+                <mat-icon>add</mat-icon>
+              </button>
+              <mat-hint>Click add add to the medicine.</mat-hint>
+            </mat-form-field>
+            <ng-container formArrayName="medicines">
+              <ng-container
+                *ngFor="let meds of medicines.controls; let i = index"
+              >
+                <div
+                  class="col-span-12 grid grid-cols-12 gap-2"
+                  [formGroupName]="i"
+                >
+                  <div class="col-span-12 pt-6 flex justify-between">
+                    <p class="font-bold">Inhaler, 5mg</p>
+                    <mat-icon class="opacity-50" matTooltip="Pin to Dx">
+                      push_pin
+                    </mat-icon>
+                  </div>
+                  <div class="col-span-6">
+                    <input
+                      class="table-input"
+                      type="text"
+                      placeholder="Dose"
+                      matInput
+                      formControlName="dose"
+                    />
+                  </div>
+                  <div class="col-span-6">
+                    <input
+                      class="table-input"
+                      type="text"
+                      placeholder="# to be Dispense"
+                      matInput
+                      formControlName="dispense_no"
+                    />
+                  </div>
+                  <div class="col-span-12">
+                    <textarea
+                      class="table-input"
+                      matInput
+                      rows="4"
+                      placeholder="Preparation"
+                      formControlName="preparation"
+                    ></textarea>
+                  </div>
+                  <div class="col-span-12">
+                    <textarea
+                      class="table-input"
+                      matInput
+                      rows="4"
+                      placeholder="Sig."
+                      formControlName="sig"
+                    ></textarea>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
           </div>
         </ng-template>
       </mat-expansion-panel>

@@ -408,7 +408,6 @@ export const per_system_reports = [
   {
     system: 'HEENT',
     findings: [
-      'Essentially Normal',
       'Abnormal Pupillary Reaction',
       'CLAD',
       'Dry Mucous Membrane',
@@ -420,7 +419,6 @@ export const per_system_reports = [
   {
     system: 'Chest/Breast/Lungs',
     findings: [
-      'Essentially Normal',
       'Assymetrical Expansion',
       'Decreased Breath Sounds',
       'Wheezes',
@@ -433,7 +431,6 @@ export const per_system_reports = [
   {
     system: 'Heart',
     findings: [
-      'Essentially Normal',
       'Displaced Apex Beat',
       'Heaves/ Thrills',
       'Irregular rhythm',
@@ -446,7 +443,6 @@ export const per_system_reports = [
   {
     system: 'Abdomen',
     findings: [
-      'Essentially Normal',
       'Rigid',
       'Tenderness',
       'Hyperactive Bowel Sounds',
@@ -459,7 +455,6 @@ export const per_system_reports = [
   {
     system: 'Genitourinary',
     findings: [
-      'Essentially Normal',
       'Blood stained',
       'Cervical dilatation',
       'Abnormal discharge',
@@ -469,7 +464,6 @@ export const per_system_reports = [
   {
     system: 'DRE',
     findings: [
-      'Essentially Normal',
       'Enlarged Prostate',
       'Mass',
       'Hemorrhoids',
@@ -757,36 +751,6 @@ export const objective_fields = [
       },
     ],
   },
-  {
-    label: 'Per System Report',
-    fgname: 'per_system_report',
-    fcs: [
-      {
-        label: 'HEENT',
-        fcname: 'heent',
-      },
-      {
-        label: 'Chest',
-        fcname: 'chest',
-      },
-      {
-        label: 'Heart',
-        fcname: 'heart',
-      },
-      {
-        label: 'Abdomen',
-        fcname: 'abdomen',
-      },
-      {
-        label: 'Genitourinary',
-        fcname: 'genitourinary',
-      },
-      {
-        label: 'DRE',
-        fcname: 'dre',
-      },
-    ],
-  },
 ];
 
 export const formArrays = [
@@ -863,6 +827,17 @@ export const formArrays = [
   },
 
   {
+    fa: 'diagnostics',
+    fg: 'diagnostic_fg',
+    path: 'plan.diagnostics',
+  },
+  {
+    fa: 'medicines',
+    fg: 'medicine_fg',
+    path: 'plan.medicines',
+  },
+
+  {
     fa: 'constitutional',
     path: 'subjective.review_of_system.constitutional',
   },
@@ -921,3 +896,16 @@ export const formArrays = [
 ];
 
 export const DIAGNOSIS_STATUSES = ['Uncontrolled', 'Controlled', 'Resolved'];
+
+export const DIAGNOSTICS = [
+  'Chest X-Ray',
+  'Fecalysis',
+  'Urinalysis',
+  'ECG',
+  'Ultrasound',
+  'MRI',
+];
+
+export const ADDICTION_STATUSES = ['Yes', 'No', 'Quit'];
+
+export const YES_NO = ['Yes', 'No'];

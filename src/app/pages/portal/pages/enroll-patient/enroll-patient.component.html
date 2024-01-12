@@ -145,6 +145,7 @@
                     [matAutocomplete]="reg_auto"
                   />
                   <mat-autocomplete
+                    (optionSelected)="regSelected()"
                     #reg_auto="matAutocomplete"
                     [displayWith]="displayFn"
                   >
@@ -164,6 +165,7 @@
                     [matAutocomplete]="prov_auto"
                   />
                   <mat-autocomplete
+                    (optionSelected)="provSelected()"
                     #prov_auto="matAutocomplete"
                     [displayWith]="displayFn"
                   >
@@ -187,6 +189,7 @@
                     [matAutocomplete]="cityMun_auto"
                   />
                   <mat-autocomplete
+                    (optionSelected)="citymunSelected()"
                     #cityMun_auto="matAutocomplete"
                     [displayWith]="displayFn"
                   >
@@ -560,13 +563,13 @@
               {{
                 summary.profile.address.address1 +
                   ", Brgy. " +
-                  summary.profile.address.brgy.name +
+                  summary.profile.address.brgy?.name +
                   " " +
-                  summary.profile.address.cityMun.name +
+                  summary.profile.address.cityMun?.name +
                   " " +
-                  summary.profile.address.prov.name +
+                  summary.profile.address.prov?.name +
                   " " +
-                  summary.profile.address.reg.name
+                  summary.profile.address.reg?.name
               }}
             </p>
           </div>
@@ -628,13 +631,13 @@
                 {{
                   summary.guardian.address.address1 +
                     ", Brgy. " +
-                    summary.guardian.address.brgy.name +
+                    summary.guardian.address.brgy?.name +
                     " " +
-                    summary.guardian.address.cityMun.name +
+                    summary.guardian.address.cityMun?.name +
                     " " +
-                    summary.guardian.address.prov.name +
+                    summary.guardian.address.prov?.name +
                     " " +
-                    summary.guardian.address.reg.name
+                    summary.guardian.address.reg?.name
                 }}
               </p>
             </div>
@@ -644,8 +647,13 @@
         <div class="pt-4 flex justify-between">
           <button mat-raised-button matStepperPrevious>Back</button>
           <div>
-            <button mat-raised-button color="primary">
-              Save to DB and Proceed to SOAP
+            <button
+              mat-raised-button
+              [color]="isSavedToDb ? 'accent' : 'primary'"
+              [disabled]="disableSaveBtn"
+              (click)="saveToDBandProceedToSOAP()"
+            >
+              {{ savingMsg || "Save to DB and Proceed to SOAP" }}
             </button>
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>more_vert</mat-icon>
@@ -658,7 +666,7 @@
       </mat-step>
     </mat-stepper>
   </div>
-  <div class="col-span-5">
-    <app-soap></app-soap>
+  <div class="col-span-5" *ngIf="isSavedToDb">
+    <app-soap [parameters]="soapParameters"></app-soap>
   </div>
 </div>

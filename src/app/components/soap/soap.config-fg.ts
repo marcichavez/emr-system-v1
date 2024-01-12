@@ -6,6 +6,7 @@ export function chronic_medical_condition_fg(name: string = '') {
     when: new FormControl('', [Validators.required]),
     medication: new FormControl('', [Validators.required]),
     diagnostic_performed: new FormControl('', [Validators.required]),
+    is_existing: new FormControl(false),
   });
 }
 
@@ -98,16 +99,10 @@ export function family_medical_hx_fg() {
 export function diagnosis_fg() {
   return new FormGroup({
     icd_code: new FormControl('', [Validators.required]),
-    is_unspecified: new FormControl(''),
+    specify: new FormControl(''),
+    isSpecify: new FormControl(false),
     status: new FormControl('', [Validators.required]),
-    medicines: new FormArray([]),
-  });
-}
-
-export function diagnostic_fg() {
-  return new FormGroup({
-    icd: new FormArray([]),
-    diagnostic: new FormArray([]),
+    medicines: new FormArray([]), // pin diagnosis
   });
 }
 
@@ -118,5 +113,12 @@ export function medicine_fg() {
     preparation: new FormControl(),
     dispense_no: new FormControl(),
     sig: new FormControl(),
+  });
+}
+
+export function diagnostic_fg() {
+  return new FormGroup({
+    icd_code: new FormControl(''),
+    diagnostics: new FormArray([]),
   });
 }

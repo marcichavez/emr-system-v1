@@ -39,6 +39,17 @@
   color: $primary !important;
 }
 
+.sub-highlight {
+  color: $light-gray !important;
+}
+
+.highlight,
+.sub-highlight {
+  border-left: 18px solid;
+  padding-left: 9px;
+  margin-left: -26px;
+}
+
 mat-select .table-input {
   height: 20px;
   font-size: 15px;

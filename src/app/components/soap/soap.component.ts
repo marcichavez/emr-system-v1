@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { soap } from './soap.config';
 import * as SubFG from './soap.config-fg';
 import * as LIST from './soap.list';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-soap',
@@ -10,6 +10,14 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./soap.component.scss'],
 })
 export class SoapComponent implements OnInit {
+  @Input() parameters = {
+    sex: '',
+    age: { years: 0, months: 0, days: 0 },
+    encounter: {
+      payor: '',
+      atc: '',
+    },
+  };
   LIST = LIST;
   soapForm = soap;
 
@@ -130,26 +138,36 @@ export class SoapComponent implements OnInit {
     return this.subjective_fg.get('family_medical_hx') as FormArray;
   }
 
-  personal_social_hx = this.subjective_fg.get(
+  personal_social_hx_fg = this.subjective_fg.get(
     'personal_social_hx'
   ) as FormGroup;
 
   get physical_activities() {
-    return this.personal_social_hx.get('physical_activities') as FormArray;
+    return this.personal_social_hx_fg.get('physical_activities') as FormArray;
   }
 
   get dietary_hx() {
-    return this.personal_social_hx.get('dietary_hx') as FormArray;
+    return this.personal_social_hx_fg.get('dietary_hx') as FormArray;
   }
 
   get carbonated_drinks() {
-    return this.personal_social_hx.get('carbonated_drinks') as FormArray;
+    return this.personal_social_hx_fg.get('carbonated_drinks') as FormArray;
   }
 
   assessment_fg = this.soapForm.get('assessment') as FormGroup;
 
   get diagnoses() {
     return this.assessment_fg.get('diagnoses') as FormArray;
+  }
+
+  plan_fg = this.soapForm.get('plan') as FormGroup;
+
+  get diagnostics() {
+    return this.plan_fg.get('diagnostics') as FormArray;
+  }
+
+  get medicines() {
+    return this.plan_fg.get('medicines') as FormArray;
   }
 
   fmhx_chronic_medical_conditions(i: number) {
@@ -235,15 +253,26 @@ export class SoapComponent implements OnInit {
 
   onAddDiagnosis() {
     this.diagnoses.push(SubFG.diagnosis_fg());
+    this.diagnostics.push(SubFG.diagnostic_fg());
   }
 
   onRemoveDiagnosis(i: number) {
     this.diagnoses.removeAt(i);
+    this.diagnostics.removeAt(i);
+  }
+
+  onAddMedicine() {
+    this.medicines.push(SubFG.medicine_fg());
+  }
+
+  onRemoveMedicine(i: number) {
+    this.medicines.removeAt(i);
   }
 
   showValue() {
     console.log({
       soap: this.soapForm,
+      parameters: this.parameters,
     });
   }
 
@@ -280,6 +309,7 @@ export class SoapComponent implements OnInit {
   autofillForm() {
     if (localStorage.getItem('soap')) {
       var soap = JSON.parse(localStorage.getItem('soap') || '{}');
+
       if (soap) {
         this.soapForm.patchValue(soap);
         // for formarrays
@@ -332,5 +362,15 @@ export class SoapComponent implements OnInit {
     var fa = this.review_of_system?.get(formArrayStr) as FormArray;
     if (fa.value) return fa.value.findIndex((o: string) => o == value) >= 0;
     return false;
+  }
+
+  updateSpecify(i: number) {
+    this.diagnoses
+      .at(i)
+      .get('isSpecify')
+      ?.setValue(!this.diagnoses.at(i).get('isSpecify')?.value);
+    if (this.diagnoses.at(i).get('isSpecify')?.value) {
+      this.diagnoses.at(i).get('specify')?.setValidators(Validators.required);
+    }
   }
 }

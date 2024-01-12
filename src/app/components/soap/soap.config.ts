@@ -42,21 +42,26 @@ export const soap = new FormGroup({
       smoker: new FormGroup({
         status: new FormControl(''),
         type: new FormControl(''),
+        sticks_day: new FormControl(''),
+        no_years: new FormControl(''),
         consumption: new FormControl(''), // per year
+        when_quit: new FormControl(''),
       }),
       alcohol: new FormGroup({
         status: new FormControl(''),
         type: new FormControl(''),
         consumption: new FormControl(''), // monthly
+        when_quit: new FormControl(''),
       }),
       drug: new FormGroup({
         status: new FormControl(''),
         type: new FormControl(''),
         consumption: new FormControl(''), // monthly
+        when_quit: new FormControl(''),
       }),
       sexual_activity: new FormGroup({
         status: new FormControl(''),
-        is_multiple_partner: new FormControl(''),
+        is_multiple_partner: new FormControl(false),
       }),
       physical_activities: new FormArray([]),
       dietary_hx: new FormArray([]),

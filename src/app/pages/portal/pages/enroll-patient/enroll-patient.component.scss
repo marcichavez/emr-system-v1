@@ -43,3 +43,9 @@ input {
   color: $gray;
   opacity: 0.7;
 }
+
+.floating-fab {
+  position: fixed;
+  right: 0em;
+  bottom: 2em;
+}

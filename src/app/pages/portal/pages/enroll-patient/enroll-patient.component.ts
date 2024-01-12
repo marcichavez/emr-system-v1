@@ -8,6 +8,25 @@ import { PhLocationService } from 'src/app/services/api/ph-location/ph-location.
   styleUrls: ['./enroll-patient.component.scss'],
 })
 export class EnrollPatientComponent implements OnInit {
+  disableSaveBtn = false;
+  savingMsg = '';
+  isSavedToDb = true;
+
+  soapParameters = {
+    age: { years: 0, months: 0, days: 0 },
+    sex: '',
+    encounter: {
+      payor: '',
+      atc: '',
+    },
+  };
+
+  age = {
+    years: 0,
+    months: 0,
+    days: 0,
+  };
+
   regions: any[] = [];
   provinces: any[] = [];
   citymuns: any[] = [];
@@ -71,6 +90,8 @@ export class EnrollPatientComponent implements OnInit {
     ph.getRegions().subscribe((o: any) => {
       this.regions = o;
     });
+
+    this.autoupdateSoapParameters();
   }
 
   ngOnInit(): void {
@@ -78,6 +99,11 @@ export class EnrollPatientComponent implements OnInit {
       this.summary = JSON.parse(localStorage.getItem('summary') || '{}');
       if (this.summary['profile']) {
         this.healthProfileFG.patchValue(this.summary['profile']);
+        if (this.summary['profile'].dob) {
+          console.log('here');
+          this.age = this.calculateAge(new Date(this.summary['profile'].dob));
+          this.soapParameters.age = this.age;
+        }
       }
 
       if (this.summary['guardian']) {
@@ -102,40 +128,8 @@ export class EnrollPatientComponent implements OnInit {
 
     this.healthProfileFG.get('dob')?.valueChanges.subscribe((o) => {
       var ageBreakdown = this.calculateAge(new Date(o));
+      this.age = ageBreakdown;
       this.healthProfileFG.get('age')?.setValue(ageBreakdown.years);
-    });
-
-    var address = this.healthProfileFG.get('address');
-
-    address?.get('reg')?.valueChanges.subscribe((o) => {
-      if (!o) return;
-      address?.get('prov')?.reset();
-      address?.get('cityMun')?.reset();
-      address?.get('brgy')?.reset();
-      this.ph.getProvince().subscribe((provs: any) => {
-        this.provinces = provs.filter((f: any) => f.reg_code === o.reg_code);
-      });
-    });
-
-    address?.get('prov')?.valueChanges.subscribe((o) => {
-      if (!o) return;
-      address?.get('cityMun')?.reset();
-      address?.get('brgy')?.reset();
-      this.ph.getCityMuns().subscribe((citymuns: any) => {
-        console.log({ citymuns });
-        this.citymuns = citymuns.filter(
-          (f: any) => f.prov_code === o.prov_code
-        );
-      });
-    });
-
-    address?.get('cityMun')?.valueChanges.subscribe((o) => {
-      if (!o) return;
-      address?.get('brgy')?.reset();
-      this.ph.getBarangays().subscribe((brgys: any) => {
-        console.log(brgys);
-        this.barangays = brgys.filter((f: any) => f.mun_code === o.mun_code);
-      });
     });
 
     var addressGuardian = this.guardianProfileFG.get('address');
@@ -234,5 +228,65 @@ export class EnrollPatientComponent implements OnInit {
 
   displayFn(ph_location: any): string {
     return ph_location && ph_location.name ? ph_location.name : '';
+  }
+
+  autoupdateSoapParameters() {
+    this.healthProfileFG.get('sex')?.valueChanges.subscribe((o) => {
+      this.soapParameters.sex = o;
+    });
+    this.healthProfileFG.get('age')?.valueChanges.subscribe((o) => {
+      this.soapParameters.age = this.age;
+    });
+    this.healthProfileFG.get('encounter')?.valueChanges.subscribe((o) => {
+      this.soapParameters.encounter = o;
+    });
+  }
+
+  address = this.healthProfileFG.get('address');
+
+  regSelected() {
+    var o = this.address?.get('reg')?.value;
+    console.log(o);
+    if (!o) return;
+    this.address?.get('prov')?.reset();
+    this.address?.get('cityMun')?.reset();
+    this.address?.get('brgy')?.reset();
+    this.ph.getProvince().subscribe((provs: any) => {
+      this.provinces = provs.filter((f: any) => f.reg_code === o.reg_code);
+    });
+  }
+
+  provSelected() {
+    var o = this.address?.get('prov')?.value;
+    if (!o) return;
+    this.address?.get('cityMun')?.reset();
+    this.address?.get('brgy')?.reset();
+    this.ph.getCityMuns().subscribe((citymuns: any) => {
+      console.log({ citymuns });
+      this.citymuns = citymuns.filter((f: any) => f.prov_code === o.prov_code);
+    });
+  }
+
+  citymunSelected() {
+    var o = this.address?.get('cityMun')?.value;
+    if (!o) return;
+    this.address?.get('brgy')?.reset();
+    this.ph.getBarangays().subscribe((brgys: any) => {
+      console.log(brgys);
+      this.barangays = brgys.filter((f: any) => f.mun_code === o.mun_code);
+    });
+  }
+
+  saveToDBandProceedToSOAP() {
+    this.disableSaveBtn = true;
+    this.savingMsg = 'Saving to DB...';
+    setTimeout(() => {
+      this.savingMsg = 'Preparing S.O.A.P...';
+      setTimeout(() => {
+        this.savingMsg = '';
+        this.isSavedToDb = true;
+        this.disableSaveBtn = false;
+      }, 2000);
+    }, 2000);
   }
 }
