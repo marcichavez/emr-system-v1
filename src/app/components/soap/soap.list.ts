@@ -710,11 +710,11 @@ export const objective_fields = [
     fgname: 'anthropometrics',
     fcs: [
       {
-        label: 'Height',
+        label: 'Height (m)',
         fcname: 'height',
       },
       {
-        label: 'Weight',
+        label: 'Weight (kg)',
         fcname: 'weight',
       },
       {
@@ -728,6 +728,7 @@ export const objective_fields = [
       {
         label: 'MUAC',
         fcname: 'muac',
+        showIf: {},
       },
       {
         label: 'Head Circ',

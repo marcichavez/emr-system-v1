@@ -20,7 +20,8 @@ export class SoapComponent implements OnInit {
   };
   LIST = LIST;
   soapForm = soap;
-
+  objective_fg = this.soapForm.get('objective');
+  anthropometrics_fg = this.objective_fg?.get('anthropometrics');
   constructor() {}
 
   ngOnInit(): void {
@@ -28,6 +29,17 @@ export class SoapComponent implements OnInit {
 
     this.soapForm.valueChanges.subscribe((o) => {
       localStorage.setItem('soap', JSON.stringify(this.soapForm.value));
+    });
+
+    this.anthropometrics_fg?.get('height')?.valueChanges.subscribe((h) => {
+      var w = this.anthropometrics_fg?.get('weight')?.value;
+      if (w && h)
+        this.anthropometrics_fg?.get('bmi')?.setValue(this.calculateBMI(h, w));
+    });
+    this.anthropometrics_fg?.get('weight')?.valueChanges.subscribe((w) => {
+      var h = this.anthropometrics_fg?.get('height')?.value;
+      if (h && w)
+        this.anthropometrics_fg?.get('bmi')?.setValue(this.calculateBMI(h, w));
     });
   }
 
@@ -372,5 +384,11 @@ export class SoapComponent implements OnInit {
     if (this.diagnoses.at(i).get('isSpecify')?.value) {
       this.diagnoses.at(i).get('specify')?.setValidators(Validators.required);
     }
+  }
+
+  // h is in meters
+  // w is in kg
+  calculateBMI(h: number, w: number) {
+    return parseFloat((w / h ** 2).toFixed(4));
   }
 }
