@@ -407,6 +407,7 @@ export const ob_immunization_schedule = [
 export const per_system_reports = [
   {
     system: 'HEENT',
+    fcname: 'heent',
     findings: [
       'Abnormal Pupillary Reaction',
       'CLAD',
@@ -418,6 +419,7 @@ export const per_system_reports = [
   },
   {
     system: 'Chest/Breast/Lungs',
+    fcname: 'chest',
     findings: [
       'Assymetrical Expansion',
       'Decreased Breath Sounds',
@@ -430,6 +432,7 @@ export const per_system_reports = [
   },
   {
     system: 'Heart',
+    fcname: 'heart',
     findings: [
       'Displaced Apex Beat',
       'Heaves/ Thrills',
@@ -442,6 +445,7 @@ export const per_system_reports = [
   },
   {
     system: 'Abdomen',
+    fcname: 'abdomen',
     findings: [
       'Rigid',
       'Tenderness',
@@ -454,6 +458,7 @@ export const per_system_reports = [
   },
   {
     system: 'Genitourinary',
+    fcname: 'genitourinary',
     findings: [
       'Blood stained',
       'Cervical dilatation',
@@ -463,6 +468,7 @@ export const per_system_reports = [
   },
   {
     system: 'DRE',
+    fcname: 'dre',
     findings: [
       'Enlarged Prostate',
       'Mass',
@@ -728,27 +734,50 @@ export const objective_fields = [
       {
         label: 'MUAC',
         fcname: 'muac',
-        showIf: {},
+        showIf: (obj: any) => {
+          if (!obj || !obj.age) return false;
+          return obj.age.years <= 2 && obj.age.months == 0;
+        },
       },
       {
         label: 'Head Circ',
         fcname: 'head_circ',
+        showIf: (obj: any) => {
+          if (!obj || !obj.age) return false;
+          return obj.age.years <= 2 && obj.age.months == 0;
+        },
       },
       {
         label: 'Waist Circ',
         fcname: 'waist_circ',
+        showIf: (obj: any) => {
+          if (!obj || !obj.age) return false;
+          return obj.age.years <= 2 && obj.age.months == 0;
+        },
       },
       {
         label: 'Hips Circ',
         fcname: 'hips_circ',
+        showIf: (obj: any) => {
+          if (!obj || !obj.age) return false;
+          return obj.age.years <= 2 && obj.age.months == 0;
+        },
       },
       {
         label: 'Limb Circ',
         fcname: 'limb_circ',
+        showIf: (obj: any) => {
+          if (!obj || !obj.age) return false;
+          return obj.age.years <= 2 && obj.age.months == 0;
+        },
       },
       {
         label: 'Skin Fold Thickness',
         fcname: 'skin_fold',
+        showIf: (obj: any) => {
+          if (!obj || !obj.age) return false;
+          return obj.age.years <= 2 && obj.age.months == 0;
+        },
       },
     ],
   },

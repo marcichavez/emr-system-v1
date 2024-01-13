@@ -386,6 +386,21 @@ export class SoapComponent implements OnInit {
     }
   }
 
+  per_system_report_fg = this.objective_fg?.get('per_system_report');
+
+  updatePerSystemReport(fcname: string, value: string) {
+    var fc = this.per_system_report_fg?.get(fcname);
+    if (!fc) return;
+    var index = fc?.value.findIndex((o: string) => o === value);
+    if (index > -1) {
+      fc?.value.splice(index, 1);
+    } else {
+      var arr = fc?.value;
+      arr.push(value);
+      fc?.setValue([...(fc?.value || []), value]);
+    }
+  }
+
   // h is in meters
   // w is in kg
   calculateBMI(h: number, w: number) {

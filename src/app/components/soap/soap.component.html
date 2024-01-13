@@ -1251,7 +1251,10 @@
                 </div>
                 <ng-container [formGroupName]="field.fgname">
                   <ng-container *ngFor="let control of field.fcs">
-                    <mat-form-field class="col-span-3">
+                    <mat-form-field
+                      class="col-span-3"
+                      *ngIf="!control.showIf || control.showIf(parameters)"
+                    >
                       <mat-label>{{ control.label }}</mat-label>
                       <input
                         type="text"
@@ -1272,8 +1275,12 @@
                 <div class="col-span-12">
                   <mat-checkbox>Essentially Normal</mat-checkbox>
                 </div>
-                <div class="col-span-6" *ngFor="let f of field.findings">
-                  <mat-checkbox>{{ f }}</mat-checkbox>
+                <div class="col-span-6" *ngFor="let item of field.findings">
+                  <mat-checkbox
+                    (change)="updatePerSystemReport(field.fcname, item)"
+                  >
+                    {{ item }}
+                  </mat-checkbox>
                 </div>
               </ng-container>
             </div>
