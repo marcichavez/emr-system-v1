@@ -336,6 +336,7 @@ export class SoapComponent implements OnInit {
               fg = new FormControl();
               fg.setValue(value);
             }
+
             this.deepValueFormArray(this.soapForm, fa_fg.path).push(fg);
           }
         }
@@ -389,16 +390,10 @@ export class SoapComponent implements OnInit {
   per_system_report_fg = this.objective_fg?.get('per_system_report');
 
   updatePerSystemReport(fcname: string, value: string) {
-    var fc = this.per_system_report_fg?.get(fcname);
-    if (!fc) return;
-    var index = fc?.value.findIndex((o: string) => o === value);
-    if (index > -1) {
-      fc?.value.splice(index, 1);
-    } else {
-      var arr = fc?.value;
-      arr.push(value);
-      fc?.setValue([...(fc?.value || []), value]);
-    }
+    var fa = this.per_system_report_fg?.get(fcname) as FormArray;
+    var index = fa.value.findIndex((o: string) => o == value);
+    if (index > -1) fa.removeAt(index);
+    else fa.push(new FormControl(value));
   }
 
   // h is in meters

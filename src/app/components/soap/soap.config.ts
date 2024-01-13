@@ -123,12 +123,12 @@ export const soap = new FormGroup({
       skin_fold: new FormControl(''),
     }),
     per_system_report: new FormGroup({
-      heent: new FormControl(''),
-      chest: new FormControl(''),
-      heart: new FormControl(''),
-      abdomen: new FormControl(''),
-      genitourinary: new FormControl(''),
-      dre: new FormControl(''),
+      heent: new FormArray([]),
+      chest: new FormArray([]),
+      heart: new FormArray([]),
+      abdomen: new FormArray([]),
+      genitourinary: new FormArray([]),
+      dre: new FormArray([]),
     }),
   }),
   assessment: new FormGroup({

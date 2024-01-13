@@ -866,7 +866,32 @@ export const formArrays = [
     fg: 'medicine_fg',
     path: 'plan.medicines',
   },
+  {
+    fa: 'heent',
+    path: 'objective.per_system_report.heent',
+  },
 
+  {
+    fa: 'chest',
+    path: 'objective.per_system_report.chest',
+  },
+
+  {
+    fa: 'heart',
+    path: 'objective.per_system_report.heart',
+  },
+  {
+    fa: 'abdomen',
+    path: 'objective.per_system_report.abdomen',
+  },
+  {
+    fa: 'genitourinary',
+    path: 'objective.per_system_report.genitourinary',
+  },
+  {
+    fa: 'dre',
+    path: 'objective.per_system_report.dre',
+  },
   {
     fa: 'constitutional',
     path: 'subjective.review_of_system.constitutional',
