@@ -825,6 +825,7 @@ export const formArrays = [
       },
     ],
   },
+
   {
     fa: 'physical_activities',
     fg: 'physical_activity_fg',
@@ -864,8 +865,15 @@ export const formArrays = [
 
   {
     fa: 'diagnostics',
+    console: 1,
     fg: 'diagnostic_fg',
     path: 'plan.diagnostics',
+    formArrayStrs: [
+      {
+        path: 'orders',
+        fg: 'order_fg',
+      },
+    ],
   },
   {
     fa: 'medicines',

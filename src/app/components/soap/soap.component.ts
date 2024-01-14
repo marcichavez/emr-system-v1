@@ -365,6 +365,7 @@ export class SoapComponent implements OnInit {
 
           this.deepValueFormArray(formGroup, fa_fg.path).push(fg);
           if (fa_fg.formArrayStrs) {
+            console.log({ fa_fg, value });
             this.autofillForm(value, fg, fa_fg.formArrayStrs);
           }
         }
@@ -441,5 +442,33 @@ export class SoapComponent implements OnInit {
 
   icdDisplayFn(obj: any) {
     return obj ? obj.code + ': ' + obj.desc : '';
+  }
+
+  updateDiagnostic(indexIcd: any, diagnostic: string) {
+    console.log({ indexIcd, diagnostic });
+    var fa = this.diagnostics.at(indexIcd)?.get('orders') as FormArray;
+    var index = fa.value.findIndex((o: any) => o.name === diagnostic);
+    if (index > -1) {
+      fa.removeAt(index);
+      return;
+    }
+    var fg = SubFG.order_fg({ name: diagnostic });
+    fa.push(fg);
+  }
+
+  isOrderChecked(indexIcd: any, diagnostic: string) {
+    var fa = this.diagnostics.at(indexIcd)?.get('orders') as FormArray;
+    var index = fa.value.findIndex((o: any) => o.name === diagnostic);
+    return index > -1;
+  }
+
+  isOrderCheckedInOther(indexIcd: any, diagnostic: string) {
+    if (this.isOrderChecked(indexIcd, diagnostic)) return false;
+    for (let diag of this.diagnostics.controls) {
+      var fa = diag.get('orders') as FormArray;
+      var index = fa.value.findIndex((o: any) => o.name === diagnostic);
+      if (index > -1) return true;
+    }
+    return false;
   }
 }

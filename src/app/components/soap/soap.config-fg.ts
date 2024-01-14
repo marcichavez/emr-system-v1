@@ -119,7 +119,15 @@ export function medicine_fg() {
 export function diagnostic_fg(value?: any) {
   var fg = new FormGroup({
     icd: new FormControl(''),
-    diagnostics: new FormArray([]),
+    orders: new FormArray([]),
+  });
+  if (value) fg.patchValue(value);
+  return fg;
+}
+
+export function order_fg(value?: any) {
+  var fg = new FormGroup({
+    name: new FormControl(''),
   });
   if (value) fg.patchValue(value);
   return fg;

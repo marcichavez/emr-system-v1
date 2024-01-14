@@ -1438,7 +1438,7 @@
                   let i = index
                 "
               >
-                <ng-container *ngIf="!disease.icd">
+                <ng-container *ngIf="!disease.icd && disease.is_existing">
                   <mat-form-field class="col-span-4">
                     <mat-label>Condition</mat-label>
                     <input
@@ -1506,9 +1506,11 @@
               <ng-container
                 *ngFor="let diagnostic of diagnostics.controls; let i = index"
               >
-                <div class="col-span-12 pt-6 pb-2">
+                <div class="col-span-12 pt-6 pb-4">
                   <p class="font-bold icd-code">
-                    {{ diagnostics.at(i).value.icd.code }}
+                    <mat-checkbox [checked]="false" disabled>
+                      {{ diagnostics.at(i).value.icd.code }}
+                    </mat-checkbox>
                   </p>
                   <small>{{ diagnostics.at(i).value.icd.desc }}</small>
                 </div>
@@ -1516,7 +1518,11 @@
                 <div class="col-span-12 grid grid-cols-12 gap-2">
                   <ng-container *ngFor="let item of LIST.DIAGNOSTICS">
                     <div class="col-span-4">
-                      <mat-checkbox>
+                      <mat-checkbox
+                        (change)="updateDiagnostic(i, item)"
+                        [checked]="isOrderChecked(i, item)"
+                        [indeterminate]="isOrderCheckedInOther(i, item)"
+                      >
                         {{ item }}
                       </mat-checkbox>
                     </div>
