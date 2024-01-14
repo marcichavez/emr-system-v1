@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 export function chronic_medical_condition_fg(name: string = '') {
   return new FormGroup({
     name: new FormControl(name, [Validators.required]),
+    icd: new FormControl(),
     when: new FormControl('', [Validators.required]),
     medication: new FormControl('', [Validators.required]),
     diagnostic_performed: new FormControl('', [Validators.required]),
@@ -89,21 +90,20 @@ export function family_medical_hx_fg() {
     relation: new FormControl(''),
     past_medical_hx: new FormGroup({
       chronic_medical_conditions: new FormArray([]),
-      allergies: new FormArray([]),
-      surgeries: new FormArray([]),
-      medications: new FormArray([]),
     }),
   });
 }
 
-export function diagnosis_fg() {
-  return new FormGroup({
-    icd_code: new FormControl('', [Validators.required]),
+export function diagnosis_fg(value?: any) {
+  var fg = new FormGroup({
+    icd: new FormControl('', [Validators.required]),
     specify: new FormControl(''),
     isSpecify: new FormControl(false),
     status: new FormControl('', [Validators.required]),
     medicines: new FormArray([]), // pin diagnosis
   });
+  if (value) fg.patchValue(value);
+  return fg;
 }
 
 export function medicine_fg() {
@@ -116,9 +116,11 @@ export function medicine_fg() {
   });
 }
 
-export function diagnostic_fg() {
-  return new FormGroup({
-    icd_code: new FormControl(''),
+export function diagnostic_fg(value?: any) {
+  var fg = new FormGroup({
+    icd: new FormControl(''),
     diagnostics: new FormArray([]),
   });
+  if (value) fg.patchValue(value);
+  return fg;
 }

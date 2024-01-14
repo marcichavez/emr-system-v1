@@ -3,6 +3,8 @@ import { soap } from './soap.config';
 import * as SubFG from './soap.config-fg';
 import * as LIST from './soap.list';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Icd10Service } from 'src/app/services/api/icd_10/icd-10.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-soap',
@@ -22,10 +24,21 @@ export class SoapComponent implements OnInit {
   soapForm = soap;
   objective_fg = this.soapForm.get('objective');
   anthropometrics_fg = this.objective_fg?.get('anthropometrics');
-  constructor() {}
+  icdFilteredOptions!: Observable<any>;
+  icdKeyword = new FormControl();
+
+  constructor(private icdService: Icd10Service) {
+    this.icdKeyword.valueChanges.subscribe((keyword) => {
+      if (typeof keyword == 'string')
+        this.icdFilteredOptions = this.icdService.getICDCodesByKeyword(keyword);
+    });
+  }
 
   ngOnInit(): void {
-    this.autofillForm();
+    if (localStorage.getItem('soap')) {
+      var soap = JSON.parse(localStorage.getItem('soap') || '{}');
+      this.autofillForm(soap, this.soapForm, this.fa_fgs);
+    }
 
     this.soapForm.valueChanges.subscribe((o) => {
       localStorage.setItem('soap', JSON.stringify(this.soapForm.value));
@@ -263,12 +276,24 @@ export class SoapComponent implements OnInit {
     this.carbonated_drinks.removeAt(i);
   }
 
-  onAddDiagnosis() {
-    this.diagnoses.push(SubFG.diagnosis_fg());
-    this.diagnostics.push(SubFG.diagnostic_fg());
+  onAddDiagnosis(icd: any) {
+    console.log(this.diagnoses.value);
+    var index = this.diagnoses.value.findIndex(
+      (o: any) => o.icd.code === icd.code
+    );
+    if (index > -1) return;
+    this.diagnoses.push(SubFG.diagnosis_fg({ icd }));
+    this.diagnostics.push(SubFG.diagnostic_fg({ icd }));
   }
 
   onRemoveDiagnosis(i: number) {
+    var icd = this.diagnoses.at(i).value.icd;
+    var index = this.chronic_medical_conditions.value.findIndex(
+      (o: any) => o.icd?.code == icd.code
+    );
+    if (index > -1)
+      this.chronic_medical_conditions.at(index).get('icd')?.reset();
+
     this.diagnoses.removeAt(i);
     this.diagnostics.removeAt(i);
   }
@@ -317,31 +342,43 @@ export class SoapComponent implements OnInit {
   }
 
   fa_fgs = LIST.formArrays;
+  autofillForm(
+    storedData: any,
+    formGroup: FormGroup,
+    formArrayStrs: Array<any>
+  ) {
+    if (!storedData) return;
 
-  autofillForm() {
-    if (localStorage.getItem('soap')) {
-      var soap = JSON.parse(localStorage.getItem('soap') || '{}');
+    if (storedData) {
+      formGroup.patchValue(storedData);
+      let local_SubFG: any = SubFG;
+      for (let fa_fg of formArrayStrs) {
+        for (let value of this.deepValue(storedData, fa_fg.path)) {
+          var fg;
+          if (fa_fg.fg) {
+            fg = local_SubFG[fa_fg.fg]();
+            fg.patchValue(value);
+          } else {
+            fg = new FormControl();
+            fg.setValue(value);
+          }
 
-      if (soap) {
-        this.soapForm.patchValue(soap);
-        // for formarrays
-        let local_SubFG: any = SubFG;
-        for (let fa_fg of this.fa_fgs) {
-          for (let value of this.deepValue(soap, fa_fg.path)) {
-            var fg;
-            if (fa_fg.fg) {
-              fg = local_SubFG[fa_fg.fg]();
-              fg.patchValue(value);
-            } else {
-              fg = new FormControl();
-              fg.setValue(value);
-            }
-
-            this.deepValueFormArray(this.soapForm, fa_fg.path).push(fg);
+          this.deepValueFormArray(formGroup, fa_fg.path).push(fg);
+          if (fa_fg.formArrayStrs) {
+            this.autofillForm(value, fg, fa_fg.formArrayStrs);
           }
         }
       }
     }
+  }
+
+  onClickExisting(i: number) {
+    this.onAddDiagnosis(this.icdKeyword.value);
+    this.chronic_medical_conditions
+      .at(i)
+      .get('icd')
+      ?.setValue(this.icdKeyword.value);
+    this.icdKeyword.reset();
   }
 
   deepValue(obj: any, path: string) {
@@ -400,5 +437,9 @@ export class SoapComponent implements OnInit {
   // w is in kg
   calculateBMI(h: number, w: number) {
     return parseFloat((w / h ** 2).toFixed(4));
+  }
+
+  icdDisplayFn(obj: any) {
+    return obj ? obj.code + ': ' + obj.desc : '';
   }
 }

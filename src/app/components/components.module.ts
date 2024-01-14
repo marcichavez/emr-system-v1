@@ -13,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [SoapComponent],
@@ -31,6 +32,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatDividerModule,
     MatTooltipModule,
     MatSlideToggleModule,
+    MatAutocompleteModule,
   ],
   exports: [SoapComponent],
 })

@@ -818,6 +818,12 @@ export const formArrays = [
     fa: 'family_medical_hx',
     fg: 'family_medical_hx_fg',
     path: 'subjective.family_medical_hx',
+    formArrayStrs: [
+      {
+        path: 'past_medical_hx.chronic_medical_conditions',
+        fg: 'chronic_medical_condition_fg',
+      },
+    ],
   },
   {
     fa: 'physical_activities',

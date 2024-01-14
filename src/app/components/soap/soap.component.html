@@ -1321,23 +1321,36 @@
                 <mat-form-field class="w-full">
                   <mat-label>Search ICD Code</mat-label>
                   <input
-                    matInput
                     type="text"
-                    placeholder="Type for ICD Codes"
+                    matInput
+                    [formControl]="icdKeyword"
+                    [matAutocomplete]="auto_icd_search"
                   />
-                  <button matSuffix mat-icon-button>
-                    <mat-icon>search</mat-icon>
-                  </button>
+                  <mat-autocomplete
+                    autoActiveFirstOption
+                    [displayWith]="icdDisplayFn"
+                    (optionSelected)="
+                      onAddDiagnosis(icdKeyword.value); icdKeyword.reset()
+                    "
+                    #auto_icd_search="matAutocomplete"
+                  >
+                    <mat-option
+                      [value]="option"
+                      *ngFor="let option of icdFilteredOptions | async"
+                    >
+                      {{ option.code }}: {{ option.desc }}
+                    </mat-option>
+                  </mat-autocomplete>
                   <button
-                    matTooltip="Add Empty Dx"
                     matSuffix
                     mat-icon-button
-                    (click)="onAddDiagnosis()"
+                    (click)="icdKeyword.reset()"
                   >
-                    <mat-icon>add</mat-icon>
+                    <mat-icon>close</mat-icon>
                   </button>
                 </mat-form-field>
               </div>
+
               <div class="col-span-12" *ngIf="diagnoses.value.length">
                 <small class="highlight">Diagnosis</small>
               </div>
@@ -1353,7 +1366,16 @@
                   >
                     <mat-form-field class="w-full">
                       <mat-label>ICD Code</mat-label>
-                      <input matInput type="text" formControlName="icd_code" />
+                      <input
+                        matInput
+                        type="text"
+                        [value]="
+                          cmc_form.value.icd.code +
+                          ': ' +
+                          cmc_form.value.icd.desc
+                        "
+                        readonly
+                      />
                       <button
                         matSuffix
                         mat-icon-button
@@ -1408,6 +1430,55 @@
               <div class="col-span-12">
                 <small class="highlight">Existing Condition/s</small>
               </div>
+
+              <div
+                class="col-span-12 grid grid-cols-12 gap-2"
+                *ngFor="
+                  let disease of chronic_medical_conditions.value;
+                  let i = index
+                "
+              >
+                <ng-container *ngIf="!disease.icd">
+                  <mat-form-field class="col-span-4">
+                    <mat-label>Condition</mat-label>
+                    <input
+                      type="text"
+                      matInput
+                      value="{{ disease.name }}"
+                      readonly
+                    />
+                  </mat-form-field>
+                  <mat-form-field class="col-span-8">
+                    <mat-label>ICD Code</mat-label>
+                    <input
+                      type="text"
+                      matInput
+                      [formControl]="icdKeyword"
+                      [matAutocomplete]="auto_icd_search"
+                    />
+                    <mat-autocomplete
+                      autoActiveFirstOption
+                      [displayWith]="icdDisplayFn"
+                      #auto_icd_search="matAutocomplete"
+                    >
+                      <mat-option
+                        [value]="option"
+                        *ngFor="let option of icdFilteredOptions | async"
+                      >
+                        {{ option.code }}: {{ option.desc }}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <button
+                      matSuffix
+                      mat-icon-button
+                      (click)="onClickExisting(i)"
+                      [disabled]="!icdKeyword.value || !icdKeyword.value.code"
+                    >
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </ng-container>
+              </div>
             </div>
           </div>
         </ng-template>
@@ -1435,9 +1506,13 @@
               <ng-container
                 *ngFor="let diagnostic of diagnostics.controls; let i = index"
               >
-                <p class="col-span-12 font-bold pt-6">
-                  {{ diagnostics.at(i).value.icd_code || "E11.1 Asthma" }}
-                </p>
+                <div class="col-span-12 pt-6 pb-2">
+                  <p class="font-bold icd-code">
+                    {{ diagnostics.at(i).value.icd.code }}
+                  </p>
+                  <small>{{ diagnostics.at(i).value.icd.desc }}</small>
+                </div>
+
                 <div class="col-span-12 grid grid-cols-12 gap-2">
                   <ng-container *ngFor="let item of LIST.DIAGNOSTICS">
                     <div class="col-span-4">

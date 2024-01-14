@@ -1,0 +1,9 @@
+[
+  {
+    "code": "A000",
+    "desc": "Cholera due to Vibrio cholerae 01, biovar cholerae"
+  },
+  { "code": "A001", "desc": "Cholera due to Vibrio cholerae 01, biovar eltor" },
+  { "code": "A009", "desc": "Cholera, unspecified" },
+  { "code": "A0100", "desc": "Typhoid fever, unspecified" }
+]
