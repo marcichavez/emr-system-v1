@@ -91,3 +91,17 @@ mat-select .table-input {
 .mat-checkbox-indeterminate.mat-accent {
   opacity: 0.4;
 }
+
+.pin-success {
+  color: $completed;
+}
+
+.pin-default {
+  color: $gray;
+}
+
+.name-pin:hover {
+  mat-icon {
+    display: block;
+  }
+}

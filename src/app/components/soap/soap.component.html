@@ -1558,7 +1558,11 @@
                   {{ option.genericName }}
                 </mat-option>
               </mat-autocomplete>
-              <button matSuffix mat-icon-button (click)="onAddMedicine()">
+              <button
+                matSuffix
+                mat-icon-button
+                (click)="onAddMedicine(medKeyword.value)"
+              >
                 <mat-icon>add</mat-icon>
               </button>
               <mat-hint>Click add add to the medicine.</mat-hint>
@@ -1572,9 +1576,39 @@
                   [formGroupName]="i"
                 >
                   <div class="col-span-12 pt-6 flex justify-between">
-                    <p class="font-bold">{{ meds }}</p>
-                    <mat-icon class="opacity-50" matTooltip="Pin to Dx">
-                      push_pin
+                    <div class="flex name-pin">
+                      <mat-icon
+                        class="cursor-pointer"
+                        matTooltip="Pin to Dx"
+                        [matMenuTriggerFor]="menu"
+                        [class]="isMedicinePinned(meds)"
+                      >
+                        push_pin
+                      </mat-icon>
+                      <mat-menu #menu="matMenu" [overlapTrigger]="true">
+                        <button mat-menu-item color="float-right">
+                          <mat-icon color="warn">close</mat-icon>
+                        </button>
+                        <mat-checkbox
+                          *ngFor="let diag of diagnoses.controls; let j = index"
+                          class="mat-menu-item w-full"
+                          (change)="onPinMedicine(meds, j)"
+                          (click)="$event.stopPropagation()"
+                        >
+                          {{ diag.value.icd.code }}
+                        </mat-checkbox>
+                      </mat-menu>
+                      <p class="font-bold">
+                        {{ meds.value?.drug.genericName }}
+                      </p>
+                    </div>
+
+                    <mat-icon
+                      class="opacity-50"
+                      matTooltip="Remove from Prescription"
+                      (click)="onRemoveMedicine(i)"
+                    >
+                      delete
                     </mat-icon>
                   </div>
                   <div class="col-span-6">
@@ -1599,7 +1633,7 @@
                     <textarea
                       class="table-input"
                       matInput
-                      rows="4"
+                      rows="2"
                       placeholder="Preparation"
                       formControlName="preparation"
                     ></textarea>
@@ -1608,7 +1642,7 @@
                     <textarea
                       class="table-input"
                       matInput
-                      rows="4"
+                      rows="2"
                       placeholder="Sig."
                       formControlName="sig"
                     ></textarea>

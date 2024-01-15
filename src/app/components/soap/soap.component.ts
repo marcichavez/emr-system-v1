@@ -311,8 +311,10 @@ export class SoapComponent implements OnInit {
     this.diagnostics.removeAt(i);
   }
 
-  onAddMedicine() {
-    this.medicines.push(SubFG.medicine_fg({ drug: this.medKeyword }));
+  onAddMedicine(drug: any) {
+    console.log(drug);
+    this.medicines.push(SubFG.medicine_fg({ drug }));
+    this.medKeyword.reset();
   }
 
   onRemoveMedicine(i: number) {
@@ -486,5 +488,25 @@ export class SoapComponent implements OnInit {
       if (index > -1) return true;
     }
     return false;
+  }
+
+  onPinMedicine(meds: any, i: number) {
+    var fa = this.diagnoses.at(i).get('medicines') as FormArray;
+    var index = fa.value.findIndex(
+      (o: any) => o.drug.genericName === meds.value.drug.genericName
+    );
+    if (index > -1) fa.removeAt(i);
+    fa.push(meds);
+  }
+
+  isMedicinePinned(meds: any) {
+    for (let dx of this.diagnoses.controls) {
+      var fa = dx.get('medicines') as FormArray;
+      var index = fa.value.findIndex(
+        (o: any) => o.drug.genericName === meds.value.drug.genericName
+      );
+      if (index > -1) return 'pin-success';
+    }
+    return 'pin-default opacity-50';
   }
 }

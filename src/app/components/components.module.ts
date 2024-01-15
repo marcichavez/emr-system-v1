@@ -14,6 +14,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [SoapComponent],
@@ -33,6 +34,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatTooltipModule,
     MatSlideToggleModule,
     MatAutocompleteModule,
+    MatMenuModule,
   ],
   exports: [SoapComponent],
 })

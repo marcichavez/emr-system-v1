@@ -10,7 +10,7 @@ import { PhLocationService } from 'src/app/services/api/ph-location/ph-location.
 export class EnrollPatientComponent implements OnInit {
   disableSaveBtn = false;
   savingMsg = '';
-  isSavedToDb = true;
+  isSavedToDb = false;
 
   soapParameters = {
     age: { years: 0, months: 0, days: 0 },

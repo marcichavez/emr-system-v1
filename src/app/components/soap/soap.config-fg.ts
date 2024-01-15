@@ -107,13 +107,15 @@ export function diagnosis_fg(value?: any) {
 }
 
 export function medicine_fg(value?: any) {
-  return new FormGroup({
+  var fg = new FormGroup({
     drug: new FormControl(),
     dose: new FormControl(),
     preparation: new FormControl(),
     dispense_no: new FormControl(),
     sig: new FormControl(),
   });
+  if (value) fg.patchValue(value);
+  return fg;
 }
 
 export function diagnostic_fg(value?: any) {

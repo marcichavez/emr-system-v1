@@ -861,6 +861,12 @@ export const formArrays = [
     fa: 'diagnoses',
     fg: 'diagnosis_fg',
     path: 'assessment.diagnoses',
+    formArrayStrs: [
+      {
+        path: 'medicines',
+        fg: 'medicine_fg',
+      },
+    ],
   },
 
   {
