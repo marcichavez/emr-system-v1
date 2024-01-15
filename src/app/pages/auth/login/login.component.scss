@@ -1,15 +1,7 @@
 @import "/src/assets/styles/variables.scss";
 
-.w-full {
-  width: 100%;
-}
-
-.h-full {
-  height: 100%;
-}
-
-mat-card-content {
-  padding: 2rem;
+.login-bar {
+  background-color: $white;
 }
 
 .forgot-password-btn {
@@ -41,12 +33,10 @@ mat-card-content {
   }
 }
 
-.container {
-  display: grid;
-  place-items: center;
-}
-
-mat-card {
-  margin-top: 10%;
-  max-width: 42rem;
+.free-space {
+  background-image: url("../../../../assets/images/login-bg.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: right;
 }

@@ -1,51 +1,56 @@
-<div class="container">
-  <mat-card>
-    <mat-card-content>
-      <div class="login-title">
-        <h1 style="margin-bottom: 0">EMR MANAGEMENT SYSTEM</h1>
-        <small>Login with the credentials sent to your email</small>
-      </div>
-      <form [formGroup]="loginForm" class="login-form">
-        <mat-form-field class="w-full" appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email" />
-        </mat-form-field>
+<div class="flex">
+  <div class="h-[100vh] min-w-96 max-w--96 p-[3rem] pt-12 login-bar">
+    <div class="login-title">
+      <h1 style="margin-bottom: 0">EMR MANAGEMENT SYSTEM</h1>
+      <small>Login with the credentials sent to your email</small>
+    </div>
+    <form [formGroup]="loginForm" class="login-form">
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+      </mat-form-field>
 
-        <mat-form-field class="w-full" appearance="outline">
-          <mat-label>Password</mat-label>
-          <input
-            matInput
-            [type]="isPasswordVisible ? 'text' : 'password'"
-            formControlName="password"
-          />
-          <button
-            matSuffix
-            mat-icon-button
-            (click)="isPasswordVisible = !isPasswordVisible"
-          >
-            <mat-icon>
-              {{ isPasswordVisible ? "visibility_off" : "visibility_on" }}
-            </mat-icon>
-          </button>
-        </mat-form-field>
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          [type]="isPasswordVisible ? 'text' : 'password'"
+          formControlName="password"
+        />
         <button
-          mat-raised-button
-          color="primary"
-          (click)="onSubmit()"
-          [disabled]="loginBtnDisabled"
+          matSuffix
+          mat-icon-button
+          (click)="isPasswordVisible = !isPasswordVisible"
         >
-          {{ loginBtnLabel }}
+          <mat-icon>
+            {{ isPasswordVisible ? "visibility_off" : "visibility_on" }}
+          </mat-icon>
         </button>
-        <button
-          mat-button
-          class="forgot-password-btn"
-          (click)="onForgotPassword()"
-        >
-          Forgot Password
-        </button>
-      </form>
-      <mat-divider></mat-divider>
-      <p class="signup-text">Don't have an account yet? <a>Apply now!</a></p>
-    </mat-card-content>
-  </mat-card>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onSubmit()"
+        [disabled]="loginBtnDisabled"
+      >
+        {{ loginBtnLabel }}
+      </button>
+      <button
+        mat-button
+        class="forgot-password-btn"
+        (click)="onForgotPassword()"
+      >
+        Forgot Password
+      </button>
+    </form>
+    <mat-divider></mat-divider>
+    <!-- <button mat-stroked-button class="w-full mt-4">Login via Gmail</button>
+    <span class="my-2"></span>
+    <button mat-stroked-button class="w-full mt-4">Login via QR</button> -->
+    <p class="signup-text bottom-10 absolute">
+      Don't have an account yet? <a>Apply now!</a>
+    </p>
+  </div>
+
+  <div class="w-full free-space"></div>
 </div>
