@@ -5,6 +5,7 @@ import * as LIST from './soap.list';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Icd10Service } from 'src/app/services/api/icd_10/icd-10.service';
 import { Observable } from 'rxjs';
+import { MedicinesService } from 'src/app/services/api/medicines/medicines.service';
 
 @Component({
   selector: 'app-soap',
@@ -27,10 +28,22 @@ export class SoapComponent implements OnInit {
   icdFilteredOptions!: Observable<any>;
   icdKeyword = new FormControl();
 
-  constructor(private icdService: Icd10Service) {
+  medFilteredOptions!: Observable<any>;
+  medKeyword = new FormControl();
+
+  constructor(
+    private icdService: Icd10Service,
+    private medService: MedicinesService
+  ) {
     this.icdKeyword.valueChanges.subscribe((keyword) => {
       if (typeof keyword == 'string')
         this.icdFilteredOptions = this.icdService.getICDCodesByKeyword(keyword);
+    });
+
+    this.medKeyword.valueChanges.subscribe((keyword) => {
+      if (typeof keyword == 'string')
+        this.medFilteredOptions =
+          this.medService.getMedicinesByKeyword(keyword);
     });
   }
 
@@ -299,7 +312,7 @@ export class SoapComponent implements OnInit {
   }
 
   onAddMedicine() {
-    this.medicines.push(SubFG.medicine_fg());
+    this.medicines.push(SubFG.medicine_fg({ drug: this.medKeyword }));
   }
 
   onRemoveMedicine(i: number) {
@@ -365,7 +378,6 @@ export class SoapComponent implements OnInit {
 
           this.deepValueFormArray(formGroup, fa_fg.path).push(fg);
           if (fa_fg.formArrayStrs) {
-            console.log({ fa_fg, value });
             this.autofillForm(value, fg, fa_fg.formArrayStrs);
           }
         }
@@ -442,6 +454,10 @@ export class SoapComponent implements OnInit {
 
   icdDisplayFn(obj: any) {
     return obj ? obj.code + ': ' + obj.desc : '';
+  }
+
+  medDisplayFn(obj: any) {
+    return obj ? obj.genericName : '';
   }
 
   updateDiagnostic(indexIcd: any, diagnostic: string) {

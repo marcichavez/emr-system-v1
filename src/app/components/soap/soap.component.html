@@ -1508,7 +1508,10 @@
               >
                 <div class="col-span-12 pt-6 pb-4">
                   <p class="font-bold icd-code">
-                    <mat-checkbox [checked]="false" disabled>
+                    <mat-checkbox
+                      [checked]="diagnostic.value.orders.length"
+                      [disabled]="true"
+                    >
                       {{ diagnostics.at(i).value.icd.code }}
                     </mat-checkbox>
                   </p>
@@ -1537,7 +1540,24 @@
 
             <mat-form-field class="col-span-12">
               <mat-label>Search for Drug</mat-label>
-              <input type="text" matInput />
+              <input
+                type="text"
+                matInput
+                [formControl]="medKeyword"
+                [matAutocomplete]="auto_med_search"
+              />
+              <mat-autocomplete
+                autoActiveFirstOption
+                [displayWith]="medDisplayFn"
+                #auto_med_search="matAutocomplete"
+              >
+                <mat-option
+                  [value]="option"
+                  *ngFor="let option of medFilteredOptions | async"
+                >
+                  {{ option.genericName }}
+                </mat-option>
+              </mat-autocomplete>
               <button matSuffix mat-icon-button (click)="onAddMedicine()">
                 <mat-icon>add</mat-icon>
               </button>
@@ -1552,7 +1572,7 @@
                   [formGroupName]="i"
                 >
                   <div class="col-span-12 pt-6 flex justify-between">
-                    <p class="font-bold">Inhaler, 5mg</p>
+                    <p class="font-bold">{{ meds }}</p>
                     <mat-icon class="opacity-50" matTooltip="Pin to Dx">
                       push_pin
                     </mat-icon>

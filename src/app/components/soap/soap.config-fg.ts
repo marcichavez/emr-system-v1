@@ -106,7 +106,7 @@ export function diagnosis_fg(value?: any) {
   return fg;
 }
 
-export function medicine_fg() {
+export function medicine_fg(value?: any) {
   return new FormGroup({
     drug: new FormControl(),
     dose: new FormControl(),
