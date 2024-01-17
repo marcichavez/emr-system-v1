@@ -10,7 +10,7 @@
             <ng-container [formGroupName]="'encounter'">
               <div class="col-span-4 sticky top-0">
                 <div class="underline-emphasis">
-                  <p>Encounter Details</p>
+                  <p>Appointment Details</p>
                 </div>
               </div>
               <div class="col-span-1">
@@ -47,6 +47,16 @@
                   matTooltip="Autofill from Philhealth DB"
                 >
                   <mat-icon>playlist_add_check</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div class="col-span-1">
+              <mat-form-field class="w-full" appearance="fill">
+                <mat-label> Appointment Date </mat-label>
+                <input matInput />
+                <button matSuffix mat-icon-button matTooltip="Pick a Date">
+                  <mat-icon>calendar_month</mat-icon>
                 </button>
               </mat-form-field>
             </div>
@@ -150,7 +160,7 @@
                     [displayWith]="displayFn"
                   >
                     <mat-option *ngFor="let option of regions" [value]="option">
-                      {{ option.name }}
+                      {{ option.regDesc }}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
@@ -173,7 +183,7 @@
                       *ngFor="let option of provinces"
                       [value]="option"
                     >
-                      {{ option.name }}
+                      {{ option.provDesc }}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
@@ -197,7 +207,7 @@
                       *ngFor="let option of citymuns"
                       [value]="option"
                     >
-                      {{ option.name }}
+                      {{ option.citymunDesc }}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
@@ -220,7 +230,7 @@
                       *ngFor="let option of barangays"
                       [value]="option"
                     >
-                      {{ option.name }}
+                      {{ option.brgyDesc }}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
@@ -255,6 +265,19 @@
                 <input matInput formControlName="email" />
               </mat-form-field>
             </div>
+
+            <div class="col-span-4">
+              <div class="underline-emphasis">
+                <p>E-Signature</p>
+              </div>
+            </div>
+
+            <div class="col-span-4">
+              <mat-form-field class="w-full" appearance="fill">
+                <mat-label> Signature </mat-label>
+                <textarea matInput formControlName="signature"></textarea>
+              </mat-form-field>
+            </div>
           </div>
         </form>
         <div class="pt-4 flex justify-between">
@@ -265,7 +288,7 @@
       <mat-step
         [stepControl]="guardianProfileFG"
         label="Guardian"
-        *ngIf="healthProfileFG.value.age && healthProfileFG.value.age < 21"
+        *ngIf="healthProfileFG.value.age >= 0 && healthProfileFG.value.age < 21"
       >
         <form [formGroup]="guardianProfileFG">
           <div class="grid grid-cols-4 gap-4">
@@ -377,7 +400,7 @@
                     [displayWith]="displayFn"
                   >
                     <mat-option *ngFor="let option of regions" [value]="option">
-                      {{ option.name }}
+                      {{ option.regDesc }}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
@@ -399,7 +422,7 @@
                       *ngFor="let option of g_provinces"
                       [value]="option"
                     >
-                      {{ option.name }}
+                      {{ option.provDesc }}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
@@ -422,7 +445,7 @@
                       *ngFor="let option of g_citymuns"
                       [value]="option"
                     >
-                      {{ option.name }}
+                      {{ option.citymunDesc }}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
@@ -445,7 +468,7 @@
                       *ngFor="let option of g_barangays"
                       [value]="option"
                     >
-                      {{ option.name }}
+                      {{ option.brgyDesc }}
                     </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
@@ -493,7 +516,7 @@
         <div class="grid grid-cols-4 gap-x-2 summary">
           <div class="col-span-4 pb-2">
             <div class="underline-emphasis">
-              <p>Encounter Details</p>
+              <p>Appointment Details</p>
             </div>
           </div>
           <div class="col-span-1">
@@ -563,13 +586,13 @@
               {{
                 summary.profile.address.address1 +
                   ", Brgy. " +
-                  summary.profile.address.brgy?.name +
+                  summary.profile.address.brgy?.brgyDesc +
                   " " +
-                  summary.profile.address.cityMun?.name +
+                  summary.profile.address.cityMun?.citymunDesc +
                   " " +
-                  summary.profile.address.prov?.name +
+                  summary.profile.address.prov?.provDesc +
                   " " +
-                  summary.profile.address.reg?.name
+                  summary.profile.address.reg?.regDesc
               }}
             </p>
           </div>
@@ -631,13 +654,13 @@
                 {{
                   summary.guardian.address.address1 +
                     ", Brgy. " +
-                    summary.guardian.address.brgy?.name +
+                    summary.guardian.address.brgy?.brgyDesc +
                     " " +
-                    summary.guardian.address.cityMun?.name +
+                    summary.guardian.address.cityMun?.citymunDesc +
                     " " +
-                    summary.guardian.address.prov?.name +
+                    summary.guardian.address.prov?.provDesc +
                     " " +
-                    summary.guardian.address.reg?.name
+                    summary.guardian.address.reg?.regDesc
                 }}
               </p>
             </div>

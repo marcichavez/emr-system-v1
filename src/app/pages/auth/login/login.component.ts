@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  logoSrc = '/assets/images/logo.jpg';
   loginForm = new FormGroup({
     email: new FormControl('sample@gmail.com', [
       Validators.required,

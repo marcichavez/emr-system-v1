@@ -20,6 +20,22 @@ export class PortalComponent implements OnInit {
       name: 'Calendar',
       routerLink: 'calendar',
     },
+    {
+      name: 'Users',
+      routerLink: 'calendar',
+    },
+    {
+      name: 'Medicines',
+      routerLink: 'calendar',
+    },
+    {
+      name: 'Lab Requests',
+      routerLink: 'calendar',
+    },
+    {
+      name: 'Tranches',
+      routerLink: 'calendar',
+    },
   ];
 
   clinicsList: string[] = [

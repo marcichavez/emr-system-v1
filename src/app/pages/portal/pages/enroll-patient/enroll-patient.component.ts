@@ -51,6 +51,10 @@ export class EnrollPatientComponent implements OnInit {
     encounter: new FormGroup({
       payor: new FormControl('', [Validators.required]),
       atc: new FormControl(''),
+      appointment: new FormGroup({
+        date: new FormControl(),
+        time: new FormControl(),
+      }),
     }),
     address: new FormGroup({
       address1: new FormControl(''),
@@ -59,6 +63,7 @@ export class EnrollPatientComponent implements OnInit {
       prov: new FormControl(''),
       reg: new FormControl(''),
     }),
+    signature: new FormControl(),
   });
 
   guardianProfileFG = new FormGroup({
@@ -100,7 +105,6 @@ export class EnrollPatientComponent implements OnInit {
       if (this.summary['profile']) {
         this.healthProfileFG.patchValue(this.summary['profile']);
         if (this.summary['profile'].dob) {
-          console.log('here');
           this.age = this.calculateAge(new Date(this.summary['profile'].dob));
           this.soapParameters.age = this.age;
         }
@@ -130,6 +134,7 @@ export class EnrollPatientComponent implements OnInit {
       var ageBreakdown = this.calculateAge(new Date(o));
       this.age = ageBreakdown;
       this.healthProfileFG.get('age')?.setValue(ageBreakdown.years);
+      console.log({ age: this.age, dob: this.summary['profile'].dob });
     });
 
     var addressGuardian = this.guardianProfileFG.get('address');
@@ -140,7 +145,7 @@ export class EnrollPatientComponent implements OnInit {
       addressGuardian?.get('cityMun')?.reset();
       addressGuardian?.get('brgy')?.reset();
       this.ph.getProvince().subscribe((provs: any) => {
-        this.g_provinces = provs.filter((f: any) => f.reg_code === o.reg_code);
+        this.g_provinces = provs.filter((f: any) => f.regCode === o.regCode);
       });
     });
 
@@ -151,7 +156,7 @@ export class EnrollPatientComponent implements OnInit {
       this.ph.getCityMuns().subscribe((citymuns: any) => {
         console.log({ citymuns });
         this.g_citymuns = citymuns.filter(
-          (f: any) => f.prov_code === o.prov_code
+          (f: any) => f.provCode === o.provCode
         );
       });
     });
@@ -161,7 +166,9 @@ export class EnrollPatientComponent implements OnInit {
       addressGuardian?.get('brgy')?.reset();
       this.ph.getBarangays().subscribe((brgys: any) => {
         console.log(brgys);
-        this.g_barangays = brgys.filter((f: any) => f.mun_code === o.mun_code);
+        this.g_barangays = brgys.filter(
+          (f: any) => f.citymunCode === o.citymunCode
+        );
       });
     });
 
@@ -289,4 +296,6 @@ export class EnrollPatientComponent implements OnInit {
       }, 2000);
     }, 2000);
   }
+
+  pickADate() {}
 }
