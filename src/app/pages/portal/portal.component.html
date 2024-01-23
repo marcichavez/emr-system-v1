@@ -15,16 +15,8 @@
   </mat-drawer>
 
   <mat-drawer #drawerRight mode="over" class="right-side-panel" position="end">
-    <h1>Chatbar</h1>
-    <section class="chat-section">
-      <mat-form-field class="w-full" appearance="outline">
-        <mat-label>Search People</mat-label>
-        <input matInput placeholder="Input personnel name" />
-        <button matSuffix mat-icon-button>
-          <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field>
-    </section>
+    <h1>Pending Claims</h1>
+    <section class="chat-section"></section>
   </mat-drawer>
 
   <div class="main-panel">
@@ -61,14 +53,21 @@
 
       <!-- Account Button -->
 
-      <button mat-icon-button class="chat-btn" (click)="drawerRight.toggle()">
+      <!-- <button mat-icon-button class="chat-btn" (click)="drawerRight.toggle()">
         <mat-icon>chat{{ drawerRight.opened ? "_bubble" : "" }}</mat-icon>
+      </button> -->
+
+      <button
+        mat-icon-button
+        matTooltip="View Pending Claims"
+        (click)="drawerRight.toggle()"
+      >
+        <mat-icon>summarize</mat-icon>
       </button>
 
       <button mat-icon-button class="account-btn" [routerLink]="['my-account']">
         <mat-icon>account_circle</mat-icon>
       </button>
-      <span></span>
     </mat-toolbar>
     <section class="content">
       <router-outlet></router-outlet>

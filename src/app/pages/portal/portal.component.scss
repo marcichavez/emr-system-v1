@@ -44,8 +44,7 @@ mat-toolbar {
 }
 
 .content {
-  padding: 27px;
-  // width: 100%;
+  padding: 0.5rem 27px;
 }
 
 .active-clinic-label {
@@ -79,4 +78,8 @@ mat-toolbar {
 
 .chat-btn {
   opacity: 0.5;
+}
+
+.ph-online {
+  color: $completed;
 }
