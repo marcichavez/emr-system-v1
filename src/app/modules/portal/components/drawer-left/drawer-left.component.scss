@@ -1,0 +1,23 @@
+@import "/src/assets/styles/variables.scss";
+.drawer {
+  width: 50rem;
+  padding: 1rem 0 0 1rem;
+  h1 {
+    margin-bottom: 26px;
+  }
+  .nav-section {
+    .nav-btn {
+      padding: 2px;
+      margin: 1px 0;
+      p {
+        margin: 10px 0;
+      }
+    }
+  }
+}
+
+.active {
+  border-left: 2px $primary solid;
+  padding-left: 16px !important;
+  color: $primary;
+}

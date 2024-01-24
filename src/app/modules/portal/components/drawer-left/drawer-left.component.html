@@ -1,12 +1,14 @@
-<h1>EMR</h1>
-<section class="nav-section">
-  <div
-    class="nav-btn"
-    *ngFor="let navLink of navRouterLinks"
-    routerLinkActive="active"
-  >
-    <div [routerLink]="[navLink.url]">
-      <p>{{ navLink.name }}</p>
+<div clas="drawer">
+  <h1>EMR</h1>
+  <section class="nav-section">
+    <div
+      class="nav-btn"
+      *ngFor="let navLink of navRouterLinks"
+      routerLinkActive="active"
+    >
+      <div [routerLink]="[navLink.url]">
+        <p>{{ navLink.name }}</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>

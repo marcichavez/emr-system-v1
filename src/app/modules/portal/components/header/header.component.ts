@@ -8,6 +8,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 })
 export class HeaderComponent implements OnInit {
   @Input() drawerLeft!: MatDrawer;
+  @Input() drawerRight!: MatDrawer;
 
   constructor() {}
 
