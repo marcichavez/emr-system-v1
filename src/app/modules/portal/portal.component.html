@@ -1,0 +1,16 @@
+<mat-drawer-container autosize>
+  <mat-drawer #drawerLeft mode="over" class="left-side-panel">
+    <app-drawer-left></app-drawer-left>
+  </mat-drawer>
+
+  <mat-drawer #drawerRight mode="over" class="right-side-panel" position="end">
+    <app-drawer-right></app-drawer-right>
+  </mat-drawer>
+
+  <div class="main-panel">
+    <app-header [drawerLeft]="drawerLeft"></app-header>
+    <section class="content h-[100rem]">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+</mat-drawer-container>

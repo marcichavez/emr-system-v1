@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="sticky top-0 z-50">
+  <!-- Menu -->
+
+  <button mat-icon-button (click)="drawerLeft.toggle()" class="pr-2">
+    <mat-icon>chevron_{{ drawerLeft.opened ? "left" : "right" }}</mat-icon>
+  </button>
+
+  <!-- Clinics -->
+  <h1>Clinic Name</h1>
+
+  <div class="spacer"></div>
+
+  <button mat-icon-button class="account-btn" [routerLink]="['my-account']">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>

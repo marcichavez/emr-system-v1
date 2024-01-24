@@ -1,0 +1,12 @@
+<h1>EMR</h1>
+<section class="nav-section">
+  <div
+    class="nav-btn"
+    *ngFor="let navLink of navRouterLinks"
+    routerLinkActive="active"
+  >
+    <div [routerLink]="[navLink.url]">
+      <p>{{ navLink.name }}</p>
+    </div>
+  </div>
+</section>
