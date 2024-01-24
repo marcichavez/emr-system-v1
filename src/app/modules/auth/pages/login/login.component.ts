@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LoginError } from 'src/app/core/interfaces/LoginError.interface';
@@ -12,8 +12,6 @@ import { FakeAuthService } from 'src/app/core/mocks/fake-auth/fake-auth.service'
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  logoSrc = '/assets/images/logo.jpg';
-
   loginForm = new FormGroup({
     email: new FormControl('test@email.com', [
       Validators.required,
@@ -66,5 +64,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onForgotPassword() {}
+  onClickForgotPassword() {
+    this.router.navigate(['auth', 'forgot-password']);
+  }
 }

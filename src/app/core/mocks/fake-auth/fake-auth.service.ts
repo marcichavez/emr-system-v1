@@ -50,6 +50,10 @@ export class FakeAuthService {
     }
   }
 
+  isPasswordConfirmed(newPassword: string, confirmPassword: string) {
+    return newPassword === confirmPassword;
+  }
+
   logout() {
     let res = { env: { message: 'Successfull Logout' } };
     return of(res);
@@ -66,16 +70,32 @@ export class FakeAuthService {
     );
   }
 
-  resetPassword(token: string, body: object) {
-    return this.http.put(
-      URL + `/auth/reset-password/${token}`,
-      body,
-      this.getHeaders()
-    );
+  resetPassword(token: string, newPassword: string, confirmPassword: string) {
+    if (token === '123') {
+      return of(true);
+    } else {
+      let res = {
+        error: {
+          message: 'Unauthorized action',
+          status: 404,
+        },
+      };
+      return throwError(res);
+    }
   }
 
   forgotPassword(email: string) {
-    return this.http.post(URL + `/auth/forgot-password`, { email });
+    if (email === 'test@email.com') {
+      return of(true);
+    } else {
+      let res = {
+        error: {
+          message: 'Email not Found',
+          status: 404,
+        },
+      };
+      return throwError(res);
+    }
   }
 
   updatePassword(body: object) {
