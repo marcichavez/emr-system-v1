@@ -7,16 +7,21 @@ import { PortalComponent } from './portal.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './components/header/header.component';
-import { DrawerLeftComponent } from './components/drawer-left/drawer-left.component';
-import { FormMaterialsModule } from 'src/app/shared/form-materials/form-materials.module';
+import { FormMaterialsModule } from 'src/app/shared/modules/form-materials/form-materials.module';
 import { AddPatientDrawerComponent } from './components/add-patient-drawer/add-patient-drawer.component';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+import { PatientsListComponent } from './components/add-patient-drawer/components/patients-list/patients-list.component';
+import { PatientFormComponent } from './components/add-patient-drawer/components/patient-form/patient-form.component';
 
 @NgModule({
   declarations: [
     PortalComponent,
     HeaderComponent,
-    DrawerLeftComponent,
+    NavigationBarComponent,
     AddPatientDrawerComponent,
+    NavigationBarComponent,
+    PatientsListComponent,
+    PatientFormComponent,
   ],
   imports: [
     CommonModule,

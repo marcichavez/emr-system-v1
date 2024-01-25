@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { DrawerLeftComponent } from './components/drawer-left/drawer-left.component';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { NavRouterlink } from 'src/app/core/interfaces/NavRouterLink.interface';
 
 @Component({
   selector: 'app-portal',
@@ -8,8 +8,13 @@ import { MatDrawer } from '@angular/material/sidenav';
   styleUrls: ['./portal.component.scss'],
 })
 export class PortalComponent implements OnInit {
+  currentNavName = '';
   drawerLeft!: MatDrawer;
   constructor() {}
 
   ngOnInit(): void {}
+
+  urlChange(navRouterLink: NavRouterlink) {
+    this.currentNavName = navRouterLink.name;
+  }
 }

@@ -1,6 +1,9 @@
 <mat-drawer-container autosize>
   <mat-drawer #drawerLeft mode="over" class="left-drawer">
-    <app-drawer-left [drawer]="drawerLeft"></app-drawer-left>
+    <app-navigation-bar
+      (urlChange)="urlChange($event)"
+      [drawer]="drawerLeft"
+    ></app-navigation-bar>
   </mat-drawer>
 
   <mat-drawer
@@ -13,12 +16,15 @@
     <app-add-patient-drawer [drawer]="drawerRight"></app-add-patient-drawer>
   </mat-drawer>
 
-  <div class="main-panel">
+  <div class="main-panel mb-[10rem]">
     <app-header
       [drawerLeft]="drawerLeft"
       [drawerRight]="drawerRight"
     ></app-header>
-    <section class="content">
+    <div class="title-bar mt-16 p-2 px-[2rem] opacity-80">
+      {{ currentNavName }}
+    </div>
+    <section class="p-2 px-[2rem] min-h-[100vh] pb-[10rem]">
       <router-outlet></router-outlet>
     </section>
   </div>

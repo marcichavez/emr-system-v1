@@ -1,7 +1,7 @@
 <div class="max-h-[100vh] overflow-scroll p-4">
   <div class="flex justify-between">
     <div class="add-patient-label-container pt-2">
-      <h2>+ Add New Patient</h2>
+      <h2>Create Encounter</h2>
     </div>
     <div class="close-btn-container">
       <button mat-icon-button color="warn" (click)="drawer.toggle()">
@@ -9,5 +9,27 @@
       </button>
     </div>
   </div>
-  <div class="grid grid-cols-12 gap-2"></div>
+  <div class="grid grid-cols-12 gap-2">
+    <mat-form-field class="col-span-12">
+      <mat-label>Search for Patient's Record</mat-label>
+      <input [formControl]="keyword" matInput />
+      <button mat-icon-button matSuffix>
+        <mat-icon>search</mat-icon>
+      </button>
+      <mat-hint>Search lastname, firstname or PIN</mat-hint>
+    </mat-form-field>
+
+    <div class="col-span-12">
+      <button
+        mat-stroked-button
+        class="float-right"
+        [matTooltip]="'Add new patient to clinics record'"
+      >
+        + Add New Patient Record
+      </button>
+    </div>
+  </div>
+  <div class="container">
+    <app-patients-list></app-patients-list>
+  </div>
 </div>

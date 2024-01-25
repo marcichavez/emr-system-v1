@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DrawerLeftComponent } from './drawer-left.component';
+import { PatientFormComponent } from './patient-form.component';
 
-describe('DrawerLeftComponent', () => {
-  let component: DrawerLeftComponent;
-  let fixture: ComponentFixture<DrawerLeftComponent>;
+describe('PatientFormComponent', () => {
+  let component: PatientFormComponent;
+  let fixture: ComponentFixture<PatientFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DrawerLeftComponent ]
+      declarations: [ PatientFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DrawerLeftComponent);
+    fixture = TestBed.createComponent(PatientFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

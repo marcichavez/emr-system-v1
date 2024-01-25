@@ -1,12 +1,7 @@
 @import "/src/assets/styles/variables.scss";
 
-.content {
-  padding: 0.5rem 27px;
-  min-height: 100vh;
-}
-
 .left-drawer {
-  width: 30rem;
+  width: 14rem;
 }
 
 .right-drawer {
@@ -16,4 +11,13 @@
 .left-drawer,
 .right-drawer {
   height: 100vh;
+}
+
+.title-bar {
+  background-color: $primary;
+  color: white;
+}
+
+.main-panel {
+  height: calc(100vh - 14rem);
 }

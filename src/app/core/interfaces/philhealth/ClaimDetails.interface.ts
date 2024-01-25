@@ -1,5 +1,4 @@
 import { PGender } from './PGender.interface';
-import { PPatientIs } from './PPatientIs.interface';
 export interface ClaimDetails {
   // from facility detail given by philhealth
   pUserName: string; // facility
@@ -12,37 +11,33 @@ export interface ClaimDetails {
   pMemberFirstName: string;
   pMemberMiddleName: string;
   pMemberSuffix?: string;
-  pMemberBirthDate: string; //MM-DD-YY
+  pMemberBirthDate: Date; //MM-DD-YY
   pMailingAddress: string;
   pZipCode: string;
-  pPatientIs: PPatientIs;
+  pPatientIs: 'M' | 'S' | 'C' | 'P';
 
-  // admission dates
   pAdmissionDate: Date; //MM-DD-YY
   pDischargeDate: Date; //MM-DD-YY
 
-  //disregarded if pMemberShipType === 'M'
   pPatientLastName?: string;
   pPatientFirstName?: string;
   pPatientMiddleName?: string;
 
-  // required
   pPatientSuffix: string;
-  pPatientBirthDate: string; //MM-DD-YY
+  pPatientBirthDate: Date; //MM-DD-YY
   pPatientGender: PGender;
 
-  // membership type
-  pMemberShipType: string;
+  pMemberShipType: 'S' | 'G' | 'I' | 'NS' | 'NO' | 'PS' | 'PG';
 
-  //if pMemberShipType === 'S' || 'G'
+  // if pMemberShipType === 'S' || 'G'
   pPEN?: string;
   pEmployerName?: string;
 
-  //leave blank if no surgery is done
+  // leave blank if no surgery is done
   pRVS?: string;
 
-  //
-  pTotalAmountActual: string; // #######.##
-  pTotalAmountClaimed: string; // #######.##
+  // #######.##
+  pTotalAmountActual: number;
+  pTotalAmountClaimed: number;
   pIsFinal: 0 | 1;
 }

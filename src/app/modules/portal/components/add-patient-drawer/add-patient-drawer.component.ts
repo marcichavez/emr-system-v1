@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
@@ -8,6 +9,8 @@ import { MatDrawer } from '@angular/material/sidenav';
 })
 export class AddPatientDrawerComponent implements OnInit {
   @Input() drawer!: MatDrawer;
+
+  keyword = new FormControl('');
   constructor() {}
 
   ngOnInit(): void {}

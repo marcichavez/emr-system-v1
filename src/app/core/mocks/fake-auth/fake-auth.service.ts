@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URL } from 'src/app/configs/url/url';
-import { Observable, of, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { FAKE_USER } from '../data/user';
-import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

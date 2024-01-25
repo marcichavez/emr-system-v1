@@ -7,7 +7,13 @@ const routes: Routes = [
     path: '',
     component: PortalComponent,
     children: [
-      // sidebar links
+      {
+        path: 'patients-masterlist',
+        loadChildren: () =>
+          import('./pages/patients-masterlist/patients-masterlist.module').then(
+            (m) => m.PatientsMasterlistModule
+          ),
+      },
     ],
   },
 ];

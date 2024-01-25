@@ -3,9 +3,9 @@ import { soap } from './soap.config';
 import * as SubFG from './soap.config-fg';
 import * as LIST from './soap.list';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Icd10Service } from 'src/app/services/api/icd_10/icd-10.service';
+import { IcdApiService } from 'src/app/core/api/icd-api/icd-api.service';
 import { Observable } from 'rxjs';
-import { MedicinesService } from 'src/app/services/api/medicines/medicines.service';
+import { InventoryApiService } from 'src/app/core/api/inventory-api/inventory-api.service';
 
 @Component({
   selector: 'app-soap',
@@ -32,8 +32,8 @@ export class SoapComponent implements OnInit {
   medKeyword = new FormControl();
 
   constructor(
-    private icdService: Icd10Service,
-    private medService: MedicinesService
+    private icdService: IcdApiService,
+    private medService: InventoryApiService
   ) {
     this.icdKeyword.valueChanges.subscribe((keyword) => {
       if (typeof keyword == 'string')

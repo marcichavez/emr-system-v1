@@ -1,4 +1,5 @@
 export interface NavRouterlink {
-  name: String;
-  url: String;
+  name: string;
+  url: string;
+  icon: string;
 }
