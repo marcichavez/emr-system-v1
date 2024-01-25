@@ -29,14 +29,11 @@ export interface ClaimDetails {
 
   pMemberShipType: 'S' | 'G' | 'I' | 'NS' | 'NO' | 'PS' | 'PG';
 
-  // if pMemberShipType === 'S' || 'G'
   pPEN?: string;
   pEmployerName?: string;
 
-  // leave blank if no surgery is done
   pRVS?: string;
 
-  // #######.##
   pTotalAmountActual: number;
   pTotalAmountClaimed: number;
   pIsFinal: 0 | 1;

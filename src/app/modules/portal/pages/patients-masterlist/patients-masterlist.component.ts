@@ -3,10 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { PhilhealtApiService } from 'src/app/core/api/philhealth-api/philhealt-api.service';
 import { Column } from 'src/app/core/classes/Column.class';
-import { MASTERLIST } from 'src/app/core/mocks/data/masterlist';
 
 @Component({
   selector: 'app-patients-masterlist',
