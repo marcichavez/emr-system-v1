@@ -12,6 +12,13 @@ import { AddPatientDrawerComponent } from './components/add-patient-drawer/add-p
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { PatientsListComponent } from './components/add-patient-drawer/components/patients-list/patients-list.component';
 import { PatientFormComponent } from './components/add-patient-drawer/components/patient-form/patient-form.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { TableModule } from 'src/app/shared/components/table/table.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatStepperModule } from '@angular/material/stepper';
+import { S1CheckMasterlistComponent } from './components/add-patient-drawer/components/patient-form/components/s1-check-masterlist/s1-check-masterlist.component';
+import { S2PatientDetailsComponent } from './components/add-patient-drawer/components/patient-form/components/s2-patient-details/s2-patient-details.component';
+import { S4SummaryComponent } from './components/add-patient-drawer/components/patient-form/components/s4-summary/s4-summary.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +29,9 @@ import { PatientFormComponent } from './components/add-patient-drawer/components
     NavigationBarComponent,
     PatientsListComponent,
     PatientFormComponent,
+    S1CheckMasterlistComponent,
+    S2PatientDetailsComponent,
+    S4SummaryComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +39,10 @@ import { PatientFormComponent } from './components/add-patient-drawer/components
     MatSidenavModule,
     FormMaterialsModule,
     MatToolbarModule,
+    MatTabsModule,
+    TableModule,
+    MatCardModule,
+    MatStepperModule,
   ],
 })
 export class PortalModule {}

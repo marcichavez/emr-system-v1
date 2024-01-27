@@ -1,1 +1,51 @@
-<p>patient-form works!</p>
+<mat-stepper orientation="vertical" #stepper>
+  <mat-step [stepControl]="checkMasterlistForm">
+    <ng-template matStepLabel>Check Masterlist</ng-template>
+    <app-s1-check-masterlist
+      [form]="checkMasterlistForm"
+    ></app-s1-check-masterlist>
+    <div class="w-full flex justify-between pt-5">
+      <button mat-raised-button color="primary" (click)="lookupMasterlist()">
+        Lookup Masterlist
+      </button>
+      <button mat-stroked-button matStepperNext>Skip</button>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="patientForm">
+    <ng-template matStepLabel>Patient Details</ng-template>
+    <app-s2-patient-details [form]="patientForm"></app-s2-patient-details>
+    <div class="w-full flex justify-between pt-5">
+      <button mat-stroked-button matStepperPrevious>Previous</button>
+      <button mat-stroked-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step
+    [stepControl]="guardianForm"
+    *ngIf="patientForm.value.age && patientForm.value.age < 21"
+  >
+    <ng-template matStepLabel>
+      Guardian Details
+      <small class="italic">for below 21 y/o</small></ng-template
+    >
+    <app-s2-patient-details [form]="guardianForm"></app-s2-patient-details>
+    <div class="w-full flex justify-between pt-5">
+      <button mat-stroked-button matStepperPrevious>Previous</button>
+      <button mat-stroked-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Summary</ng-template>
+    <app-s4-summary [summary]="summary"></app-s4-summary>
+    <div class="w-full flex justify-between pt-5">
+      <button mat-stroked-button matStepperPrevious>Previous</button>
+      <div class="flex gap-2">
+        <button mat-icon-button>
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <button mat-stroked-button>Save and Create Schedule</button>
+      </div>
+    </div>
+  </mat-step>
+</mat-stepper>

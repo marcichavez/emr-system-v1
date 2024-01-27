@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PatientsListComponent } from './patients-list.component';
+import { S1CheckMasterlistComponent } from './s1-check-masterlist.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('PatientsListComponent', () => {
-  let component: PatientsListComponent;
-  let fixture: ComponentFixture<PatientsListComponent>;
+describe('S1CheckMasterlistComponent', () => {
+  let component: S1CheckMasterlistComponent;
+  let fixture: ComponentFixture<S1CheckMasterlistComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PatientsListComponent],
+      declarations: [S1CheckMasterlistComponent],
       imports: [HttpClientTestingModule],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PatientsListComponent);
+    fixture = TestBed.createComponent(S1CheckMasterlistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

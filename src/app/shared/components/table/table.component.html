@@ -1,33 +1,49 @@
-<mat-card>
-  <table mat-table [dataSource]="dataSource" class="w-full">
-    <ng-container
-      *ngFor="let column of columns"
-      [matColumnDef]="column.columnDef"
-    >
-      <th mat-header-cell *matHeaderCellDef>
-        {{ column.header }}
-      </th>
-      <td mat-cell *matCellDef="let row">
-        {{ column.cell(row) }}
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"
-      (click)="rowClick(row)"
-    ></tr>
-
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" [attr.colspan]="columns.length">No data found.</td>
-    </tr>
-  </table>
-  <mat-paginator
-    (page)="pageChange($event)"
-    [length]="totalRecordCount"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 25, 100]"
+<table mat-table [dataSource]="dataSource" class="w-full">
+  <ng-container
+    *ngFor="let column of columns"
+    [matColumnDef]="column.columnDef"
   >
-  </mat-paginator>
-</mat-card>
+    <th mat-header-cell *matHeaderCellDef>
+      {{ column.header }}
+    </th>
+    <td mat-cell *matCellDef="let row">
+      {{ column.cell(row) }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="options">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let row" class="text-right">
+      <mat-icon
+        *ngFor="let opt of rowOptions"
+        class="opt-icon"
+        [matTooltip]="opt.name"
+        (click)="rowOptionClick.emit({ opt: opt.value, row: row })"
+      >
+        {{ opt.icon }}
+      </mat-icon>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="rowClick(row)"
+  ></tr>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" [attr.colspan]="columns.length">
+      <div class="text-center no-data">
+        ------------ No data found.------------
+      </div>
+    </td>
+  </tr>
+</table>
+<mat-paginator
+  (page)="pageChange($event)"
+  [length]="totalRecordCount"
+  [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+>
+</mat-paginator>

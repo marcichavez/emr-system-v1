@@ -1,0 +1,10 @@
+<form [formGroup]="form" class="grid grid-cols-12 gap-2">
+  <mat-form-field appearance="outline" class="col-span-12">
+    <mat-label>PIN</mat-label>
+    <input matInput formControlName="pin" />
+    <button mat-icon-button matSuffix *ngIf="form.value.pin">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-hint>Philhealth Identification Number</mat-hint>
+  </mat-form-field>
+</form>

@@ -10,18 +10,18 @@ export class LocationsService {
   constructor(private http: HttpClient) {}
 
   getRegions() {
-    return this.http.get(this.url + '/regions.json');
+    return this.http.get(this.url + '/region.json');
   }
 
   getProvince() {
-    return this.http.get(this.url + '/provinces.json');
+    return this.http.get(this.url + '/province.json');
   }
 
   getCityMuns() {
-    return this.http.get(this.url + '/city-mun.json');
+    return this.http.get(this.url + '/city.json');
   }
 
   getBarangays() {
-    return this.http.get(this.url + '/barangays.json');
+    return this.http.get(this.url + '/barangay.json');
   }
 }

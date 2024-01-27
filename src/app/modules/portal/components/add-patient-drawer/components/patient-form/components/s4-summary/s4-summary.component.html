@@ -1,0 +1,121 @@
+<div
+  class="grid grid-cols-12 gap-x-2 summary"
+  *ngIf="summary && summary.patient"
+>
+  <div class="col-span-12 pb-2">
+    <div class="underline-emphasis">
+      <p>Patients Details</p>
+    </div>
+  </div>
+
+  <div class="col-span-4">
+    <small>PIN</small>
+    <p>{{ summary.patient.pin }}</p>
+  </div>
+
+  <div class="col-span-8">
+    <small>Name</small>
+    <p>
+      {{
+        summary.patient.firstName +
+          " " +
+          summary.patient.middleName +
+          " " +
+          summary.patient.lastName +
+          " " +
+          summary.patient.suffix
+      }}
+    </p>
+  </div>
+
+  <div class="col-span-4">
+    <small>Date of Birth</small>
+    <p>{{ summary.patient.dob | date }}</p>
+  </div>
+
+  <div class="col-span-4">
+    <small>Age</small>
+    <p>{{ summary.patient.age }}</p>
+  </div>
+
+  <div class="col-span-4">
+    <small>Sex</small>
+    <p>{{ summary.patient.sex }}</p>
+  </div>
+
+  <div class="col-span-4">
+    <small>Contact No.</small>
+    <p>{{ summary.patient.contactNo }}</p>
+  </div>
+
+  <div class="col-span-4">
+    <small>Email</small>
+    <p>{{ summary.patient.email }}</p>
+  </div>
+
+  <div class="col-span-12">
+    <small>Address</small>
+    <p>
+      {{ summary.patient.fullAddress }}
+    </p>
+  </div>
+  <ng-container *ngIf="summary.guardian">
+    <div class="col-span-12 pb-2">
+      <div class="underline-emphasis">
+        <p>Guardian's Details <span>(for patient below 21)</span></p>
+      </div>
+    </div>
+
+    <div class="col-span-4">
+      <small>PIN</small>
+      <p>{{ summary.guardian.pin }}</p>
+    </div>
+
+    <div class="col-span-4">
+      <small>Name</small>
+      <p>
+        {{
+          summary.guardian.firstName +
+            " " +
+            summary.guardian.middleName +
+            " " +
+            summary.guardian.lastName +
+            " " +
+            summary.guardian.suffix
+        }}
+      </p>
+    </div>
+
+    <div class="col-span-4">
+      <small>Date of Birth</small>
+      <p>{{ summary.guardian.dob | date }}</p>
+    </div>
+
+    <div class="col-span-4">
+      <small>Age</small>
+      <p>{{ summary.guardian.age }}</p>
+    </div>
+
+    <div class="col-span-4">
+      <small>Sex</small>
+      <p>{{ summary.guardian.sex }}</p>
+    </div>
+
+    <div class="col-span-4">
+      <small>Contact No.</small>
+      <p>{{ summary.guardian.sex }}</p>
+    </div>
+
+    <div class="col-span-4">
+      <small>Email</small>
+      <p>{{ summary.guardian.email }}</p>
+    </div>
+
+    <div class="col-span-12">
+      <small>Address</small>
+      <p>
+        {{ summary.guardian.fullAddress }}
+      </p>
+    </div>
+  </ng-container>
+</div>

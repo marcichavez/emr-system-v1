@@ -1,35 +1,27 @@
-<div class="max-h-[100vh] overflow-scroll p-4">
-  <div class="flex justify-between">
-    <div class="add-patient-label-container pt-2">
-      <h2>Create Encounter</h2>
-    </div>
-    <div class="close-btn-container">
-      <button mat-icon-button color="warn" (click)="drawer.toggle()">
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
+<div class="py-4 bg-white">
+  <div class="px-4 flex flex-row-reverse">
+    <mat-icon
+      color="warn"
+      (click)="drawer.toggle()"
+      class="cursor-pointer z-50 bottom-0"
+    >
+      close
+    </mat-icon>
   </div>
-  <div class="grid grid-cols-12 gap-2">
-    <mat-form-field class="col-span-12">
-      <mat-label>Search for Patient's Record</mat-label>
-      <input [formControl]="keyword" matInput />
-      <button mat-icon-button matSuffix>
-        <mat-icon>search</mat-icon>
-      </button>
-      <mat-hint>Search lastname, firstname or PIN</mat-hint>
-    </mat-form-field>
 
-    <div class="col-span-12">
-      <button
-        mat-stroked-button
-        class="float-right"
-        [matTooltip]="'Add new patient to clinics record'"
-      >
-        + Add New Patient Record
-      </button>
-    </div>
-  </div>
-  <div class="container">
-    <app-patients-list></app-patients-list>
+  <mat-tab-group class="mb-[10rem]">
+    <mat-tab label="Search Record">
+      <div class="p-4">
+        <app-patients-list></app-patients-list>
+      </div>
+    </mat-tab>
+    <mat-tab label="Add New">
+      <div class="py-4 px-[1px]">
+        <app-patient-form></app-patient-form>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="text-center">
+    <p class="opacity-30">--- end ---</p>
   </div>
 </div>

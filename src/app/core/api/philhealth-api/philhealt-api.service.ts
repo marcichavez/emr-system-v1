@@ -45,6 +45,10 @@ export class PhilhealtApiService {
       });
   }
 
+  getMemberDetailsByPIN(pin: string) {
+    return of(MASTERLIST.find((o) => o.pin === pin));
+  }
+
   getMasterlist(query?: any) {
     return of({ records: MASTERLIST, total: MASTERLIST.length });
   }

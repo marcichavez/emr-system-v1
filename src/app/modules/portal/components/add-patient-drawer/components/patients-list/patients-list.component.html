@@ -1,1 +1,25 @@
-<p>patients-list works!</p>
+<div class="grid grid-cols-12 gap-2">
+  <mat-form-field appearance="fill" class="col-span-12">
+    <mat-label>Search Patient Details</mat-label>
+    <input matInput (keyup.enter)="searchPatients()" [formControl]="keyword" />
+    <button *ngIf="keyword.value" mat-icon-button matSuffix (click)="clear()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <button mat-icon-button matSuffix (click)="searchPatients()">
+      <mat-icon>search</mat-icon>
+    </button>
+    <mat-hint>Patient's Name or PIN (if any)</mat-hint>
+  </mat-form-field>
+
+  <div class="col-span-12">
+    <mat-card>
+      <app-table
+        [rowOptions]="rowOptions"
+        [columns]="columns"
+        [dataSource]="dataSource"
+        [totalRecordCount]="totalRecordCount"
+        (rowOptionClick)="createAppointment($event)"
+      ></app-table>
+    </mat-card>
+  </div>
+</div>

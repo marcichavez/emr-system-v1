@@ -1,0 +1,8 @@
+@import "/src/assets/styles/variables.scss";
+:host ::ng-deep .mat-tab-header {
+  top: 0;
+  z-index: 40;
+  background-color: white;
+  position: sticky;
+  position: -webkit-sticky; /* macOS/iOS Safari */
+}

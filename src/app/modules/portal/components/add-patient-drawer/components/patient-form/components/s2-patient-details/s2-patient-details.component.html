@@ -1,0 +1,152 @@
+<form [formGroup]="form" class="grid grid-cols-12 gap-2">
+  <div class="col-span-12">
+    <small class="highlight">Name</small>
+  </div>
+  <mat-form-field appearance="fill" class="col-span-4">
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="firstName" />
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="col-span-4">
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastName" />
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="col-span-4">
+    <mat-label>Middle Name</mat-label>
+    <input matInput formControlName="middleName" />
+    <mat-hint>Leave blank if N/A</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="col-span-4">
+    <mat-label>Suffix</mat-label>
+    <input matInput formControlName="suffix" />
+    <mat-hint>Jr., III, Sr., etc.</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="col-span-8">
+    <mat-label>PIN</mat-label>
+    <input matInput formControlName="pin" />
+    <mat-hint>Philhealth Identification Number</mat-hint>
+  </mat-form-field>
+
+  <div class="col-span-12">
+    <small class="highlight">Basic Info</small>
+  </div>
+
+  <mat-form-field appearance="fill" class="col-span-4">
+    <mat-label>Birthdate</mat-label>
+    <input matInput formControlName="dob" [matDatepicker]="dobPicker" />
+    <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+    <mat-datepicker #dobPicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="col-span-4">
+    <mat-label>Age</mat-label>
+    <input matInput formControlName="age" type="number" />
+    <mat-hint>Autocompute</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="col-span-4">
+    <mat-label>Sex</mat-label>
+    <mat-select formControlName="sex">
+      <mat-option value="Male"> Male </mat-option>
+      <mat-option value="Female"> Female </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="col-span-12">
+    <small class="highlight">Contact Info</small>
+  </div>
+
+  <mat-form-field appearance="fill" class="col-span-6">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" type="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="col-span-6">
+    <mat-label>Contact No.</mat-label>
+    <input matInput formControlName="contactNo" />
+  </mat-form-field>
+
+  <div class="col-span-12">
+    <small class="highlight">Address</small>
+  </div>
+
+  <ng-container [formGroupName]="'address'">
+    <mat-form-field class="col-span-6" appearance="fill">
+      <mat-label>Region</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="reg"
+        [matAutocomplete]="reg_auto"
+      />
+      <mat-autocomplete
+        (optionSelected)="regSelected()"
+        #reg_auto="matAutocomplete"
+        [displayWith]="displayFn"
+      >
+        <mat-option *ngFor="let option of regions" [value]="option">
+          {{ option.regDesc }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="col-span-6" appearance="fill">
+      <mat-label>Province</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="prov"
+        [matAutocomplete]="prov_auto"
+      />
+      <mat-autocomplete
+        (optionSelected)="provSelected()"
+        #prov_auto="matAutocomplete"
+        [displayWith]="displayFn"
+      >
+        <mat-option *ngFor="let option of provinces" [value]="option">
+          {{ option.provDesc }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="col-span-6" appearance="fill">
+      <mat-label>City/Municipality</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="cityMun"
+        [matAutocomplete]="cityMun_auto"
+      />
+      <mat-autocomplete
+        (optionSelected)="citymunSelected()"
+        #cityMun_auto="matAutocomplete"
+        [displayWith]="displayFn"
+      >
+        <mat-option *ngFor="let option of citymuns" [value]="option">
+          {{ option.citymunDesc }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="col-span-6" appearance="fill">
+      <mat-label>Barangay</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="brgy"
+        [matAutocomplete]="brgy_auto"
+      />
+      <mat-autocomplete #brgy_auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of barangays" [value]="option">
+          {{ option.brgyDesc }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="col-span-12" appearance="fill">
+      <mat-label>
+        House No.Unit No., Bldg. Name, Street/Purok, Subd./Village
+      </mat-label>
+      <input matInput formControlName="address1" />
+    </mat-form-field>
+  </ng-container>
+</form>
