@@ -14,6 +14,13 @@ const routes: Routes = [
             (m) => m.PatientsMasterlistModule
           ),
       },
+      {
+        path: 'calendar',
+        loadChildren: () =>
+          import('./pages/calendar/calendar.module').then(
+            (m) => m.CalendarModule
+          ),
+      },
     ],
   },
 ];

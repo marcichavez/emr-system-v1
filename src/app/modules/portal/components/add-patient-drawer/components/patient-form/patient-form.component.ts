@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { S1CheckMasterlistComponent } from './components/s1-check-masterlist/s1-check-masterlist.component';
 import { MatStepper } from '@angular/material/stepper';
 import { LocationHelperService } from 'src/app/core/helpers/location-helper/location-helper.service';
+import { PatientApiService } from 'src/app/core/api/patient-api/patient-api.service';
 
 @Component({
   selector: 'app-patient-form',
@@ -30,11 +31,11 @@ export class PatientFormComponent implements OnInit {
     email: new FormControl('marci@gmail.com'),
     pin: new FormControl('123456789'),
     address: new FormGroup({
-      address1: new FormControl(''),
-      brgy: new FormControl(''),
-      cityMun: new FormControl(''),
-      prov: new FormControl(''),
-      reg: new FormControl(''),
+      address1: new FormControl('', [Validators.required]),
+      brgy: new FormControl('', [Validators.required]),
+      cityMun: new FormControl('', [Validators.required]),
+      prov: new FormControl('', [Validators.required]),
+      reg: new FormControl('', [Validators.required]),
     }),
     fullAddress: new FormControl(''),
     signature: new FormControl(),
@@ -52,11 +53,11 @@ export class PatientFormComponent implements OnInit {
     email: new FormControl('joy@gmail.com'),
     pin: new FormControl('123456789'),
     address: new FormGroup({
-      address1: new FormControl(''),
-      brgy: new FormControl(''),
-      cityMun: new FormControl(''),
-      prov: new FormControl(''),
-      reg: new FormControl(''),
+      address1: new FormControl('', [Validators.required]),
+      brgy: new FormControl('', [Validators.required]),
+      cityMun: new FormControl('', [Validators.required]),
+      prov: new FormControl('', [Validators.required]),
+      reg: new FormControl('', [Validators.required]),
     }),
     fullAddress: new FormControl(''),
     signature: new FormControl(),
@@ -78,7 +79,10 @@ export class PatientFormComponent implements OnInit {
       }),
     }),
 */
-  constructor(private locationHelper: LocationHelperService) {}
+  constructor(
+    private locationHelper: LocationHelperService,
+    private patientApi: PatientApiService
+  ) {}
 
   ngOnInit(): void {
     this.patientForm.valueChanges.subscribe((val) => {
@@ -113,9 +117,10 @@ export class PatientFormComponent implements OnInit {
   }
 
   lookupMasterlist() {
-    this.masterlistComponent.lookupMasterlist().subscribe((res) => {
+    this.masterlistComponent.lookupMasterlist().subscribe((res: any) => {
       console.log(res);
 
+      // create mapping service for masterlist and patients collection
       if (res) {
         var patient = {
           firstName: res.firstName,
@@ -144,6 +149,16 @@ export class PatientFormComponent implements OnInit {
 
         this.stepper.next();
       }
+    });
+  }
+
+  saveAndCreateSchedule() {
+    let patient = this.patientForm.value;
+    if (patient.age < 21) {
+      patient['guardian'] = this.guardianForm.value;
+    }
+    this.patientApi.createPatient(patient).subscribe((res: any) => {
+      // go to schedule
     });
   }
 }

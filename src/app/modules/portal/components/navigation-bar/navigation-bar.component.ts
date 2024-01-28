@@ -17,6 +17,11 @@ export class NavigationBarComponent implements OnInit {
       url: 'patients-masterlist',
       icon: 'list_alt',
     },
+    {
+      name: 'Calendar',
+      url: 'calendar',
+      icon: 'today',
+    },
   ];
   constructor(private router: Router) {
     router.events.subscribe((val) => {

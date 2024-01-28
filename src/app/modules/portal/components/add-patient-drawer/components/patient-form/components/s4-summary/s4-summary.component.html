@@ -59,7 +59,7 @@
       {{ summary.patient.fullAddress }}
     </p>
   </div>
-  <ng-container *ngIf="summary.guardian">
+  <ng-container *ngIf="summary.patient.age && summary.patient.age < 21">
     <div class="col-span-12 pb-2">
       <div class="underline-emphasis">
         <p>Guardian's Details <span>(for patient below 21)</span></p>

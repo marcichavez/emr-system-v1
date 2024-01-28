@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { PhilhealtApiService } from 'src/app/core/api/philhealth-api/philhealt-api.service';
+import { PhilhealthApiService } from 'src/app/core/api/philhealth-api/philhealth-api.service';
 
 @Component({
   selector: 'app-s1-check-masterlist',
@@ -10,7 +10,7 @@ import { PhilhealtApiService } from 'src/app/core/api/philhealth-api/philhealt-a
 export class S1CheckMasterlistComponent implements OnInit {
   @Input() form: FormGroup = new FormGroup({});
 
-  constructor(private phicApiService: PhilhealtApiService) {}
+  constructor(private phicApiService: PhilhealthApiService) {}
 
   ngOnInit(): void {}
 

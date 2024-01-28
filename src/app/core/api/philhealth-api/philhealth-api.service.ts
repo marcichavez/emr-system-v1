@@ -13,7 +13,7 @@ import { MASTERLIST } from '../../mocks/data/masterlist';
 @Injectable({
   providedIn: 'root',
 })
-export class PhilhealtApiService {
+export class PhilhealthApiService {
   constructor(
     private httpClient: HttpClient,
     private phicHelperService: PhilhealthHelperService

@@ -12,7 +12,11 @@
     </div>
   </mat-step>
   <mat-step [stepControl]="patientForm">
-    <ng-template matStepLabel>Patient Details</ng-template>
+    <ng-template matStepLabel>
+      <span [class]="patientForm.valid ? '' : 'invalid'">
+        Patient Details <mat-icon *ngIf="patientForm.valid">check</mat-icon>
+      </span>
+    </ng-template>
     <app-s2-patient-details [form]="patientForm"></app-s2-patient-details>
     <div class="w-full flex justify-between pt-5">
       <button mat-stroked-button matStepperPrevious>Previous</button>
@@ -25,7 +29,9 @@
     *ngIf="patientForm.value.age && patientForm.value.age < 21"
   >
     <ng-template matStepLabel>
-      Guardian Details
+      <span [class]="guardianForm.valid ? '' : 'invalid'">
+        Guardian Details <mat-icon *ngIf="guardianForm.valid">check</mat-icon>
+      </span>
       <small class="italic">for below 21 y/o</small></ng-template
     >
     <app-s2-patient-details [form]="guardianForm"></app-s2-patient-details>
@@ -41,9 +47,9 @@
     <div class="w-full flex justify-between pt-5">
       <button mat-stroked-button matStepperPrevious>Previous</button>
       <div class="flex gap-2">
-        <button mat-icon-button>
+        <!-- <button mat-icon-button>
           <mat-icon>more_vert</mat-icon>
-        </button>
+        </button> -->
         <button mat-stroked-button>Save and Create Schedule</button>
       </div>
     </div>

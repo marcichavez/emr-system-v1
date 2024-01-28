@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Sort } from '@angular/material/sort';
-import { PhilhealtApiService } from 'src/app/core/api/philhealth-api/philhealt-api.service';
+import { PhilhealthApiService } from 'src/app/core/api/philhealth-api/philhealth-api.service';
 import { Column } from 'src/app/core/classes/Column.class';
 
 @Component({
@@ -94,7 +94,7 @@ export class PatientsMasterlistComponent implements OnInit {
   ];
 
   constructor(
-    private phicApiService: PhilhealtApiService,
+    private phicApiService: PhilhealthApiService,
     private snackBar: MatSnackBar
   ) {}
 

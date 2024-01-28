@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class CalculatorService {
+  now = new Date();
   constructor() {}
 
-  ageBreakdown(dob: Date) {
-    var now = new Date();
-
+  ageBreakdown(dob: Date, now?: Date) {
+    now = now || this.now;
     var yearNow = now.getFullYear();
     var monthNow = now.getMonth();
     var dateNow = now.getDate();

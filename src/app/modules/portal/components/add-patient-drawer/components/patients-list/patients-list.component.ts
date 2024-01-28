@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { PhilhealtApiService } from 'src/app/core/api/philhealth-api/philhealt-api.service';
+import { PatientApiService } from 'src/app/core/api/patient-api/patient-api.service';
 import { Column } from 'src/app/core/classes/Column.class';
 import { RowOption } from 'src/app/core/interfaces/RowOption.interface';
 
@@ -48,7 +48,7 @@ export class PatientsListComponent implements OnInit {
     },
   ];
   keyword = new FormControl('123456789');
-  constructor(private phicApiService: PhilhealtApiService) {}
+  constructor(private patientApi: PatientApiService) {}
 
   ngOnInit(): void {}
 
@@ -58,10 +58,15 @@ export class PatientsListComponent implements OnInit {
       this.totalRecordCount = 0;
       return;
     }
-    this.phicApiService.getMasterlist().subscribe((res) => {
-      this.dataSource = res.records;
-      this.totalRecordCount = res.total;
-    });
+    this.patientApi.getPatients().subscribe(
+      (res) => {
+        this.dataSource = res.records;
+        this.totalRecordCount = res.total;
+      },
+      (err) => {
+        alert('Something went wrong while fetching data.');
+      }
+    );
   }
 
   clear() {
