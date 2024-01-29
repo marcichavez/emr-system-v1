@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SoapModule } from 'src/app/shared/components/soap/soap.module';
 import { MatStepperModule } from '@angular/material/stepper';
 import { SummaryModule } from 'src/app/shared/components/summary/summary.module';
+import { ClinicalNotesModule } from 'src/app/shared/components/clinical-notes/clinical-notes.module';
 
 @NgModule({
   declarations: [AppointmentsComponent, CreateEncounterComponent],
@@ -22,6 +23,7 @@ import { SummaryModule } from 'src/app/shared/components/summary/summary.module'
     MatDialogModule,
     MatStepperModule,
     SummaryModule,
+    ClinicalNotesModule,
   ],
 })
 export class AppointmentsModule {}

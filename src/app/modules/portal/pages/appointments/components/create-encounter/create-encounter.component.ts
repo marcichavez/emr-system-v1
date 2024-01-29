@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PatientApiService } from 'src/app/core/api/patient-api/patient-api.service';
 import { FAKE_PATIENTS } from 'src/app/core/mocks/data/patients';
 import {
   objective,
@@ -23,7 +24,7 @@ export class CreateEncounterComponent implements OnInit {
       payor: new FormControl('', [Validators.required]),
       atc: new FormControl(''),
       pin: new FormControl(this.summary.patient.pin),
-      date: new FormControl(),
+      date: new FormControl(new Date()),
     }),
     subjective: subjective,
     objective: objective,
@@ -31,7 +32,9 @@ export class CreateEncounterComponent implements OnInit {
   subjective = this.form.get('subjective') as FormGroup;
   objective = this.form.get('objective') as FormGroup;
   encounter = this.form.get('encounter') as FormGroup;
-  constructor() {}
+  soap: any = {};
+
+  constructor(private patientApi: PatientApiService) {}
 
   ngOnInit(): void {
     this.encounter.get('payor')?.valueChanges.subscribe((value) => {
@@ -39,11 +42,31 @@ export class CreateEncounterComponent implements OnInit {
         this.encounter.get('atc')?.setValidators([Validators.required]);
       }
     });
+
+    this.encounter.valueChanges.subscribe((res) => {
+      this.soap['encounter'] = res;
+    });
+
+    this.subjective.valueChanges.subscribe((res) => {
+      this.soap['subjective'] = res;
+    });
+
+    this.objective.valueChanges.subscribe((res) => {
+      this.soap['objective'] = res;
+    });
   }
 
   show() {
     console.log(this.form);
   }
 
-  autofillPatient() {}
+  autofillPatient() {
+    this.patientApi.getPatientByPIN('xxx').subscribe((res) => {
+      console.log(res);
+      this.summary = {
+        patient: res,
+        guardian: res.guardian,
+      };
+    });
+  }
 }

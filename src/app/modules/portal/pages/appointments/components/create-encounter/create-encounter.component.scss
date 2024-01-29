@@ -9,6 +9,7 @@
 }
 
 .title-icon {
+  margin-bottom: 1rem;
   mat-icon {
     margin-right: 7px;
     float: left;
@@ -21,7 +22,7 @@
 }
 
 .underline-emphasis {
-  border-bottom: 2px solid $primary;
+  border-bottom: 2px dotted $gray;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -43,4 +44,8 @@
 
 small {
   opacity: 0.5;
+}
+
+.notepad {
+  height: calc(100vh - 219px);
 }

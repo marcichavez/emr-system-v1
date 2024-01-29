@@ -2,7 +2,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 export const subjective = new FormGroup({
   chief_complaint: new FormControl('', [Validators.required]),
-  hx_or_present_illness: new FormControl('', [Validators.required]),
+  hx_of_present_illness: new FormControl('', [Validators.required]),
   blood_type: new FormControl(''),
   past_medical_hx: new FormGroup({
     chronic_medical_conditions: new FormArray([]),

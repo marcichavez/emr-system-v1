@@ -10,7 +10,7 @@
 
   <div class="col-span-4">
     <small>PIN</small>
-    <p>{{ summary.patient.pin }}</p>
+    <p>{{ summary.patient.pin || "-" }}</p>
   </div>
 
   <div class="col-span-8">
@@ -68,7 +68,7 @@
 
     <div class="col-span-4">
       <small>PIN</small>
-      <p>{{ summary.guardian.pin }}</p>
+      <p>{{ summary.guardian.pin || "-" }}</p>
     </div>
 
     <div class="col-span-4">

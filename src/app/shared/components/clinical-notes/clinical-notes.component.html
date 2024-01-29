@@ -1,0 +1,37 @@
+<div *ngIf="soap">
+  <div *ngIf="soap.encounter?.date">
+    <p class="font-bold">Appointment</p>
+    <p>
+      {{ soap.encounter?.date | date : "MMMM dd, YYYY" }},
+      <b>{{ soap.encounter?.payor }}</b>
+    </p>
+  </div>
+  <div *ngIf="soap.subjective?.chief_complaint">
+    <p class="font-bold">Chief Complaint</p>
+    <p>
+      {{ soap.subjective?.chief_complaint }}
+    </p>
+  </div>
+  <div *ngIf="soap.subjective?.hx_of_present_illness">
+    <p class="font-bold">History of Present Illnesss</p>
+    <p>
+      {{ soap.subjective?.hx_of_present_illness }}
+    </p>
+  </div>
+  <div
+    *ngIf="soap.subjective?.past_medical_hx?.chronic_medical_conditions?.length"
+  >
+    <p class="font-bold">Past Medical Condition</p>
+    <p>
+      <span
+        class="w-full block"
+        *ngFor="
+          let cond of soap.subjective?.past_medical_hx
+            .chronic_medical_conditions
+        "
+      >
+        {{ cond.name }}
+      </span>
+    </p>
+  </div>
+</div>

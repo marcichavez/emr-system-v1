@@ -13,6 +13,10 @@ export class PatientApiService {
     return of({ records: FAKE_PATIENTS, total: FAKE_PATIENTS.length });
   }
 
+  getPatientByPIN(pin: string) {
+    return of(FAKE_PATIENTS[3]);
+  }
+
   createPatient(patient: any) {
     return of({ patient });
   }
