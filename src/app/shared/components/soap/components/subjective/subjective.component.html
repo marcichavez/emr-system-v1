@@ -1,0 +1,1060 @@
+<form [formGroup]="form">
+  <div class="grid grid-cols-2 gap-2">
+    <div class="col-span-2">
+      <mat-form-field class="w-full">
+        <mat-label>Chief Complaint</mat-label>
+        <textarea
+          rows="4"
+          matInput
+          placeholder="e.g. Massive Headache"
+          formControlName="chief_complaint"
+        ></textarea>
+      </mat-form-field>
+    </div>
+    <div class="col-span-2">
+      <mat-form-field class="w-full">
+        <mat-label>History of Present Illness</mat-label>
+        <textarea
+          rows="4"
+          matInput
+          placeholder="e.g. Massive Headache"
+          formControlName="hx_or_present_illness"
+        ></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="col-span-2">
+      <mat-form-field class="w-full">
+        <mat-label>Blood Type</mat-label>
+        <mat-select formControlName="blood_type">
+          <mat-option *ngFor="let item of LIST.blood_types" [value]="item">
+            {{ item }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <ng-container [formGroupName]="'past_medical_hx'">
+      <div class="col-span-2">
+        <small class="highlight">Past Medical Condition</small>
+        <div class="grid grid-cols-12 pt-2 gap-2">
+          <div class="col-span-12">
+            <mat-checkbox
+              [checked]="chronic_medical_conditions.length == 0"
+              [disabled]="true"
+            >
+              None
+            </mat-checkbox>
+            <br />
+            <small> Automatic None if there are no selected conditions </small>
+          </div>
+          <ng-container formArrayName="chronic_medical_conditions">
+            <ng-container
+              *ngFor="
+                let cmc_form of chronic_medical_conditions.controls;
+                let i = index
+              "
+            >
+              <div class="col-span-6 overflow-hidden" [formGroupName]="i">
+                <mat-checkbox
+                  (change)="
+                    update_selected_chronic_disease(cmc_form.value.name)
+                  "
+                  [checked]="true"
+                >
+                  {{ cmc_form.value.name }}
+                </mat-checkbox>
+
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Year"
+                  formControlName="when"
+                />
+
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Medication"
+                  formControlName="medication"
+                />
+
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Diagnostic Peformed"
+                  formControlName="diagnostic_performed"
+                />
+
+                <mat-slide-toggle color="primary" formControlName="is_existing">
+                  Existing Condition
+                </mat-slide-toggle>
+              </div>
+            </ng-container>
+          </ng-container>
+          <div
+            class="col-span-12"
+            *ngIf="chronic_medical_conditions.length > 0"
+          ></div>
+          <ng-container
+            *ngFor="
+              let disease of LIST.chronic_medical_conditions;
+              let i = index
+            "
+          >
+            <div
+              class="col-span-6 overflow-hidden"
+              *ngIf="!isChronicSelected(disease)"
+            >
+              <mat-checkbox (change)="update_selected_chronic_disease(disease)">
+                {{ disease }}
+              </mat-checkbox>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="col-span-2" formArrayName="allergies">
+        <small class="highlight">Allergies</small>
+        <div class="grid grid-cols-12 mt-4 gap-2">
+          <ng-container
+            *ngFor="let allergy of allergies.controls; let i = index"
+          >
+            <ng-container [formGroupName]="i">
+              <mat-form-field class="col-span-3">
+                <mat-label>Allergy</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. Peanut"
+                  formControlName="name"
+                />
+              </mat-form-field>
+              <mat-form-field class="col-span-3">
+                <mat-label>Severity</mat-label>
+                <mat-select formControlName="severity">
+                  <mat-option
+                    *ngFor="let item of LIST.allergy_severity"
+                    [value]="item"
+                  >
+                    {{ item }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="col-span-6">
+                <mat-label>Medication</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Medication"
+                  formControlName="medication"
+                />
+                <button matSuffix mat-icon-button (click)="onRemoveAllergy(i)">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </ng-container>
+          </ng-container>
+        </div>
+        <a class="cursor-pointer hover:font-bold" (click)="onAddAllergy()">
+          + Add Allergy
+        </a>
+      </div>
+
+      <div class="col-span-2" formArrayName="surgeries">
+        <small class="highlight">Surgeries</small>
+        <div class="grid grid-cols-12 mt-4 gap-2">
+          <ng-container
+            *ngFor="let surgery of surgeries.controls; let i = index"
+          >
+            <ng-container [formGroupName]="i">
+              <mat-form-field class="col-span-3">
+                <mat-label>Surgery</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. Heart Transplant"
+                  formControlName="name"
+                />
+              </mat-form-field>
+              <mat-form-field class="col-span-2">
+                <mat-label>When</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. 2010"
+                  formControlName="when"
+                />
+              </mat-form-field>
+              <mat-form-field class="col-span-3">
+                <mat-label>Where</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. Manila Doctor's"
+                  formControlName="where"
+                />
+              </mat-form-field>
+              <mat-form-field class="col-span-4">
+                <mat-label>Outcome</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. Successful"
+                  formControlName="outcome"
+                />
+                <button matSuffix mat-icon-button (click)="onRemoveSurgery(i)">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </ng-container>
+          </ng-container>
+
+          <!--  -->
+        </div>
+        <a class="cursor-pointer hover:font-bold" (click)="onAddSurgery()">
+          + Add Surgery
+        </a>
+      </div>
+
+      <div class="col-span-2" formArrayName="medications">
+        <small class="highlight">Other Medications Taken</small>
+        <div class="grid grid-cols-12 mt-4 gap-2">
+          <ng-container
+            *ngFor="let medication of medications.controls; let i = index"
+          >
+            <ng-container [formGroupName]="i">
+              <mat-form-field class="col-span-3">
+                <mat-label>Medication Name</mat-label>
+                <input matInput type="text" formControlName="name" />
+              </mat-form-field>
+              <mat-form-field class="col-span-2">
+                <mat-label>When</mat-label>
+                <input matInput type="text" formControlName="when" />
+              </mat-form-field>
+              <mat-form-field class="col-span-2">
+                <mat-label>Duration</mat-label>
+                <input matInput type="text" formControlName="duration" />
+              </mat-form-field>
+              <mat-form-field class="col-span-5">
+                <mat-label>Indication</mat-label>
+                <input matInput type="text" formControlName="indication" />
+                <button
+                  matSuffix
+                  mat-icon-button
+                  (click)="onRemoveMedication(i)"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </ng-container>
+          </ng-container>
+
+          <!--  -->
+        </div>
+        <a class="cursor-pointer hover:font-bold" (click)="onAddMedication()">
+          + Add Medication
+        </a>
+      </div>
+
+      <div
+        class="col-span-2"
+        formGroupName="obgyne"
+        *ngIf="parameters.sex === 'Female'"
+      >
+        <small class="highlight">OB-Gyne Hx</small>
+        <div class="grid grid-cols-12 mt-4">
+          <ng-container *ngFor="let field of LIST.obgyne_hxs_fields">
+            <ng-container *ngIf="field.fcname">
+              <mat-form-field class="col-span-4 pr-4">
+                <mat-label>{{ field.label }}</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  [placeholder]="field.placeholder"
+                  [formControlName]="field.fcname"
+                />
+              </mat-form-field>
+            </ng-container>
+            <ng-container *ngIf="field.fgname" [formGroupName]="field.fgname">
+              <div class="col-span-12 pb-2">
+                <small class="sub-highlight">
+                  {{ field.label }}
+                </small>
+              </div>
+
+              <mat-form-field
+                *ngFor="let fgfield of field.fcs"
+                class="col-span-4 pr-4"
+              >
+                <mat-label>{{ fgfield.label }}</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  [placeholder]="fgfield.placeholder || ''"
+                  [formControlName]="fgfield.fcname"
+                />
+              </mat-form-field>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="col-span-2" formArrayName="chronologic_ob_hxs">
+        <small class="highlight">Chronologic OB Hx</small>
+        <div class="grid grid-cols-12 mt-2 gap-2">
+          <ng-container
+            *ngFor="let chr_ob_hx of chronologic_ob_hxs.controls; let i = index"
+          >
+            <ng-container [formGroupName]="i">
+              <mat-form-field class="col-span-2">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" formControlName="name" />
+              </mat-form-field>
+              <mat-form-field class="col-span-2">
+                <mat-label>When</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="When"
+                  formControlName="when"
+                />
+              </mat-form-field>
+              <mat-form-field class="col-span-8">
+                <mat-label>Outcome/Presense of comorbidities</mat-label>
+                <input matInput type="text" formControlName="remarks" />
+                <button
+                  matSuffix
+                  mat-icon-button
+                  (click)="onRemoveChronologicOB(i)"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </ng-container>
+          </ng-container>
+
+          <!--  -->
+        </div>
+        <a
+          class="cursor-pointer hover:font-bold"
+          (click)="onAddChronologicOB()"
+        >
+          + Add Chronologic OB
+        </a>
+      </div>
+
+      <div class="col-span-2" formArrayName="birth_control_methods">
+        <small class="highlight">Birth Control Methods</small>
+        <div class="grid grid-cols-12 mt-2 gap-2">
+          <ng-container
+            *ngFor="
+              let birth_control_method of birth_control_methods.controls;
+              let i = index
+            "
+          >
+            <ng-container [formGroupName]="i">
+              <mat-form-field class="col-span-3">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" formControlName="name" />
+              </mat-form-field>
+              <mat-form-field class="col-span-2">
+                <mat-label>When</mat-label>
+                <input matInput type="text" formControlName="when" />
+              </mat-form-field>
+              <mat-form-field class="col-span-2">
+                <mat-label>Duration</mat-label>
+                <input matInput type="text" formControlName="duration" />
+              </mat-form-field>
+              <mat-form-field class="col-span-5">
+                <mat-label>Remarks</mat-label>
+                <input matInput type="text" formControlName="remarks" />
+                <button
+                  matSuffix
+                  mat-icon-button
+                  (click)="onRemoveBirthControlMethod(i)"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </ng-container>
+          </ng-container>
+        </div>
+        <a
+          class="cursor-pointer hover:font-bold"
+          (click)="onAddBirthControlMethod()"
+        >
+          + Add Birth Control Method
+        </a>
+      </div>
+    </ng-container>
+
+    <ng-container [formGroupName]="'immunization_hx'">
+      <div class="col-span-2">
+        <small class="highlight"> Immunization Hx</small>
+      </div>
+      <div class="col-span-2">
+        <div class="col-span-12">
+          <small class="sub-highlight"> Childhood Immunization </small>
+        </div>
+        <div class="grid grid-cols-12 pt-2 gap-2">
+          <div class="col-span-12">
+            <mat-checkbox [checked]="childhood.length == 0" [disabled]="true">
+              None
+            </mat-checkbox>
+            <br />
+            <small>
+              Automatic None if there are no selected immunization
+            </small>
+          </div>
+          <ng-container formArrayName="childhood">
+            <ng-container
+              *ngFor="let immunx_fg of childhood.controls; let i = index"
+            >
+              <div class="col-span-6 overflow-hidden" [formGroupName]="i">
+                <mat-checkbox
+                  (change)="update_selected_childhood(immunx_fg.value.name)"
+                  [checked]="true"
+                >
+                  {{ immunx_fg.value.name }}
+                </mat-checkbox>
+
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Year"
+                  formControlName="when"
+                />
+
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Where"
+                  formControlName="where"
+                />
+              </div>
+            </ng-container>
+          </ng-container>
+          <div class="col-span-12"></div>
+          <ng-container
+            *ngFor="
+              let immun of LIST.child_immunization_schedule;
+              let i = index
+            "
+          >
+            <div
+              class="col-span-6 overflow-hidden"
+              *ngIf="!isChildhoodImmunizationSelected(immun.vaccine)"
+            >
+              <mat-checkbox (change)="update_selected_childhood(immun.vaccine)">
+                {{ immun.vaccine }}
+              </mat-checkbox>
+            </div>
+          </ng-container>
+        </div>
+        <div class="col-span-12 pt-4">
+          <small class="sub-highlight"> Adulthood Immunization </small>
+        </div>
+        <div class="grid grid-cols-12 pt-2 gap-2">
+          <div class="col-span-12 overflow-hidden">
+            <mat-checkbox [checked]="adulthood.length == 0" [disabled]="true">
+              None
+            </mat-checkbox>
+            <br />
+            <small>
+              Automatic None if there are no selected immunization
+            </small>
+          </div>
+          <ng-container formArrayName="adulthood">
+            <ng-container
+              *ngFor="let immunx_fg of adulthood.controls; let i = index"
+            >
+              <div class="col-span-6 overflow-hidden" [formGroupName]="i">
+                <mat-checkbox
+                  (change)="update_selected_adulthood(immunx_fg.value.name)"
+                  [checked]="true"
+                >
+                  {{ immunx_fg.value.name }}
+                </mat-checkbox>
+
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Year"
+                  formControlName="when"
+                />
+
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Where"
+                  formControlName="where"
+                />
+              </div>
+            </ng-container>
+          </ng-container>
+          <div class="col-span-12"></div>
+          <ng-container
+            *ngFor="
+              let immun of LIST.adult_immunization_schedule;
+              let i = index
+            "
+          >
+            <div
+              class="col-span-6 overflow-hidden"
+              *ngIf="!isAdulthoodImmunizationSelected(immun.vaccine)"
+            >
+              <mat-checkbox (change)="update_selected_adulthood(immun.vaccine)">
+                {{ immun.vaccine }}
+              </mat-checkbox>
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="col-span-12 mt-4" *ngIf="parameters.sex === 'Female'">
+          <small class="sub-highlight"> OB Immunization </small>
+        </div>
+        <div
+          class="grid grid-cols-12 mt-4 gap-2"
+          *ngIf="parameters.sex === 'Female'"
+        >
+          <div class="col-span-12 overflow-hidden">
+            <mat-checkbox [checked]="ob.length == 0" [disabled]="true">
+              None
+            </mat-checkbox>
+            <br />
+            <small>
+              Automatic None if there are no selected immunization
+            </small>
+          </div>
+          <ng-container formArrayName="ob">
+            <ng-container *ngFor="let immunx_fg of ob.controls; let i = index">
+              <div class="col-span-6 overflow-hidden" [formGroupName]="i">
+                <mat-checkbox
+                  (change)="update_selected_ob(immunx_fg.value.name)"
+                  [checked]="true"
+                >
+                  {{ immunx_fg.value.name }}
+                </mat-checkbox>
+
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Year"
+                  formControlName="when"
+                />
+
+                <input
+                  class="table-input"
+                  matInput
+                  type="text"
+                  placeholder="Where"
+                  formControlName="where"
+                />
+              </div>
+            </ng-container>
+          </ng-container>
+          <div class="col-span-12"></div>
+          <ng-container
+            *ngFor="let immun of LIST.ob_immunization_schedule; let i = index"
+          >
+            <div
+              class="col-span-6 overflow-hidden"
+              *ngIf="!isObImmunizationSelected(immun.vaccine)"
+            >
+              <mat-checkbox (change)="update_selected_ob(immun.vaccine)">
+                {{ immun.vaccine }}
+              </mat-checkbox>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="col-span-2">
+      <small class="highlight">Family Medical Hx</small>
+    </div>
+    <div class="col-span-2" formArrayName="family_medical_hx">
+      <div
+        class="grid grid-cols-12 gap-2"
+        *ngFor="let control of family_medical_hx.controls; let i = index"
+      >
+        <ng-container [formGroupName]="i">
+          <div class="col-span-3">
+            <p class="font-bold accent">Member #{{ i + 1 }}</p>
+
+            <p>
+              <input
+                class="table-input"
+                matInput
+                placeholder="Name"
+                formControlName="name"
+              />
+              <input
+                class="table-input"
+                matInput
+                placeholder="Relation"
+                formControlName="relation"
+              />
+            </p>
+            <a
+              class="cursor-pointer hover:font-bold underline"
+              (click)="onRemoveFamilyMember(i)"
+            >
+              Remove
+            </a>
+          </div>
+
+          <div class="col-span-9" formGroupName="past_medical_hx">
+            <div class="grid grid-cols-4 gap-2">
+              <!-- working here -->
+
+              <ng-container formArrayName="chronic_medical_conditions">
+                <ng-container
+                  *ngFor="
+                    let cmc_form of fmhx_chronic_medical_conditions(i).controls;
+                    let j = index
+                  "
+                >
+                  <div class="col-span-2 overflow-hidden" [formGroupName]="j">
+                    <mat-checkbox
+                      (change)="
+                        update_selected_chronic_disease_fam(
+                          cmc_form.value.name,
+                          i
+                        )
+                      "
+                      [checked]="true"
+                    >
+                      {{ cmc_form.value.name }}
+                    </mat-checkbox>
+
+                    <input
+                      class="table-input"
+                      matInput
+                      type="text"
+                      placeholder="Year"
+                      formControlName="when"
+                    />
+
+                    <input
+                      class="table-input"
+                      matInput
+                      type="text"
+                      placeholder="Medication"
+                      formControlName="medication"
+                    />
+
+                    <input
+                      class="table-input"
+                      matInput
+                      type="text"
+                      placeholder="Diagnostic Peformed"
+                      formControlName="diagnostic_performed"
+                    />
+                  </div>
+                </ng-container>
+              </ng-container>
+              <div
+                class="col-span-4"
+                *ngIf="fmhx_chronic_medical_conditions(i).length"
+              ></div>
+              <!-- end here -->
+              <ng-container
+                *ngFor="let disease of LIST.chronic_medical_conditions_fam"
+              >
+                <div
+                  class="col-span-2 overflow-hidden"
+                  *ngIf="!isChronicInFamilySelected(disease, i)"
+                >
+                  <mat-checkbox
+                    (change)="update_selected_chronic_disease_fam(disease, i)"
+                  >
+                    {{ disease }}
+                  </mat-checkbox>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+        <div class="mb-4 divider"></div>
+      </div>
+      <a
+        class="cursor-pointer hover:font-bold mt-4"
+        (click)="onAddFamilyMember()"
+      >
+        + Add Family Member
+      </a>
+    </div>
+
+    <div class="col-span-2">
+      <small class="highlight">Personal-Social Hx</small>
+      <div
+        class="grid grid-cols-12 mt-2 gap-2"
+        formGroupName="personal_social_hx"
+      >
+        <ng-container formGroupName="smoker">
+          <div class="col-span-12">
+            <small class="sub-highlight">Smoking</small>
+          </div>
+          <mat-form-field class="col-span-4">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option
+                *ngFor="let item of LIST.ADDICTION_STATUSES"
+                [value]="item"
+              >
+                {{ item }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field
+            class="col-span-4"
+            *ngIf="personal_social_hx_fg.value.smoker.status === 'Quit'"
+          >
+            <mat-label>When</mat-label>
+            <input type="text" matInput formControlName="when_quit" />
+          </mat-form-field>
+          <ng-container
+            *ngIf="personal_social_hx_fg.value.smoker.status === 'Yes'"
+          >
+            <mat-form-field class="col-span-4">
+              <mat-label>Type</mat-label>
+              <input type="text" matInput formControlName="type" />
+            </mat-form-field>
+            <mat-form-field class="col-span-4">
+              <mat-label>Sticks per Day</mat-label>
+              <input type="text" matInput formControlName="sticks_day" />
+            </mat-form-field>
+            <mat-form-field class="col-span-4">
+              <mat-label>Years Smoking</mat-label>
+              <input type="text" matInput formControlName="sticks_day" />
+            </mat-form-field>
+            <mat-form-field class="col-span-4">
+              <mat-label>Consumption</mat-label>
+              <input type="text" matInput formControlName="consumption" />
+              <mat-hint>(Sticks per Day x Years Smoking) / 20 </mat-hint>
+            </mat-form-field>
+          </ng-container>
+        </ng-container>
+
+        <ng-container formGroupName="alcohol">
+          <div class="col-span-12">
+            <small class="sub-highlight">Alcohol</small>
+          </div>
+          <mat-form-field class="col-span-4">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option
+                *ngFor="let item of LIST.ADDICTION_STATUSES"
+                [value]="item"
+              >
+                {{ item }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field
+            class="col-span-4"
+            *ngIf="personal_social_hx_fg.value.alcohol.status === 'Quit'"
+          >
+            <mat-label>When</mat-label>
+            <input type="text" matInput formControlName="when_quit" />
+          </mat-form-field>
+          <ng-container
+            *ngIf="personal_social_hx_fg.value.alcohol.status === 'Yes'"
+          >
+            <mat-form-field class="col-span-4">
+              <mat-label>Type</mat-label>
+              <input type="text" matInput formControlName="type" />
+            </mat-form-field>
+            <mat-form-field class="col-span-4">
+              <mat-label>Consumption</mat-label>
+              <input type="text" matInput formControlName="consumption" />
+            </mat-form-field>
+          </ng-container>
+        </ng-container>
+
+        <ng-container formGroupName="drug">
+          <div class="col-span-12">
+            <small class="sub-highlight">Drugs</small>
+          </div>
+          <mat-form-field class="col-span-4">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option
+                *ngFor="let item of LIST.ADDICTION_STATUSES"
+                [value]="item"
+              >
+                {{ item }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field
+            class="col-span-4"
+            *ngIf="personal_social_hx_fg.value.drug.status === 'Quit'"
+          >
+            <mat-label>When</mat-label>
+            <input type="text" matInput formControlName="when_quit" />
+          </mat-form-field>
+          <ng-container
+            *ngIf="personal_social_hx_fg.value.drug.status === 'Yes'"
+          >
+            <mat-form-field class="col-span-4">
+              <mat-label>Type</mat-label>
+              <input type="text" matInput formControlName="type" />
+            </mat-form-field>
+            <mat-form-field class="col-span-4">
+              <mat-label>Consumption</mat-label>
+              <input type="text" matInput formControlName="consumption" />
+            </mat-form-field>
+          </ng-container>
+        </ng-container>
+
+        <ng-container formGroupName="sexual_activity">
+          <div class="col-span-12">
+            <small class="sub-highlight">Sexual Activity</small>
+          </div>
+          <mat-form-field class="col-span-4">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option *ngFor="let item of LIST.YES_NO" [value]="item">
+                {{ item }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div
+            class="col-span-4"
+            *ngIf="personal_social_hx_fg.value.sexual_activity.status === 'Yes'"
+          >
+            <mat-checkbox
+              formControlName="is_multiple_partner"
+              class="pt-[10px] pl-[10px]"
+            >
+              is Multiple Partner?
+            </mat-checkbox>
+          </div>
+        </ng-container>
+
+        <ng-container>
+          <div class="col-span-12">
+            <small class="sub-highlight">Physical Activity</small>
+          </div>
+
+          <ng-container formArrayName="physical_activities">
+            <div class="col-span-12 grid grid-cols-12 gap-2">
+              <ng-container
+                *ngFor="
+                  let control of physical_activities.controls;
+                  let i = index
+                "
+                [formGroupName]="i"
+              >
+                <mat-form-field class="col-span-6">
+                  <mat-label>Type</mat-label>
+                  <input type="text" matInput formControlName="type" />
+                </mat-form-field>
+                <mat-form-field class="col-span-6">
+                  <mat-label>Hours per Week</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="hours_per_week"
+                    placeholder="Hours/Week"
+                  />
+                  <button
+                    matSuffix
+                    mat-icon-button
+                    (click)="onRemovePhysicalActivity(i)"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </mat-form-field>
+              </ng-container>
+
+              <div class="col-span-12">
+                <a
+                  (click)="onAddPhysicalActivity()"
+                  class="cursor-pointer hover:font-bold"
+                >
+                  + Add Physical Activity
+                </a>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <ng-container>
+          <div class="col-span-12">
+            <small class="sub-highlight">Dietary Hx</small>
+          </div>
+
+          <ng-container formArrayName="dietary_hx">
+            <ng-container
+              *ngFor="let control of dietary_hx.controls; let i = index"
+              [formGroupName]="i"
+            >
+              <mat-form-field class="col-span-6">
+                <mat-label>Type</mat-label>
+                <input type="text" matInput formControlName="type" />
+              </mat-form-field>
+              <mat-form-field class="col-span-6">
+                <mat-label>Duration</mat-label>
+                <input type="text" matInput formControlName="duration" />
+                <button
+                  matSuffix
+                  mat-icon-button
+                  (click)="onRemoveDietaryHx(i)"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </ng-container>
+
+            <div class="col-span-12">
+              <a
+                (click)="onAddDietaryHx()"
+                class="cursor-pointer hover:font-bold"
+              >
+                + Add Diet
+              </a>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <ng-container>
+          <div class="col-span-12">
+            <small class="sub-highlight">Carbonated Drinks</small>
+          </div>
+
+          <ng-container formArrayName="carbonated_drinks">
+            <ng-container
+              *ngFor="let control of carbonated_drinks.controls; let i = index"
+              [formGroupName]="i"
+            >
+              <mat-form-field class="col-span-6">
+                <mat-label>Type</mat-label>
+                <input type="text" matInput formControlName="type" />
+              </mat-form-field>
+              <mat-form-field class="col-span-6">
+                <mat-label>Hours per Week</mat-label>
+                <input type="text" matInput formControlName="hours_per_week" />
+                <button
+                  matSuffix
+                  mat-icon-button
+                  (click)="onRemoveCarbonatedDrink(i)"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </ng-container>
+
+            <div class="col-span-12">
+              <a
+                (click)="onAddCarbonatedDrink()"
+                class="cursor-pointer hover:font-bold"
+              >
+                + Add Carbonated Drink
+              </a>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <ng-container formGroupName="living_condition">
+          <div class="col-span-12">
+            <small class="sub-highlight">Living Condition</small>
+          </div>
+
+          <mat-form-field class="col-span-4">
+            <mat-label>Living Area</mat-label>
+            <input type="text" matInput formControlName="living_area" />
+          </mat-form-field>
+
+          <mat-form-field class="col-span-4">
+            <mat-label>Type of House</mat-label>
+            <input type="text" matInput formControlName="type_of_house" />
+          </mat-form-field>
+          <mat-form-field class="col-span-4">
+            <mat-label>House Populated</mat-label>
+            <input type="text" matInput formControlName="how_populated" />
+          </mat-form-field>
+          <mat-form-field class="col-span-4">
+            <mat-label>Ventilation</mat-label>
+            <input type="text" matInput formControlName="ventilation" />
+          </mat-form-field>
+          <mat-form-field class="col-span-4">
+            <mat-label>Water Source</mat-label>
+            <input type="text" matInput formControlName="water" />
+          </mat-form-field>
+          <mat-form-field class="col-span-4">
+            <mat-label>Toilet Type</mat-label>
+            <input type="text" matInput formControlName="toilet" />
+          </mat-form-field>
+          <mat-form-field class="col-span-4">
+            <mat-label>Sewage</mat-label>
+            <input type="text" matInput formControlName="sewage" />
+          </mat-form-field>
+          <mat-form-field class="col-span-4">
+            <mat-label>Garbage Disposal</mat-label>
+            <input type="text" matInput formControlName="garbage_disposal" />
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container formGroupName="occupational_hx">
+          <div class="col-span-12">
+            <small class="sub-highlight">Living Condition</small>
+          </div>
+
+          <mat-form-field class="col-span-4">
+            <mat-label>Work</mat-label>
+            <input type="text" matInput formControlName="work" />
+          </mat-form-field>
+          <!--  -->
+          <mat-form-field class="col-span-4">
+            <mat-label>Description</mat-label>
+            <input type="text" matInput formControlName="description" />
+          </mat-form-field>
+          <mat-form-field class="col-span-4">
+            <mat-label>Hazards</mat-label>
+            <input type="text" matInput formControlName="hazards" />
+          </mat-form-field>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="col-span-2">
+      <small class="highlight">Review of System</small>
+      <div class="grid grid-cols-12 mt-4" formGroupName="review_of_system">
+        <ng-container *ngFor="let field of LIST.ros_fields">
+          <ng-container
+            *ngIf="
+              field.label != 'Menstrual Hx' ||
+              (field.label == 'Menstrual Hx' && parameters.sex === 'Female')
+            "
+          >
+            <p class="col-span-12">
+              <small class="sub-highlight">{{ field.label }}</small>
+            </p>
+            <div class="col-span-12 grid grid-cols-2">
+              <p class="col-span-1" *ngFor="let item of field.choices">
+                <mat-checkbox
+                  (change)="ros_change(item, field.fcname)"
+                  [checked]="isChecked(item, field.fcname)"
+                >
+                  {{ item }}
+                </mat-checkbox>
+              </p>
+            </div></ng-container
+          >
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,107 @@
+@import "/src/assets/styles/variables.scss";
+
+::ng-deep .mat-card-header .mat-card-header-text {
+  margin: 0;
+  color: $accent;
+}
+
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headers-align .mat-form-field + .mat-form-field {
+  margin-left: 1px;
+}
+
+.soap {
+  .grid small {
+    color: $gray;
+    font-size: 75% !important;
+  }
+
+  mat-panel-description small {
+    color: $gray;
+  }
+}
+
+.table-input,
+.allergies {
+  border-bottom: 1px solid $light-gray;
+}
+
+.highlight {
+  color: $primary !important;
+}
+
+.sub-highlight {
+  color: $light-gray !important;
+}
+
+.highlight,
+.sub-highlight {
+  border-left: 18px solid;
+  padding-left: 9px;
+  margin-left: -26px;
+}
+
+mat-select .table-input {
+  height: 20px;
+  font-size: 15px;
+}
+
+.divider {
+  border: 1px solid $gray;
+}
+
+.accent {
+  color: $accent;
+}
+
+.underline-add {
+  border-bottom: 1px solid rgb(189, 189, 189);
+  height: 20px;
+  margin-bottom: 7px;
+}
+
+.mat-expansion-panel {
+  overflow: inherit !important;
+}
+
+.mat-expansion-panel-body {
+  overflow: hidden; // This rule fixes extra whitespace
+}
+
+.mat-expansion-panel-header.mat-expanded {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+}
+
+.icd-code {
+  margin-bottom: 0 !important;
+}
+
+.mat-checkbox-indeterminate.mat-accent {
+  opacity: 0.4;
+}
+
+.pin-success {
+  color: $completed;
+}
+
+.pin-default {
+  color: $gray;
+}
+
+.name-pin:hover {
+  mat-icon {
+    display: block;
+  }
+}

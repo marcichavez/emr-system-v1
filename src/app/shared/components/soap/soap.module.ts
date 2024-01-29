@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SoapComponent } from './soap.component';
-import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,13 +14,21 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
-import { HttpClientModule } from '@angular/common/http';
+import { SubjectiveComponent } from './components/subjective/subjective.component';
+import { ObjectiveComponent } from './components/objective/objective.component';
+import { AssessmentComponent } from './components/assessment/assessment.component';
+import { PlanComponent } from './components/plan/plan.component';
 
 @NgModule({
-  declarations: [SoapComponent],
+  declarations: [
+    SoapComponent,
+    SubjectiveComponent,
+    ObjectiveComponent,
+    AssessmentComponent,
+    PlanComponent,
+  ],
   imports: [
     CommonModule,
-    MatCardModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -37,6 +44,6 @@ import { HttpClientModule } from '@angular/common/http';
     MatAutocompleteModule,
     MatMenuModule,
   ],
-  exports: [SoapComponent],
+  exports: [SoapComponent, SubjectiveComponent, ObjectiveComponent],
 })
 export class SoapModule {}

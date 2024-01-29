@@ -15,10 +15,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'calendar',
+        path: 'appointments',
         loadChildren: () =>
-          import('./pages/calendar/calendar.module').then(
-            (m) => m.CalendarModule
+          import('./pages/appointments/appointments.module').then(
+            (m) => m.AppointmentsModule
           ),
       },
     ],

@@ -1,0 +1,68 @@
+<div class="grid grid-cols-12 gap-2">
+  <div class="col-span-2">
+    <div class="mb-2">
+      <button
+        mat-raised-button
+        class="w-full"
+        color="primary"
+        (click)="onClickCreateEncounter()"
+      >
+        + Create Encounter
+      </button>
+    </div>
+    <div class="mb-2 p-2 border-[1px] border-gray py-[6rem] text-center">
+      [[calendar]]
+    </div>
+    <div class="mb-2 p-2 border-[1px] border-gray">
+      <p>Clinicians</p>
+      <div>
+        <mat-checkbox [checked]="true"
+          ><b>(Me)</b> Joaquin Guillermo</mat-checkbox
+        >
+      </div>
+      <div>
+        <mat-checkbox>Juan Dela Cruz</mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox>Emilio Santos</mat-checkbox>
+      </div>
+      <div>
+        <button mat-button>See more...</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-span-10">
+    <div class="flex justify-between">
+      <div class="flex">
+        <div class="arrows">
+          <button mat-stroked-button>Today</button>
+          <button mat-icon-button>
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+        <div class="month-year pt-2">
+          <h3>January 2024</h3>
+        </div>
+      </div>
+      <div class="search-bar">
+        <mat-form-field class="w-[20rem]">
+          <mat-label>Search Patient</mat-label>
+          <input type="text" matInput />
+          <button mat-icon-button matSuffix>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <app-table
+        [dataSource]="dataSource"
+        [columns]="columns"
+        [totalRecordCount]="totalRecordCount"
+      ></app-table>
+    </div>
+  </div>
+</div>

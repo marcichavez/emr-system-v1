@@ -1,0 +1,49 @@
+<div class="grid grid-cols-2" [formGroup]="form">
+  <div class="col-span-2 grid grid-cols-12 gap-2">
+    <!-- OBJECTIVES -->
+    <ng-container *ngFor="let field of LIST.objective_fields">
+      <div class="col-span-12">
+        <small class="highlight">{{ field.label }}</small>
+      </div>
+      <ng-container [formGroupName]="field.fgname">
+        <ng-container *ngFor="let control of field.fcs">
+          <mat-form-field
+            class="col-span-3"
+            *ngIf="!control.showIf || control.showIf(parameters)"
+          >
+            <mat-label>{{ control.label }}</mat-label>
+            <input type="text" matInput [formControlName]="control.fcname" />
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+    <!-- PER SYSTEM REPORT -->
+    <div class="col-span-12">
+      <small class="highlight">Per System Report</small>
+    </div>
+    <ng-container *ngFor="let field of LIST.per_system_reports">
+      <div class="col-span-12">
+        <small class="sub-highlight">{{ field.system }}</small>
+      </div>
+      <div class="col-span-12">
+        <mat-checkbox
+          [checked]="!per_system_report_fg?.get(field.fcname)?.value.length"
+          disabled
+        >
+          Essentially Normal
+        </mat-checkbox>
+      </div>
+      <div class="col-span-6" *ngFor="let item of field.findings">
+        <mat-checkbox
+          (change)="updatePerSystemReport(field.fcname, item)"
+          [checked]="
+            per_system_report_fg?.get(field.fcname)?.value.includes(item)
+          "
+        >
+          {{ item }}
+        </mat-checkbox>
+      </div>
+    </ng-container>
+  </div>
+</div>

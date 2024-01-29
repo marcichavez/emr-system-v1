@@ -18,8 +18,8 @@ export class NavigationBarComponent implements OnInit {
       icon: 'list_alt',
     },
     {
-      name: 'Calendar',
-      url: 'calendar',
+      name: 'Appointments',
+      url: 'appointments',
       icon: 'today',
     },
   ];
