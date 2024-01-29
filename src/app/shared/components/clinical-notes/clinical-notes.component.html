@@ -26,12 +26,143 @@
       <span
         class="w-full block"
         *ngFor="
-          let cond of soap.subjective?.past_medical_hx
+          let item of soap.subjective?.past_medical_hx
             .chronic_medical_conditions
         "
       >
-        {{ cond.name }}
+        {{ item.name }}
       </span>
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.allergies?.length">
+    <p class="font-bold">Allergies</p>
+    <p>
+      <span
+        class="w-full block"
+        *ngFor="let item of soap.subjective?.past_medical_hx.allergies"
+      >
+        {{ item.name }}
+      </span>
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.surgeries?.length">
+    <p class="font-bold">Surgeries</p>
+    <p>
+      <span
+        class="w-full block"
+        *ngFor="let item of soap.subjective?.past_medical_hx.surgeries"
+      >
+        {{ item.name }}
+      </span>
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.medications?.length">
+    <p class="font-bold">Other Medications</p>
+    <p>
+      <span
+        class="w-full block"
+        *ngFor="let item of soap.subjective?.past_medical_hx.medications"
+      >
+        {{ item.name }}
+      </span>
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menarche">
+    <p class="font-bold">Menarche</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.menarche }}
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.coitarche">
+    <p class="font-bold">Coitarche</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.coitarche }}
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menopause">
+    <p class="font-bold">Menopause</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.menopause }}
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.lmp">
+    <p class="font-bold">LMP</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.lmp }}
+    </p>
+  </div>
+
+  <div
+    *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.duration"
+  >
+    <p class="font-bold">duration</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.duration }}
+    </p>
+  </div>
+
+  <div
+    *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.intervals"
+  >
+    <p class="font-bold">intervals</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.intervals }}
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.days">
+    <p class="font-bold">days</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.days }}
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.gravida">
+    <p class="font-bold">gravida</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.gravida }}
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.full_term">
+    <p class="font-bold">parity</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.parity }}
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.full_term">
+    <p class="font-bold">full_term</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.full_term }}
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.pre_term">
+    <p class="font-bold">pre_term</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.pre_term }}
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.abortion">
+    <p class="font-bold">abortion</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.abortion }}
+    </p>
+  </div>
+
+  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.living">
+    <p class="font-bold">living</p>
+    <p>
+      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.living }}
     </p>
   </div>
 </div>
