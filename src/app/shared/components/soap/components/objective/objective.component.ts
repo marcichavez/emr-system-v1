@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
-import * as SubFG from '../../soap.config-fg';
 import * as LIST from '../../soap.list';
 import { objective } from '../../soap.config';
+import { SoapParameters } from 'src/app/core/interfaces/SoapParameters.interface';
 
 @Component({
   selector: 'app-objective',
@@ -11,7 +11,7 @@ import { objective } from '../../soap.config';
 })
 export class ObjectiveComponent implements OnInit {
   LIST = LIST;
-  @Input() parameters = {
+  @Input() parameters: SoapParameters = {
     sex: '',
     age: { years: 0, months: 0, days: 0 },
     encounter: {

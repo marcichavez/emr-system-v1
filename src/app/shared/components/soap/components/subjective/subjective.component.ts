@@ -3,6 +3,8 @@ import { subjective } from '../../soap.config';
 import * as SubFG from '../../soap.config-fg';
 import * as LIST from '../../soap.list';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { SoapParameters } from 'src/app/core/interfaces/SoapParameters.interface';
+import { CalculatorService } from 'src/app/core/helpers/calculator/calculator.service';
 
 @Component({
   selector: 'app-subjective',
@@ -11,7 +13,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 })
 export class SubjectiveComponent implements OnInit {
   @Input() form = subjective;
-  @Input() parameters = {
+  @Input() parameters: SoapParameters = {
     sex: '',
     age: { years: 0, months: 0, days: 0 },
     encounter: {
@@ -21,8 +23,28 @@ export class SubjectiveComponent implements OnInit {
   };
   LIST = LIST;
 
-  ngOnInit(): void {}
-  constructor() {}
+  ngOnInit(): void {
+    this.autoComputeSmokingConsumption();
+  }
+
+  autoComputeSmokingConsumption() {
+    var smoker = this.personal_social_hx_fg.get('smoker') as FormGroup;
+    smoker?.get('sticks_day')?.valueChanges.subscribe((sticks_day) => {
+      var no_years = smoker?.get('no_years')?.value;
+      var consumption = this.calculate.smokingConsumption(sticks_day, no_years);
+      smoker.patchValue({ consumption });
+    });
+
+    smoker?.get('no_years')?.valueChanges.subscribe((no_years) => {
+      var sticks_day = smoker?.get('sticks_day')?.value;
+      var consumption = this.calculate.smokingConsumption(sticks_day, no_years);
+      smoker.patchValue({ consumption });
+    });
+  }
+
+  constructor(private calculate: CalculatorService) {
+    console.log(this.parameters);
+  }
 
   past_medical_hx_fg = this.form.get('past_medical_hx') as FormGroup;
 

@@ -13,8 +13,8 @@ export class PatientApiService {
     return of({ records: FAKE_PATIENTS, total: FAKE_PATIENTS.length });
   }
 
-  getPatientByPIN(pin: string) {
-    return of(FAKE_PATIENTS[3]);
+  getPatientByPIN(pin: string, tempIndex?: number) {
+    return of(FAKE_PATIENTS[tempIndex || 0]);
   }
 
   createPatient(patient: any) {

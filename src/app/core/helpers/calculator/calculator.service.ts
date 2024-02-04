@@ -45,4 +45,11 @@ export class CalculatorService {
       days: dateAge,
     };
   }
+
+  smokingConsumption(sticks_day: number, no_years: number) {
+    var sticksPerPack = 20;
+    var daysPerYear = 365;
+    console.log((sticks_day * daysPerYear * no_years) / sticksPerPack);
+    return (sticks_day * daysPerYear * no_years) / sticksPerPack;
+  }
 }

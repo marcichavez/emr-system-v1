@@ -36,9 +36,9 @@ export function medication_fg() {
   });
 }
 
-export function chronologic_ob_hx_fg() {
+export function chronologic_ob_hx_fg(name: string = '') {
   return new FormGroup({
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl(name, [Validators.required]),
     when: new FormControl('', [Validators.required]),
     remarks: new FormControl('', [Validators.required]),
   });

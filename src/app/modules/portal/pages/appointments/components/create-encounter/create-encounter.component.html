@@ -90,20 +90,24 @@
         <mat-step>
           <ng-template matStepLabel>Subjective</ng-template>
           <div class="pl-8 soap-section pr-2 overflow-y-scroll">
-            <app-subjective [form]="subjective"></app-subjective>
+            <app-subjective
+              [form]="subjective"
+              [parameters]="parameters"
+            ></app-subjective>
           </div>
           <div class="border-t-[1px] pt-4 flex justify-between">
             <button mat-raised-button matStepperPrevious>Back</button>
-
             <button mat-raised-button matStepperNext>Next</button>
           </div>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Objective</ng-template>
           <div class="pl-8 soap-section pr-2 overflow-y-scroll">
-            <app-objective [form]="objective"></app-objective>
+            <app-objective
+              [form]="objective"
+              [parameters]="parameters"
+            ></app-objective>
           </div>
-
           <div class="border-t-[1px] pt-4 flex justify-between">
             <button mat-raised-button matStepperPrevious>Back</button>
             <button mat-raised-button matStepperNext>Finish</button>
@@ -112,9 +116,30 @@
       </mat-stepper>
     </div>
     <div class="col-span-4 border-l-[1px] border-gray p-4 notes">
-      <p class="title-icon"><mat-icon>description</mat-icon> Clinical Notes</p>
+      <div class="title-icon flex gap-4">
+        <span
+          (click)="selectPanel('Clinical Notes')"
+          class="cursor-pointer {{
+            selectedPanel !== 'Clinical Notes' ? 'opacity-50' : ''
+          }}"
+        >
+          <mat-icon>description</mat-icon> Clinical Notes
+        </span>
+        <span
+          (click)="selectPanel('Family Hx')"
+          class="cursor-pointer {{
+            selectedPanel !== 'Family Hx' ? 'opacity-50' : ''
+          }}"
+        >
+          <mat-icon>family_restroom</mat-icon> Family Hx
+        </span>
+      </div>
       <div class="bg-gray-100 p-2 mb-4 notepad overflow-y-scroll">
-        <app-clinical-notes [soap]="soap"></app-clinical-notes>
+        <app-clinical-notes
+          [soap]="soap"
+          [parameters]="parameters"
+          *ngIf="selectedPanel === 'Clinical Notes'"
+        ></app-clinical-notes>
       </div>
       <button mat-raised-button color="primary">Save Appointment</button>
     </div>

@@ -1,168 +1,38 @@
 <div *ngIf="soap">
-  <div *ngIf="soap.encounter?.date">
-    <p class="font-bold">Appointment</p>
-    <p>
-      {{ soap.encounter?.date | date : "MMMM dd, YYYY" }},
-      <b>{{ soap.encounter?.payor }}</b>
-    </p>
-  </div>
-  <div *ngIf="soap.subjective?.chief_complaint">
-    <p class="font-bold">Chief Complaint</p>
-    <p>
-      {{ soap.subjective?.chief_complaint }}
-    </p>
-  </div>
-  <div *ngIf="soap.subjective?.hx_of_present_illness">
-    <p class="font-bold">History of Present Illnesss</p>
-    <p>
-      {{ soap.subjective?.hx_of_present_illness }}
-    </p>
-  </div>
-  <div
-    *ngIf="soap.subjective?.past_medical_hx?.chronic_medical_conditions?.length"
-  >
-    <p class="font-bold">Past Medical Condition</p>
-    <p>
-      <span
-        class="w-full block"
-        *ngFor="
-          let item of soap.subjective?.past_medical_hx
-            .chronic_medical_conditions
-        "
+  <ng-container *ngFor="let note of notes">
+    <ng-container *ngIf="note.lines">
+      <div
+        class="grid grid-cols-12 gap-2"
+        *ngIf="!note.showIf || note.showIf(parameters)"
       >
-        {{ item.name }}
-      </span>
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.allergies?.length">
-    <p class="font-bold">Allergies</p>
-    <p>
-      <span
-        class="w-full block"
-        *ngFor="let item of soap.subjective?.past_medical_hx.allergies"
-      >
-        {{ item.name }}
-      </span>
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.surgeries?.length">
-    <p class="font-bold">Surgeries</p>
-    <p>
-      <span
-        class="w-full block"
-        *ngFor="let item of soap.subjective?.past_medical_hx.surgeries"
-      >
-        {{ item.name }}
-      </span>
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.medications?.length">
-    <p class="font-bold">Other Medications</p>
-    <p>
-      <span
-        class="w-full block"
-        *ngFor="let item of soap.subjective?.past_medical_hx.medications"
-      >
-        {{ item.name }}
-      </span>
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menarche">
-    <p class="font-bold">Menarche</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.menarche }}
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.coitarche">
-    <p class="font-bold">Coitarche</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.coitarche }}
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menopause">
-    <p class="font-bold">Menopause</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.menopause }}
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.lmp">
-    <p class="font-bold">LMP</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.lmp }}
-    </p>
-  </div>
-
-  <div
-    *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.duration"
-  >
-    <p class="font-bold">duration</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.duration }}
-    </p>
-  </div>
-
-  <div
-    *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.intervals"
-  >
-    <p class="font-bold">intervals</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.intervals }}
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.days">
-    <p class="font-bold">days</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.menstrual_cycle?.days }}
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.gravida">
-    <p class="font-bold">gravida</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.gravida }}
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.full_term">
-    <p class="font-bold">parity</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.parity }}
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.full_term">
-    <p class="font-bold">full_term</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.full_term }}
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.pre_term">
-    <p class="font-bold">pre_term</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.pre_term }}
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.abortion">
-    <p class="font-bold">abortion</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.abortion }}
-    </p>
-  </div>
-
-  <div *ngIf="soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.living">
-    <p class="font-bold">living</p>
-    <p>
-      {{ soap.subjective?.past_medical_hx?.obgyne?.pregnancy?.living }}
-    </p>
-  </div>
+        <div class="col-span-4">
+          <p class="font-medium">{{ note.header }}</p>
+        </div>
+        <div class="col-span-8">
+          <p *ngIf="!note.items">
+            <span *ngFor="let line of note.lines">
+              {{ line.cell(soap) || "-" }} <br />
+            </span>
+          </p>
+          <p *ngIf="note.items">
+            <span *ngFor="let item of note.items(soap); let i = index">
+              <span *ngFor="let line of note.lines">
+                {{ line.cell(item, i) || "-" }} <br />
+              </span>
+            </span>
+            <span *ngIf="!note.items(soap).length" class="opacity-50">
+              None
+            </span>
+          </p>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="note.notes">
+      <app-clinical-notes
+        [soap]="note.obj(soap)"
+        [parameters]="parameters"
+        [notes]="note.notes"
+      ></app-clinical-notes>
+    </ng-container>
+  </ng-container>
 </div>

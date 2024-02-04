@@ -1,31 +1,31 @@
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 export const subjective = new FormGroup({
-  chief_complaint: new FormControl('', [Validators.required]),
-  hx_of_present_illness: new FormControl('', [Validators.required]),
-  blood_type: new FormControl(''),
+  chief_complaint: new FormControl(null, [Validators.required]),
+  hx_of_present_illness: new FormControl(null, [Validators.required]),
+  blood_type: new FormControl(null),
   past_medical_hx: new FormGroup({
     chronic_medical_conditions: new FormArray([]),
     allergies: new FormArray([]),
     surgeries: new FormArray([]),
     medications: new FormArray([]),
     obgyne: new FormGroup({
-      menarche: new FormControl(''),
-      coitarche: new FormControl(''),
-      menopause: new FormControl(''),
+      menarche: new FormControl(null),
+      coitarche: new FormControl(null),
+      menopause: new FormControl(null),
       menstrual_cycle: new FormGroup({
-        lmp: new FormControl(''),
-        duration: new FormControl(''),
-        intervals: new FormControl(''),
-        days: new FormControl(''),
+        lmp: new FormControl(null),
+        duration: new FormControl(null),
+        intervals: new FormControl(null),
+        days: new FormControl(null),
       }),
       pregnancy: new FormGroup({
-        gravida: new FormControl(''),
-        parity: new FormControl(''),
-        full_term: new FormControl(''),
-        pre_term: new FormControl(''),
-        abortion: new FormControl(''),
-        living: new FormControl(''),
+        gravida: new FormControl(null),
+        parity: new FormControl(null),
+        full_term: new FormControl(null),
+        pre_term: new FormControl(null),
+        abortion: new FormControl(null),
+        living: new FormControl(null),
       }),
     }),
     chronologic_ob_hxs: new FormArray([]),
@@ -39,46 +39,46 @@ export const subjective = new FormGroup({
   family_medical_hx: new FormArray([]),
   personal_social_hx: new FormGroup({
     smoker: new FormGroup({
-      status: new FormControl(''),
-      type: new FormControl(''),
-      sticks_day: new FormControl(''),
-      no_years: new FormControl(''),
-      consumption: new FormControl(''), // per year
-      when_quit: new FormControl(''),
+      status: new FormControl(null),
+      type: new FormControl(null),
+      sticks_day: new FormControl(null),
+      no_years: new FormControl(null),
+      consumption: new FormControl(null), // per year
+      when_quit: new FormControl(null),
     }),
     alcohol: new FormGroup({
-      status: new FormControl(''),
-      type: new FormControl(''),
-      consumption: new FormControl(''), // monthly
-      when_quit: new FormControl(''),
+      status: new FormControl(null),
+      type: new FormControl(null),
+      consumption: new FormControl(null), // monthly
+      when_quit: new FormControl(null),
     }),
     drug: new FormGroup({
-      status: new FormControl(''),
-      type: new FormControl(''),
-      consumption: new FormControl(''), // monthly
-      when_quit: new FormControl(''),
+      status: new FormControl(null),
+      type: new FormControl(null),
+      consumption: new FormControl(null), // monthly
+      when_quit: new FormControl(null),
     }),
     sexual_activity: new FormGroup({
-      status: new FormControl(''),
+      status: new FormControl(null),
       is_multiple_partner: new FormControl(false),
     }),
     physical_activities: new FormArray([]),
     dietary_hx: new FormArray([]),
     carbonated_drinks: new FormArray([]),
     living_condition: new FormGroup({
-      living_area: new FormControl('', [Validators.required]),
-      type_of_house: new FormControl('', [Validators.required]),
-      how_populated: new FormControl('', [Validators.required]),
-      ventilation: new FormControl('', [Validators.required]),
-      water: new FormControl('', [Validators.required]),
-      toilet: new FormControl('', [Validators.required]),
-      sewage: new FormControl('', [Validators.required]),
-      garbage_disposal: new FormControl('', [Validators.required]),
+      living_area: new FormControl(null, [Validators.required]),
+      type_of_house: new FormControl(null, [Validators.required]),
+      how_populated: new FormControl(null, [Validators.required]),
+      ventilation: new FormControl(null, [Validators.required]),
+      water: new FormControl(null, [Validators.required]),
+      toilet: new FormControl(null, [Validators.required]),
+      sewage: new FormControl(null, [Validators.required]),
+      garbage_disposal: new FormControl(null, [Validators.required]),
     }),
     occupational_hx: new FormGroup({
-      work: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
-      hazards: new FormControl('', [Validators.required]),
+      work: new FormControl(null, [Validators.required]),
+      description: new FormControl(null, [Validators.required]),
+      hazards: new FormControl(null, [Validators.required]),
     }),
   }),
   review_of_system: new FormGroup({
@@ -100,27 +100,27 @@ export const subjective = new FormGroup({
 
 export const objective = new FormGroup({
   general: new FormGroup({
-    appearance: new FormControl(''),
-    behaviour: new FormControl(''),
-    level_of_consciousness: new FormControl(''),
+    appearance: new FormControl(null),
+    behaviour: new FormControl(null),
+    level_of_consciousness: new FormControl(null),
   }),
   vital_sigs: new FormGroup({
-    bp: new FormControl(''),
-    hr: new FormControl(''),
-    rr: new FormControl(''),
-    temp: new FormControl(''),
+    bp: new FormControl(null),
+    hr: new FormControl(null),
+    rr: new FormControl(null),
+    temp: new FormControl(null),
   }),
   anthropometrics: new FormGroup({
     height: new FormControl(null, [Validators.required]),
     weight: new FormControl(null, [Validators.required]),
-    bmi: new FormControl(''),
+    bmi: new FormControl(null),
     waist_and_hip: new FormControl(),
-    muac: new FormControl(''),
-    head_circ: new FormControl(''),
-    waist_circ: new FormControl(''),
-    hips_circ: new FormControl(''),
-    limb_circ: new FormControl(''),
-    skin_fold: new FormControl(''),
+    muac: new FormControl(null),
+    head_circ: new FormControl(null),
+    waist_circ: new FormControl(null),
+    hips_circ: new FormControl(null),
+    limb_circ: new FormControl(null),
+    skin_fold: new FormControl(null),
   }),
   per_system_report: new FormGroup({
     heent: new FormArray([]),
@@ -133,7 +133,7 @@ export const objective = new FormGroup({
 });
 
 export const assessment = new FormGroup({
-  remarks: new FormControl(''),
+  remarks: new FormControl(null),
   diagnoses: new FormArray([]),
 });
 

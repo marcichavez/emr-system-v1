@@ -312,7 +312,7 @@
             <ng-container [formGroupName]="i">
               <mat-form-field class="col-span-2">
                 <mat-label>Name</mat-label>
-                <input matInput type="text" formControlName="name" />
+                <input matInput type="text" [value]="'G' + (i + 1)" readonly />
               </mat-form-field>
               <mat-form-field class="col-span-2">
                 <mat-label>When</mat-label>
@@ -736,11 +736,16 @@
             </mat-form-field>
             <mat-form-field class="col-span-4">
               <mat-label>Years Smoking</mat-label>
-              <input type="text" matInput formControlName="sticks_day" />
+              <input type="text" matInput formControlName="no_years" />
             </mat-form-field>
             <mat-form-field class="col-span-4">
               <mat-label>Consumption</mat-label>
-              <input type="text" matInput formControlName="consumption" />
+              <input
+                type="text"
+                matInput
+                formControlName="consumption"
+                readonly
+              />
               <mat-hint>(Sticks per Day x Years Smoking) / 20 </mat-hint>
             </mat-form-field>
           </ng-container>
