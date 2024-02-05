@@ -1,0 +1,13 @@
+@import "/src/assets/styles/variables.scss";
+.no-data {
+  color: gray;
+}
+
+.opt-icon {
+  cursor: pointer;
+  transform: scale(0.7);
+}
+
+.opt-icon:hover {
+  transform: scale(1);
+}

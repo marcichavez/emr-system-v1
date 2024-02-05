@@ -1,0 +1,38 @@
+<div *ngIf="soap">
+  <ng-container *ngFor="let note of notes">
+    <ng-container *ngIf="note.lines">
+      <div
+        class="grid grid-cols-12 gap-2"
+        *ngIf="!note.showIf || note.showIf(parameters)"
+      >
+        <div class="col-span-4">
+          <p class="font-medium">{{ note.header }}</p>
+        </div>
+        <div class="col-span-8">
+          <p *ngIf="!note.items">
+            <span *ngFor="let line of note.lines">
+              {{ line.cell(soap) || "-" }} <br />
+            </span>
+          </p>
+          <p *ngIf="note.items">
+            <span *ngFor="let item of note.items(soap); let i = index">
+              <span *ngFor="let line of note.lines">
+                {{ line.cell(item, i) || "-" }} <br />
+              </span>
+            </span>
+            <span *ngIf="!note.items(soap).length" class="opacity-50">
+              None
+            </span>
+          </p>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="note.notes">
+      <app-clinical-notes
+        [soap]="note.obj(soap)"
+        [parameters]="parameters"
+        [notes]="note.notes"
+      ></app-clinical-notes>
+    </ng-container>
+  </ng-container>
+</div>

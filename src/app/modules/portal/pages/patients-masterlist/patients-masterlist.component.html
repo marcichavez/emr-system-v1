@@ -1,0 +1,66 @@
+<div class="flex flex-row-reverse mb-2 gap-2">
+  <button
+    mat-raised-button
+    [matTooltip]="'Get New List from Philhealth Server'"
+    (click)="updateMasterList()"
+  >
+    Update Masterlist
+  </button>
+  <button
+    mat-raised-button
+    [matTooltip]="'Get New List from Philhealth Server'"
+    (click)="updateMasterList()"
+    color="accent"
+  >
+    Refresh Table
+  </button>
+</div>
+<mat-card class="mb-2">
+  <mat-card-content>
+    <div class="grid grid-cols-12 gap-2" [formGroup]="filterForm">
+      <div class="col-span-3">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Search PhilHealth Member Name</mat-label>
+          <input matInput formControlName="keyword" (keyup.enter)="filter()" />
+          <button mat-icon-button matSuffix (click)="filter()">
+            <mat-icon>search</mat-icon>
+          </button>
+          <mat-hint>You can use either the name or PIN</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="col-span-2">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Member Types</mat-label>
+          <mat-select formControlName="memberType">
+            <mat-option *ngFor="let item of memberTypes" [value]="item.value">
+              {{ item.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-span-5 pt-[4px] gap-2">
+        <button
+          mat-stroked-button
+          color="primary"
+          class="h-[50px]"
+          (click)="filter()"
+        >
+          Search Masterlist
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <small>LAST MASTERLIST UPDATE: {{ lastUpdate | date : "full" }}</small>
+  </mat-card-actions>
+</mat-card>
+<app-table
+  [columns]="columns"
+  [dataSource]="dataSource"
+  [totalRecordCount]="totalRecordCount"
+  (page)="pageChange($event)"
+  (sort)="sortChange($event)"
+  (row)="rowClick($event)"
+></app-table>

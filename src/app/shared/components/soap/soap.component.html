@@ -1,0 +1,14 @@
+<mat-accordion class="headers-align" [formGroup]="soapForm">
+  <mat-expansion-panel [formGroupName]="'subjective'">
+    <mat-expansion-panel-header class="sticky top-0">
+      <mat-panel-title> <b>S</b>ubjective </mat-panel-title>
+      <mat-panel-description>
+        <small>Patient-reported symptoms, history</small>
+        <mat-icon>assignment</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <app-subjective [form]="subjective"></app-subjective>
+    </ng-template>
+  </mat-expansion-panel>
+</mat-accordion>

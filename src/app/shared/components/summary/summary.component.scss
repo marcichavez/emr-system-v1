@@ -1,0 +1,25 @@
+@import "/src/assets/styles/variables.scss";
+.underline-emphasis {
+  border-bottom: 2px dotted $gray;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  span {
+    font-size: x-small;
+    color: $gray;
+    font-weight: normal;
+  }
+  p {
+    color: $primary;
+    font-size: small;
+    font-weight: 600;
+    small {
+      color: $gray;
+      opacity: 0.6;
+    }
+  }
+}
+
+small {
+  opacity: 0.5;
+}

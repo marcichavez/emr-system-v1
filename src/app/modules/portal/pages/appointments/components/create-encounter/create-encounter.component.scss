@@ -1,0 +1,51 @@
+@import "/src/assets/styles/variables.scss";
+.mat-dialog-content {
+  height: 100vh !important;
+  max-height: 100vh !important;
+}
+
+.soap-section {
+  height: calc(100vh - 15rem);
+}
+
+.title-icon {
+  margin-bottom: 1rem;
+  mat-icon {
+    margin-right: 7px;
+    float: left;
+    margin-top: -3px;
+  }
+}
+
+.notes {
+  height: calc(100vh - 10rem);
+}
+
+.underline-emphasis {
+  border-bottom: 2px dotted $gray;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  span {
+    font-size: x-small;
+    color: $gray;
+    font-weight: normal;
+  }
+  p {
+    color: $primary;
+    font-size: small;
+    font-weight: 600;
+    small {
+      color: $gray;
+      opacity: 0.6;
+    }
+  }
+}
+
+small {
+  opacity: 0.5;
+}
+
+.notepad {
+  height: calc(100vh - 219px);
+}

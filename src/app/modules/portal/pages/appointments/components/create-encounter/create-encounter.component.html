@@ -1,0 +1,147 @@
+<div mat-dialog-title>
+  <div class="flex justify-between">
+    <h1>Create Encounter</h1>
+
+    <div class="flex gap-2">
+      <button mat-icon-button>
+        <mat-icon mat-dialog-close>close</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<div mat-dialog-content>
+  <div class="grid grid-cols-12 gap-2">
+    <div class="col-span-8">
+      <mat-stepper #stepper>
+        <mat-step>
+          <ng-template matStepLabel>Appointment Details</ng-template>
+          <div
+            class="soap-section pr-2 overflow-y-scroll"
+            [formGroup]="encounter"
+          >
+            <div class="grid grid-cols-12 gap-x-2">
+              <div class="col-span-12 pb-2">
+                <div class="underline-emphasis">
+                  <p>Appointment Details</p>
+                </div>
+              </div>
+              <div class="col-span-4">
+                <mat-form-field class="w-full" appearance="fill">
+                  <mat-label>Payor Type</mat-label>
+                  <mat-select formControlName="payor">
+                    <mat-option *ngFor="let item of payorList" [value]="item">
+                      {{ item }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div
+                class="col-span-4"
+                *ngIf="form.value.encounter.payor === 'Phic Pay'"
+              >
+                <mat-form-field appearance="fill" class="w-full">
+                  <mat-label>ATC</mat-label>
+                  <input matInput formControlName="atc" />
+                </mat-form-field>
+              </div>
+
+              <div class="col-span-4">
+                <mat-form-field class="w-full" appearance="fill">
+                  <mat-label> Appointment Date </mat-label>
+                  <input
+                    matInput
+                    formControlName="date"
+                    [matDatepicker]="picker"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="col-span-8">
+                <mat-form-field class="w-full" appearance="fill">
+                  <mat-label> PhilHealth Identification Number (PIN)</mat-label>
+                  <input matInput formControlName="pin" />
+                  <button
+                    matSuffix
+                    mat-icon-button
+                    *ngIf="form.value.encounter.pin"
+                    (click)="autofillPatient()"
+                    matTooltip="Autofill from Philhealth DB"
+                  >
+                    <mat-icon>playlist_add_check</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="mb-[10rem]">
+              <app-summary [summary]="summary"></app-summary>
+            </div>
+          </div>
+          <div class="border-t-[1px] pt-4 flex justify-between">
+            <div></div>
+            <button mat-raised-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Subjective</ng-template>
+          <div class="pl-8 soap-section pr-2 overflow-y-scroll">
+            <app-subjective
+              [form]="subjective"
+              [parameters]="parameters"
+            ></app-subjective>
+          </div>
+          <div class="border-t-[1px] pt-4 flex justify-between">
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Objective</ng-template>
+          <div class="pl-8 soap-section pr-2 overflow-y-scroll">
+            <app-objective
+              [form]="objective"
+              [parameters]="parameters"
+            ></app-objective>
+          </div>
+          <div class="border-t-[1px] pt-4 flex justify-between">
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button matStepperNext>Finish</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </div>
+    <div class="col-span-4 border-l-[1px] border-gray p-4 notes">
+      <div class="title-icon flex gap-4">
+        <span
+          (click)="selectPanel('Clinical Notes')"
+          class="cursor-pointer {{
+            selectedPanel !== 'Clinical Notes' ? 'opacity-50' : ''
+          }}"
+        >
+          <mat-icon>description</mat-icon> Clinical Notes
+        </span>
+        <span
+          (click)="selectPanel('Family Hx')"
+          class="cursor-pointer {{
+            selectedPanel !== 'Family Hx' ? 'opacity-50' : ''
+          }}"
+        >
+          <mat-icon>family_restroom</mat-icon> Family Hx
+        </span>
+      </div>
+      <div class="bg-gray-100 p-2 mb-4 notepad overflow-y-scroll">
+        <app-clinical-notes
+          [soap]="soap"
+          [parameters]="parameters"
+          *ngIf="selectedPanel === 'Clinical Notes'"
+        ></app-clinical-notes>
+      </div>
+      <button mat-raised-button color="primary">Save Appointment</button>
+    </div>
+  </div>
+</div>

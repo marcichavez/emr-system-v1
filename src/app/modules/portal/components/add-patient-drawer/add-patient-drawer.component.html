@@ -1,0 +1,27 @@
+<div class="py-4 bg-white">
+  <div class="px-4 flex flex-row-reverse">
+    <mat-icon
+      color="warn"
+      (click)="drawer.toggle()"
+      class="cursor-pointer z-50 bottom-0"
+    >
+      close
+    </mat-icon>
+  </div>
+
+  <mat-tab-group class="mb-[10rem]">
+    <mat-tab label="Search Record">
+      <div class="p-4">
+        <app-patients-list></app-patients-list>
+      </div>
+    </mat-tab>
+    <mat-tab label="Add New">
+      <div class="py-4 px-[1px]">
+        <app-patient-form></app-patient-form>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="text-center">
+    <p class="opacity-30">--- end ---</p>
+  </div>
+</div>

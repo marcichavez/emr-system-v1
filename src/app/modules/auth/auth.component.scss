@@ -1,0 +1,48 @@
+@import "/src/assets/styles/variables.scss";
+
+.logo-container {
+  background-color: $primary;
+  text-align: center;
+  height: 10rem;
+  width: 10rem;
+  padding-top: 6.5rem;
+  margin-bottom: 1rem;
+  .logo {
+    font-size: 5rem;
+    bottom: 0;
+    color: $accent;
+  }
+}
+
+.login-title {
+  h1 {
+    font-weight: bolder;
+  }
+}
+
+.signup-text {
+  text-align: center;
+  margin-top: 4rem;
+  a {
+    font-weight: 500;
+    color: $primary;
+    cursor: pointer;
+  }
+
+  a:hover {
+    font-weight: bold;
+  }
+}
+
+.free-space {
+  // background-image: url("../../../../assets/images/login-bg.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: $gray;
+  background-position: right;
+}
+
+.error-bar {
+  background-color: $warn;
+}

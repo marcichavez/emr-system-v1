@@ -5,17 +5,17 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomeModule),
+      import('./modules/home/home.module').then((m) => m.HomeModule),
   },
   {
-    path: 'login',
+    path: 'auth',
     loadChildren: () =>
-      import('./pages/auth/login/login.module').then((m) => m.LoginModule),
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: 'portal',
     loadChildren: () =>
-      import('./pages/portal/portal.module').then((m) => m.PortalModule),
+      import('./modules/portal/portal.module').then((m) => m.PortalModule),
   },
 ];
 

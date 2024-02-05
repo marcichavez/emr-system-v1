@@ -1,0 +1,23 @@
+@import "/src/assets/styles/variables.scss";
+
+.left-drawer {
+  width: 14rem;
+}
+
+.right-drawer {
+  width: 40rem;
+}
+
+.left-drawer,
+.right-drawer {
+  height: 100vh;
+}
+
+.title-bar {
+  background-color: $primary;
+  color: white;
+}
+
+.main-panel {
+  height: calc(100vh - 14rem);
+}
