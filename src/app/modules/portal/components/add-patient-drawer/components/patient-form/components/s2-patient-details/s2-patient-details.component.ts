@@ -22,7 +22,10 @@ export class S2PatientDetailsComponent implements OnInit {
     days: 0,
   };
 
-  constructor(private ph: LocationsService, private calc: CalculatorService) {}
+  constructor(
+    private ph: LocationsService,
+    private calc: CalculatorService,
+  ) {}
 
   ngOnInit(): void {
     this.ph.getRegions().subscribe((o: any) => {
@@ -67,7 +70,7 @@ export class S2PatientDetailsComponent implements OnInit {
     this.address?.get('brgy')?.reset();
     this.ph.getBarangays().subscribe((brgys: any) => {
       this.barangays = brgys.filter(
-        (f: any) => f.citymunCode === o.citymunCode
+        (f: any) => f.citymunCode === o.citymunCode,
       );
     });
   }

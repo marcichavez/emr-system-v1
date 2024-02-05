@@ -26,7 +26,7 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private authService: FakeAuthService,
     private router: Router,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class ChangePasswordComponent implements OnInit {
       let { newPassword, confirmPassword } = res;
       this.forgotPasswordBtnDisabled = !this.authService.isPasswordConfirmed(
         newPassword,
-        confirmPassword
+        confirmPassword,
       );
     });
   }
@@ -60,9 +60,9 @@ export class ChangePasswordComponent implements OnInit {
           this.forgotPasswordBtnDisabled = false;
           alert(
             err.error.message ||
-              'Something went wrong while changin your password. Please try again later.'
+              'Something went wrong while changin your password. Please try again later.',
           );
-        }
+        },
       );
   }
 

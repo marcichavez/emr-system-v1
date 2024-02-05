@@ -8,9 +8,8 @@ describe('S4SummaryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ S4SummaryComponent ]
-    })
-    .compileComponents();
+      declarations: [S4SummaryComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

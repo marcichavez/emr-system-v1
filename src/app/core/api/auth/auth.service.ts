@@ -30,7 +30,7 @@ export class AuthService {
     return this.http.post(
       URL + `/auth/login/${type}`,
       { email, password },
-      this.getHeaders()
+      this.getHeaders(),
     );
   }
 
@@ -45,7 +45,7 @@ export class AuthService {
   verifyResetPassToken(token: string) {
     return this.http.get(
       URL + `/auth/reset-password/${token}`,
-      this.getHeaders()
+      this.getHeaders(),
     );
   }
 
@@ -53,7 +53,7 @@ export class AuthService {
     return this.http.put(
       URL + `/auth/reset-password/${token}`,
       body,
-      this.getHeaders()
+      this.getHeaders(),
     );
   }
 
@@ -65,7 +65,7 @@ export class AuthService {
     return this.http.put(
       URL + '/auth/update-password',
       body,
-      this.getHeaders()
+      this.getHeaders(),
     );
   }
 }

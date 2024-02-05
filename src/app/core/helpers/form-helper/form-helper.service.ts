@@ -9,7 +9,7 @@ export class FormHelperService {
   autofillForm(
     storedData: any,
     formGroup: FormGroup,
-    formArrayStrs: Array<any>
+    formArrayStrs: Array<any>,
   ) {
     console.log({
       storedData,

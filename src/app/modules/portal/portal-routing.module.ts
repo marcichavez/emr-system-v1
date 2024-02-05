@@ -11,14 +11,14 @@ const routes: Routes = [
         path: 'patients-masterlist',
         loadChildren: () =>
           import('./pages/patients-masterlist/patients-masterlist.module').then(
-            (m) => m.PatientsMasterlistModule
+            (m) => m.PatientsMasterlistModule,
           ),
       },
       {
         path: 'appointments',
         loadChildren: () =>
           import('./pages/appointments/appointments.module').then(
-            (m) => m.AppointmentsModule
+            (m) => m.AppointmentsModule,
           ),
       },
     ],

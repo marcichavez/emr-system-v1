@@ -50,7 +50,7 @@ export class SubjectiveComponent implements OnInit {
 
   get chronic_medical_conditions() {
     return this.past_medical_hx_fg.get(
-      'chronic_medical_conditions'
+      'chronic_medical_conditions',
     ) as FormArray;
   }
 
@@ -104,7 +104,7 @@ export class SubjectiveComponent implements OnInit {
 
   update_selected_chronic_disease(disease: string) {
     var index = this.chronic_medical_conditions.value.findIndex(
-      (o: any) => o.name == disease
+      (o: any) => o.name == disease,
     );
 
     if (index == -1) {
@@ -118,7 +118,7 @@ export class SubjectiveComponent implements OnInit {
 
   update_selected_chronic_disease_fam(disease: string, i: number) {
     var index = this.fmhx_chronic_medical_conditions(i).value.findIndex(
-      (o: any) => o.name == disease
+      (o: any) => o.name == disease,
     );
 
     if (index == -1) {
@@ -174,7 +174,7 @@ export class SubjectiveComponent implements OnInit {
 
   get ob() {
     return (this.form.get('immunization_hx') as FormGroup).get(
-      'ob'
+      'ob',
     ) as FormArray;
   }
   onAddAllergy() {
@@ -263,7 +263,7 @@ export class SubjectiveComponent implements OnInit {
   isChronicSelected(disease: string) {
     return (
       this.chronic_medical_conditions.value.findIndex(
-        (o: any) => o.name == disease
+        (o: any) => o.name == disease,
       ) > -1
     );
   }
@@ -271,7 +271,7 @@ export class SubjectiveComponent implements OnInit {
   isChronicInFamilySelected(disease: string, i: number) {
     return (
       this.fmhx_chronic_medical_conditions(i).value.findIndex(
-        (o: any) => o.name == disease
+        (o: any) => o.name == disease,
       ) > -1
     );
   }

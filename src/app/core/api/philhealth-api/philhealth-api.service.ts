@@ -16,7 +16,7 @@ import { MASTERLIST } from '../../mocks/data/masterlist';
 export class PhilhealthApiService {
   constructor(
     private httpClient: HttpClient,
-    private phicHelperService: PhilhealthHelperService
+    private phicHelperService: PhilhealthHelperService,
   ) {}
 
   getMemberDetails() {

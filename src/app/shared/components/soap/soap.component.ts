@@ -34,7 +34,7 @@ export class SoapComponent implements OnInit {
   constructor(
     private icdService: IcdApiService,
     private medService: InventoryApiService,
-    private formHelper: FormHelperService
+    private formHelper: FormHelperService,
   ) {
     this.icdKeyword.valueChanges.subscribe((keyword) => {
       if (typeof keyword == 'string')
