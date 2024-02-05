@@ -16,14 +16,14 @@ const routes: Routes = [
         path: 'forgot-password',
         loadChildren: () =>
           import('./pages/forgot-password/forgot-password.module').then(
-            (m) => m.ForgotPasswordModule
+            (m) => m.ForgotPasswordModule,
           ),
       },
       {
         path: 'change-password/:token',
         loadChildren: () =>
           import('./pages/change-password/change-password.module').then(
-            (m) => m.ChangePasswordModule
+            (m) => m.ChangePasswordModule,
           ),
       },
     ],

@@ -56,7 +56,7 @@ export class CreateEncounterComponent implements OnInit {
   constructor(
     private patientApi: PatientApiService,
     private formHelper: FormHelperService,
-    private calculator: CalculatorService
+    private calculator: CalculatorService,
   ) {
     if (localStorage.getItem('draftSoap')) {
       this.soap = JSON.parse(localStorage.getItem('draftSoap') || '{}');
@@ -73,7 +73,7 @@ export class CreateEncounterComponent implements OnInit {
 
   initiateParameters() {
     this.parameters.age = this.calculator.ageBreakdown(
-      new Date(this.summary.patient.dob)
+      new Date(this.summary.patient.dob),
     );
     this.parameters.sex = this.summary.patient.sex;
   }

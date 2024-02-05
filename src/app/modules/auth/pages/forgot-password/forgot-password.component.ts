@@ -17,7 +17,10 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPasswordBtnLabel = 'Send Reset Link to my Email';
   linkSuccessSent = false;
 
-  constructor(private authService: FakeAuthService, private router: Router) {}
+  constructor(
+    private authService: FakeAuthService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {}
 
@@ -32,9 +35,9 @@ export class ForgotPasswordComponent implements OnInit {
         (err) => {
           alert(
             err.error.message ||
-              'Error sending the reset password link. Please try again later.'
+              'Error sending the reset password link. Please try again later.',
           );
-        }
+        },
       );
   }
 

@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: FakeAuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {}
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         this.loginBtnLabel = 'Login';
         this.loginBtnDisabled = false;
         this.onErrorLogin(err);
-      }
+      },
     );
   }
 

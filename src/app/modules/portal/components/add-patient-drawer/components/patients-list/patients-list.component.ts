@@ -65,7 +65,7 @@ export class PatientsListComponent implements OnInit {
       },
       (err) => {
         alert('Something went wrong while fetching data.');
-      }
+      },
     );
   }
 
