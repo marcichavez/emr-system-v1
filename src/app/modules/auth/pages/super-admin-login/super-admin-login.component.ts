@@ -7,20 +7,28 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./super-admin-login.component.scss'],
 })
 export class SuperAdminLoginComponent implements OnInit {
-  loginForm = new FormGroup({
-    email: new FormControl('test@email.com', [
+  loginForm:FormGroup = new FormGroup({
+    email: new FormControl('', [
       Validators.required,
       Validators.email,
     ]),
-    password: new FormControl('test123', Validators.required),
+    password: new FormControl('', Validators.required),
   });
 
-  loginBtnLabel = 'Login';
-  loginBtnDisabled = false;
-  isPasswordVisible = false;
+  loginBtnLabel:string = 'Login';
+  loginBtnDisabled:boolean = true;
+  isPasswordVisible:boolean= false;
   constructor() {}
 
   ngOnInit(): void {}
 
-  onSubmit() {}
+  onInputChange(){
+    this.loginBtnDisabled = !this.loginForm.valid
+  }
+
+  onSubmit() {
+    this.loginBtnDisabled = true
+    // Add api submission here
+  }
+
 }
