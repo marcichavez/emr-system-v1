@@ -1,0 +1,35 @@
+<div class="mb-4">
+  <small>Login with the credentials sent to your email</small>
+</div>
+<form [formGroup]="loginForm" class="login-form">
+  <mat-form-field class="w-full" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" />
+  </mat-form-field>
+
+  <mat-form-field class="w-full" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      [type]="isPasswordVisible ? 'text' : 'password'"
+      formControlName="password"
+    />
+    <button
+      matSuffix
+      mat-icon-button
+      (click)="isPasswordVisible = !isPasswordVisible"
+    >
+      <mat-icon>
+        {{ isPasswordVisible ? 'visibility_off' : 'visibility_on' }}
+      </mat-icon>
+    </button>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="loginBtnDisabled"
+  >
+    {{ loginBtnLabel }}
+  </button>
+</form>

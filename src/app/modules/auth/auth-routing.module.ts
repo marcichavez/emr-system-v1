@@ -8,6 +8,13 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       {
+        path: 'super-admin-login',
+        loadChildren: () =>
+          import('./pages/super-admin-login/super-admin-login.module').then(
+            (m) => m.SuperAdminLoginModule
+          ),
+      },
+      {
         path: 'login',
         loadChildren: () =>
           import('./pages/login/login.module').then((m) => m.LoginModule),
