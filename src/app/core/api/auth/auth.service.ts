@@ -44,7 +44,21 @@ export class AuthService {
   }
 
   me() {
-    return this.http.get(environment.API_URL + '/auth/me');
+    return this.http
+      .get<User>(environment.API_URL + '/auth/me', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('auth')}`,
+        },
+      })
+      .pipe(
+        tap((response) => {
+          this.store.dispatch(
+            UserActions.setUser({
+              user: response,
+            }),
+          );
+        }),
+      );
   }
 
   verifyResetPassToken(token: string) {
