@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SnackbarService } from './services/snackbar/snackbar.service';
+import { SnackbarModule } from './components/snackbar/snackbar.module';
 
 @NgModule({
-  declarations: [],
-  providers: [SnackbarService],
-  imports: [MatSnackBarModule],
+  providers: [],
+  imports: [SnackbarModule],
 })
 export class SharedModule {}
