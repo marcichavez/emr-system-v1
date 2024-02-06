@@ -1,6 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { URL } from 'src/app/configs/url/url';
+import { environment } from 'src/environments/environment';
+import { User } from '../../interfaces/models/User.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -8,64 +9,64 @@ import { URL } from 'src/app/configs/url/url';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  setHeaders() {
-    let session_token = localStorage.getItem('SESSION_TOKEN')!;
-    let bearer_token = localStorage.getItem('SESSION_AUTH');
+  // setHeaders() {
+  //   let session_token = localStorage.getItem('SESSION_TOKEN')!;
+  //   let bearer_token = localStorage.getItem('SESSION_AUTH');
 
-    let headers = new HttpHeaders({
-      s_auth: session_token || '',
-      authorization: `Bearer ${bearer_token}` || '',
-    });
-    return { headers };
-  }
+  //   let headers = new HttpHeaders({
+  //     s_auth: session_token || '',
+  //     authorization: `Bearer ${bearer_token}` || '',
+  //   });
+  //   return { headers };
+  // }
 
-  getHeaders() {
-    return {
-      withCredentials: true,
-      ...this.setHeaders(),
-    };
-  }
+  // getHeaders() {
+  //   return {
+  //     withCredentials: true,
+  //     ...this.setHeaders(),
+  //   };
+  // }
 
   login(email: string, password: string, type: string) {
-    return this.http.post(
-      URL + `/auth/login/${type}`,
+    return this.http.post(environment.API_URL + `/auth/login/${type}`, {
+      email,
+      password,
+    });
+  }
+
+  superAdminLogin(email: string, password: string) {
+    return this.http.post<User & { token: string }>(
+      environment.API_URL + `/auth/super-admin/login`,
       { email, password },
-      this.getHeaders(),
     );
   }
 
   logout() {
-    return this.http.get(URL + '/auth/logout', this.getHeaders());
+    return this.http.get(environment.API_URL + '/auth/logout');
   }
 
   me() {
-    return this.http.get(URL + '/auth/me', this.getHeaders());
+    return this.http.get(environment.API_URL + '/auth/me');
   }
 
   verifyResetPassToken(token: string) {
-    return this.http.get(
-      URL + `/auth/reset-password/${token}`,
-      this.getHeaders(),
-    );
+    return this.http.get(environment.API_URL + `/auth/reset-password/${token}`);
   }
 
   resetPassword(token: string, body: object) {
     return this.http.put(
-      URL + `/auth/reset-password/${token}`,
+      environment.API_URL + `/auth/reset-password/${token}`,
       body,
-      this.getHeaders(),
     );
   }
 
   forgotPassword(email: string) {
-    return this.http.post(URL + `/auth/forgot-password`, { email });
+    return this.http.post(environment.API_URL + `/auth/forgot-password`, {
+      email,
+    });
   }
 
   updatePassword(body: object) {
-    return this.http.put(
-      URL + '/auth/update-password',
-      body,
-      this.getHeaders(),
-    );
+    return this.http.put(environment.API_URL + '/auth/update-password', body);
   }
 }
