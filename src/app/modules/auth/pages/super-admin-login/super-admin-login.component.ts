@@ -1,18 +1,21 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/core/api/auth/auth.service';
+import { AuthService } from '@core/api/auth/auth.service';
+import { SnackbarService } from '@shared/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-super-admin-login',
   templateUrl: './super-admin-login.component.html',
   styleUrls: ['./super-admin-login.component.scss'],
 })
-export class SuperAdminLoginComponent implements OnInit {
+export class SuperAdminLoginComponent {
   loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
+    email: new FormControl('admin@admin.com', [
+      Validators.required,
+      Validators.email,
+    ]),
+    password: new FormControl('Password123!', Validators.required),
   });
 
   loginBtnLabel: string = 'Login';
@@ -20,10 +23,8 @@ export class SuperAdminLoginComponent implements OnInit {
   isPasswordVisible: boolean = false;
   constructor(
     private authService: AuthService,
-    private _snackBar: MatSnackBar,
+    private snackBarService: SnackbarService,
   ) {}
-
-  ngOnInit(): void {}
 
   onInputChange() {
     this.loginBtnDisabled = !this.loginForm.valid;
@@ -31,22 +32,15 @@ export class SuperAdminLoginComponent implements OnInit {
 
   onSubmit() {
     this.loginBtnDisabled = true;
-
-    // Add api submission here
     const { email, password } = this.loginForm.getRawValue();
 
     this.authService.superAdminLogin(email, password).subscribe(
-      (response) => {},
+      () => {
+        //put redirect here
+        this.loginBtnLabel = 'Entering Portal...';
+      },
       (err: HttpErrorResponse) => {
-        this._snackBar.open(
-          err.error.message || 'Something went wrong',
-          'Okay',
-          {
-            horizontalPosition: 'left',
-            verticalPosition: 'bottom',
-            duration: 3000,
-          },
-        );
+        this.snackBarService.openErrorSnackbar(err.error.message);
       },
     );
   }

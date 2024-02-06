@@ -1,48 +1,46 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from '@core/interfaces/models/User.interface';
+import { UserActions } from '@core/states/user';
+import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { User } from '../../interfaces/models/User.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
-
-  // setHeaders() {
-  //   let session_token = localStorage.getItem('SESSION_TOKEN')!;
-  //   let bearer_token = localStorage.getItem('SESSION_AUTH');
-
-  //   let headers = new HttpHeaders({
-  //     s_auth: session_token || '',
-  //     authorization: `Bearer ${bearer_token}` || '',
-  //   });
-  //   return { headers };
-  // }
-
-  // getHeaders() {
-  //   return {
-  //     withCredentials: true,
-  //     ...this.setHeaders(),
-  //   };
-  // }
-
-  login(email: string, password: string, type: string) {
-    return this.http.post(environment.API_URL + `/auth/login/${type}`, {
-      email,
-      password,
-    });
-  }
+  constructor(
+    private http: HttpClient,
+    private store: Store,
+  ) {}
 
   superAdminLogin(email: string, password: string) {
-    return this.http.post<User & { token: string }>(
-      environment.API_URL + `/auth/super-admin/login`,
-      { email, password },
-    );
+    return this.http
+      .post<
+        User & { token?: string }
+      >(environment.API_URL + `/auth/super-admin/login`, { email, password })
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('auth', response.token || '');
+          delete response.token;
+
+          this.store.dispatch(
+            UserActions.setUser({
+              user: response,
+            }),
+          );
+        }),
+      );
   }
 
   logout() {
-    return this.http.get(environment.API_URL + '/auth/logout');
+    return this.http.get(environment.API_URL + '/auth/logout').pipe(
+      tap(() => {
+        localStorage.removeItem('auth');
+        this.store.dispatch(UserActions.removeUser());
+      }),
+    );
   }
 
   me() {

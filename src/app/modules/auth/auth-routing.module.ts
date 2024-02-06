@@ -8,10 +8,15 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       {
-        path: 'super-admin-login',
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full',
+      },
+      {
+        path: 'super-admin/login',
         loadChildren: () =>
           import('./pages/super-admin-login/super-admin-login.module').then(
-            (m) => m.SuperAdminLoginModule
+            (m) => m.SuperAdminLoginModule,
           ),
       },
       {
