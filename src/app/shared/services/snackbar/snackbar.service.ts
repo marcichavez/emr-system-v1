@@ -5,10 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 export class SnackbarService {
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar) {}
 
   openErrorSnackbar(message: string) {
-    this._snackBar.open(message || 'Something went wrong', 'Okay', {
+    this.snackBar.open(message || 'Something went wrong', 'Okay', {
       horizontalPosition: 'left',
       verticalPosition: 'bottom',
       duration: 3000,
