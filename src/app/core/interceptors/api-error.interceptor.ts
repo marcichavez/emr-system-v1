@@ -6,16 +6,16 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { SnackbarService } from '@shared/components/snackbar/snackbar.service';
 
 import { of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { SnackbarService } from 'src/app/shared/services/snackbar/snackbar.service';
 
 @Injectable()
 export class ApiErrorInterceptor implements HttpInterceptor {
   constructor(
-    private _router: Router,
-    private _snackbarService: SnackbarService,
+    private router: Router,
+    private snackbarService: SnackbarService,
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): any {
@@ -24,12 +24,12 @@ export class ApiErrorInterceptor implements HttpInterceptor {
         let isServerError = false;
         if (err.statusText === 'Unknown Error') {
           isServerError = true;
-          this._snackbarService.openErrorSnackbar(
+          this.snackbarService.openErrorSnackbar(
             'No internet connection. Please check your internet connection and try again.',
           );
         } else if (err.status === 500) {
           isServerError = true;
-          this._snackbarService.openErrorSnackbar(
+          this.snackbarService.openErrorSnackbar(
             'Internal server error. Please try again later.',
           );
 
@@ -38,9 +38,10 @@ export class ApiErrorInterceptor implements HttpInterceptor {
           !request.url.includes('login') &&
           (err.status === 401 || err.status === 403)
         ) {
-          console.log(request);
-          this._snackbarService.openErrorSnackbar(err.error.message);
-          this._router.navigate(['/auth/login']);
+          this.snackbarService.openErrorSnackbar(err.error.message);
+          if (this.router.url.includes('portal')) {
+            this.router.navigate(['/auth/login']);
+          }
         }
 
         return isServerError ? of(err) : throwError(err);
