@@ -25,6 +25,7 @@ export class SuperAdminLoginComponent {
   constructor(
     private authService: AuthService,
     private snackBarService: SnackbarService,
+    private router: Router,
   ) {}
 
   onInputChange() {
@@ -39,6 +40,7 @@ export class SuperAdminLoginComponent {
       () => {
         //put redirect here
         this.loginBtnLabel = 'Entering Portal...';
+        this.router.navigate(['/super-admin/portal']);
       },
       (err: HttpErrorResponse) => {
         this.snackBarService.openErrorSnackbar(err.error.message);
