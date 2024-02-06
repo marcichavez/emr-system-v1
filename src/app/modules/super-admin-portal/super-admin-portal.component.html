@@ -1,0 +1,45 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <div class="sidenav__body">
+      <mat-toolbar class="sidenav__brand">Admin Portal</mat-toolbar>
+      <mat-nav-list class="sidenav__navigations">
+        <a
+          mat-list-item
+          [routerLink]="navigation.route"
+          routerLinkActive="active"
+          *ngFor="let navigation of navigations"
+        >
+          <p class="sidenav__nav">{{ navigation.label }}</p>
+        </a>
+      </mat-nav-list>
+      <mat-divider class="mt-auto mx-3 logout-divider"></mat-divider>
+      <mat-nav-list class="sidenav__navigations">
+        <a mat-list-item (click)="onLogout()">
+          <p class="sidenav__nav">Logout</p></a
+        >
+      </mat-nav-list>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content class="page">
+    <mat-toolbar class="minimized-toolbar" *ngIf="isHandset$ | async">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span style="flex: 1 1 auto"></span>
+      <div class="logo">Admin Portal</div>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

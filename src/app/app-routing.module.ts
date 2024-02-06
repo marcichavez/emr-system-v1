@@ -13,6 +13,13 @@ const routes: Routes = [
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
+    path: 'super-admin/portal',
+    loadChildren: () =>
+      import('./modules/super-admin-portal/super-admin-portal.module').then(
+        (m) => m.SuperAdminPortalModule,
+      ),
+  },
+  {
     path: 'portal',
     loadChildren: () =>
       import('./modules/portal/portal.module').then((m) => m.PortalModule),
