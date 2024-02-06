@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SuperAdminAuthGuard } from './guards/super-admin-auth.guard';
 import { SuperAdminPortalComponent } from './super-admin-portal.component';
 
 const routes: Routes = [
   {
     path: '',
     component: SuperAdminPortalComponent,
+    canActivate: [SuperAdminAuthGuard],
     children: [
       {
         path: '',
