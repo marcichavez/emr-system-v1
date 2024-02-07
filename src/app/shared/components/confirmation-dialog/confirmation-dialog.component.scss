@@ -1,0 +1,25 @@
+.confirmation-dialog__content {
+  width: 420px;
+  padding: 24px;
+}
+
+h2,
+p {
+  margin: 0;
+}
+
+h2 {
+  color: var(--gray-700);
+  font-weight: 600;
+}
+
+p {
+  color: var(--gray-600);
+}
+
+@media (max-width: 670px) {
+  .confirmation-dialog__content {
+    width: unset;
+    max-width: 600px;
+  }
+}
