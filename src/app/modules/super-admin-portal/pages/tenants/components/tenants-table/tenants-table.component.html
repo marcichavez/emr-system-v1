@@ -1,0 +1,99 @@
+<div
+  class="shadow-sm ring-1 ring-gray-900/5 rounded-lg px-6 py-5 mb-4 filter-container"
+  style="background-color: var(--gray-50)"
+>
+  <div class="grid grid-cols-12 gap-2 items-center" [formGroup]="filterForm">
+    <div class="col-span-4">
+      <mat-form-field
+        *ngIf="filterForm.value.searchType !== 'status'"
+        appearance="outline"
+        class="w-full"
+      >
+        <mat-label>Search</mat-label>
+        <input
+          matInput
+          formControlName="keyword"
+          (keyup.enter)="filterTable()"
+        />
+        <button mat-icon-button matSuffix (click)="filterTable()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field
+        *ngIf="filterForm.value.searchType === 'status'"
+        appearance="outline"
+        class="w-full"
+      >
+        <mat-label>Status Type</mat-label>
+        <mat-select formControlName="keyword">
+          <mat-option *ngFor="let item of statusTypes" [value]="item">
+            {{ item }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-span-3">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Search Type</mat-label>
+        <mat-select formControlName="searchType">
+          <mat-option *ngFor="let item of filterFields" [value]="item.value">
+            {{ item.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-span-5 gap-2">
+      <button mat-flat-button color="primary" (click)="filterTable()">
+        Search
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="shadow-md ring-1 ring-gray-900/5 rounded-lg overflow-auto">
+  <table
+    mat-table
+    [dataSource]="tableResponse?.data || []"
+    matSort
+    (matSortChange)="onTableSortChange($event)"
+  >
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.status }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="onSelectTenant(row)"
+    ></tr>
+  </table>
+</div>
+
+<mat-paginator
+  [length]="tableResponse?.total || 0"
+  [pageSize]="query.perPage || 10"
+  [pageSizeOptions]="[10, 25, 50, 75]"
+  (page)="onPageChange($event)"
+></mat-paginator>

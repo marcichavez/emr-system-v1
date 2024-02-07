@@ -1,1 +1,21 @@
-<p>tenants works!</p>
+<div class="flex flex-col gap-4 divide-y">
+  <div class="flex items-center">
+    <h1 class="title">Tenant Table</h1>
+    <button
+      mat-flat-button
+      color="primary"
+      class="add-button"
+      (click)="onAddTenantClick()"
+    >
+      Add Tenant
+    </button>
+  </div>
+
+  <app-tenants-table
+    class="pt-6"
+    [tableResponse]="tableResponse$ | async"
+    [query]="query"
+    (tableChange)="onTableChange($event)"
+    (onTenantClick)="onSelectTenant($event)"
+  ></app-tenants-table>
+</div>
