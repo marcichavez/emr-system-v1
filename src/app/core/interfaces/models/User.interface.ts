@@ -7,6 +7,7 @@ export interface User {
   lastName: string;
   email: string;
   occupation: string;
+  licenseNumber?: string;
   isClinician: boolean;
   status: STATUS;
   userType: USER_TYPE;
