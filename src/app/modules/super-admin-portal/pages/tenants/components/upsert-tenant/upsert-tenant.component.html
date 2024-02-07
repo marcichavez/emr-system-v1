@@ -1,0 +1,68 @@
+<div mat-dialog-title>
+  <div class="flex justify-between items-center">
+    <h1 class="form-title">{{ config.title }}</h1>
+
+    <div class="flex gap-2">
+      <button mat-icon-button>
+        <mat-icon mat-dialog-close>close</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<div mat-dialog-content>
+  <div class="flex flex-col gap-5">
+    <div class="underline-emphasis">
+      <p>Tenant Details</p>
+    </div>
+
+    <app-error-alert
+      *ngIf="serverErrorMessage"
+      [(serverErrorMessage)]="serverErrorMessage"
+    ></app-error-alert>
+
+    <form [formGroup]="tenantFormGroup">
+      <div class="grid grid-cols-2 gap-2">
+        <div class="col-span">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" />
+          </mat-form-field>
+        </div>
+        <div class="col-span">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" />
+          </mat-form-field>
+        </div>
+        <div class="col-span">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Occupation</mat-label>
+            <input matInput formControlName="occupation" />
+          </mat-form-field>
+        </div>
+        <div class="col-span">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>License Number</mat-label>
+            <input matInput formControlName="licenseNumber" />
+          </mat-form-field>
+        </div>
+        <div class="col-span-full">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Email Address</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSaveTenant()"
+    [disabled]="!tenantFormGroup.valid"
+  >
+    Save
+  </button>
+</div>
