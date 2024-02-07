@@ -2,13 +2,22 @@
 @import '/src/assets/styles/variables.scss';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+:root {
+  * {
+    font-family: 'Inter', sans-serif !important;
+  }
+
+  .material-icons {
+    font-family: 'Material Icons' !important;
+  }
+}
+
 html,
 body {
   height: 100%;
 }
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif !important;
 }
 
 .portal-page-title {
