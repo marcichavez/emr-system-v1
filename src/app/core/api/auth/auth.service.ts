@@ -35,12 +35,22 @@ export class AuthService {
   }
 
   logout() {
-    return this.http.get(environment.API_URL + '/auth/logout').pipe(
-      tap(() => {
-        localStorage.removeItem('auth');
-        this.store.dispatch(UserActions.removeUser());
-      }),
-    );
+    return this.http
+      .post(
+        environment.API_URL + '/auth/logout',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth')}`,
+          },
+        },
+      )
+      .pipe(
+        tap(() => {
+          localStorage.removeItem('auth');
+          this.store.dispatch(UserActions.removeUser());
+        }),
+      );
   }
 
   me() {
