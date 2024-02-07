@@ -1,19 +1,30 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { LoadingSnackbarComponent } from './components/loading-snackbar/loading-snackbar.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SnackbarService {
+  private _loadingSnackbarRef!: MatSnackBarRef<LoadingSnackbarComponent>;
+
   constructor(private snackBar: MatSnackBar) {}
 
   openLoadingSnackbar(message: string) {
-    return this.snackBar.openFromComponent(LoadingSnackbarComponent, {
-      data: {
-        message,
+    this._loadingSnackbarRef = this.snackBar.openFromComponent(
+      LoadingSnackbarComponent,
+      {
+        data: {
+          message,
+        },
       },
-    });
+    );
+
+    return this._loadingSnackbarRef;
+  }
+
+  closeLoadingSnackbar() {
+    this._loadingSnackbarRef.dismiss();
   }
 
   openSuccessSnackbar(message: string) {
