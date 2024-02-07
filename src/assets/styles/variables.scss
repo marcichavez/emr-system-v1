@@ -20,6 +20,7 @@ $text-darken: #565656;
 $text-light: #fff;
 
 :root {
+  --primary: #4050b5;
   --gray-50: #f9fafb;
   --gray-100: #f2f4f7;
   --gray-200: #eaecf0;
@@ -29,4 +30,16 @@ $text-light: #fff;
   --gray-600: #475467;
   --gray-700: #344054;
   --gray-900: #101828;
+
+  --error-25: #fffbfa;
+  --error-50: #fef3f2;
+  --error-100: #fee4e2;
+  --error-200: #fecdca;
+  --error-300: #fda29b;
+  --error-400: #f97066;
+  --error-500: #f04438;
+  --error-600: #d92d20;
+  --error-700: #b42318;
+  --error-800: #912018;
+  --error-900: #7a271a;
 }
