@@ -30,7 +30,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
         } else if (err.status === 500) {
           isServerError = true;
           this.snackbarService.openErrorSnackbar(
-            'Internal server error. Please try again later.',
+            'Internal server error. Please contact the administrator.',
           );
 
           console.error(err);
