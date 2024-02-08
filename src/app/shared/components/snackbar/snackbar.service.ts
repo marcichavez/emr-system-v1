@@ -34,6 +34,7 @@ export class SnackbarService {
       SuccessSnackbarComponent,
       {
         panelClass: 'success-snackbar',
+        duration: 3000,
         data: {
           message,
         },
@@ -46,6 +47,7 @@ export class SnackbarService {
       ErrorSnackbarComponent,
       {
         panelClass: 'error-snackbar',
+        duration: 3000,
         data: {
           message: message || 'Something went wrong',
         },
