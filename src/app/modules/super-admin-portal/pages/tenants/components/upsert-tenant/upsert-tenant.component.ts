@@ -29,6 +29,7 @@ export class UpsertTenantComponent {
   serverErrorMessage = '';
   config: UpsertTenantConfig;
   isUpdate: boolean;
+  isTenantDeleted: boolean;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public tenant: User,
@@ -39,16 +40,18 @@ export class UpsertTenantComponent {
     private dialogRef: MatDialogRef<UpsertTenantComponent>,
   ) {
     this.isUpdate = !!this.tenant;
+    this.isTenantDeleted = this.tenant?.status === STATUS.DELETED;
+
     this.config = this.isUpdate
       ? UPSERT_TENANT_CONFIG.UPDATE
       : UPSERT_TENANT_CONFIG.CREATE;
 
     this.tenantFormGroup = this.formBuilder.group({
-      firstName: ['', []],
-      lastName: ['', []],
-      occupation: ['', []],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      occupation: ['', [Validators.required]],
       licenseNumber: [''],
-      email: ['', [, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
     });
 
     if (this.isUpdate) {
@@ -81,6 +84,34 @@ export class UpsertTenantComponent {
           this.snackbarService.openErrorSnackbar(
             'Failed to save tenant, please check the form',
           );
+          this.serverErrorMessage = err.error.message;
+        },
+      );
+  }
+
+  onRestoreTenant() {
+    this.confirmationDialogService
+      .openConfirmationDialog({
+        title: 'Restore Tenant Confirmation',
+        message: 'Are you sure you want to restore this tenant?',
+      })
+      .pipe(
+        filter((confirm) => confirm),
+        switchMap(() => {
+          this.snackbarService.openLoadingSnackbar('Restoring tenant...');
+
+          return this.userService.patchUserStatus(
+            STATUS.ACTIVE,
+            this.tenant._id,
+          );
+        }),
+      )
+      .subscribe(
+        () => {
+          this.snackbarService.openSuccessSnackbar('Tenant has been restored');
+          this.dialogRef.close(true);
+        },
+        (err) => {
           this.serverErrorMessage = err.error.message;
         },
       );

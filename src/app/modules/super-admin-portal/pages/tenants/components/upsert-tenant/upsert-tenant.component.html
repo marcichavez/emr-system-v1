@@ -3,8 +3,8 @@
     <h1 class="form-title">{{ config.title }}</h1>
 
     <div class="flex gap-2">
-      <button mat-icon-button>
-        <mat-icon mat-dialog-close>close</mat-icon>
+      <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
       </button>
     </div>
   </div>
@@ -56,10 +56,28 @@
     </form>
   </div>
 </div>
-<div mat-dialog-actions align="end">
+<div mat-dialog-actions class="flex">
+  <button
+    *ngIf="isUpdate && isTenantDeleted"
+    mat-button
+    color="warn"
+    (click)="onRestoreTenant()"
+  >
+    Restore
+  </button>
+  <button
+    *ngIf="isUpdate && !isTenantDeleted"
+    mat-button
+    color="warn"
+    (click)="onDeleteTenant()"
+  >
+    Delete
+  </button>
+
   <button
     mat-raised-button
     color="primary"
+    style="margin-left: auto"
     (click)="onSaveTenant()"
     [disabled]="!tenantFormGroup.valid"
   >
