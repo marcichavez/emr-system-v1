@@ -41,6 +41,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
           this.snackbarService.openErrorSnackbar(err.error.message);
           if (this.router.url.includes('portal')) {
             this.router.navigate(['/auth/login']);
+            localStorage.removeItem('auth');
           }
         }
 
