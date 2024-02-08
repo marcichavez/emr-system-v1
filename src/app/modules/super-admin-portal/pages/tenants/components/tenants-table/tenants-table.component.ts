@@ -5,6 +5,12 @@ import { Sort } from '@angular/material/sort';
 import { STATUS } from '@core/constants/STATUS.constant';
 import { TableResponse } from '@core/interfaces/TableResponse.interface';
 import { User } from '@core/interfaces/models/User.interface';
+import { TENANT_ABLE_CONFIG } from './tenants-table.config';
+
+export interface TableConfig {
+  header: string;
+  path: string;
+}
 
 @Component({
   selector: 'app-tenants-table',
@@ -14,9 +20,10 @@ import { User } from '@core/interfaces/models/User.interface';
 export class TenantsTableComponent implements OnInit {
   @Input()
   tableResponse: TableResponse<User> | null = null;
-
   @Input()
   query: Record<string, string | number> = {};
+  @Input()
+  isLoading: boolean = true;
 
   @Output()
   tableChange: EventEmitter<Record<string, string | number>> = new EventEmitter<
@@ -25,6 +32,8 @@ export class TenantsTableComponent implements OnInit {
 
   @Output()
   onTenantClick: EventEmitter<any> = new EventEmitter<any>();
+
+  tableConfig: TableConfig[] = TENANT_ABLE_CONFIG;
 
   filterFields = [
     {
@@ -54,6 +63,8 @@ export class TenantsTableComponent implements OnInit {
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'status'];
 
   filterForm: FormGroup;
+
+  loadingRowNumber = new Array(7).fill(0);
 
   constructor(private formBuilder: FormBuilder) {
     this.filterForm = this.formBuilder.group({

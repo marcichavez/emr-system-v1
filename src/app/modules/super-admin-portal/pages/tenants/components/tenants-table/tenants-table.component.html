@@ -14,8 +14,14 @@
           matInput
           formControlName="keyword"
           (keyup.enter)="filterTable()"
+          [disabled]="isLoading"
         />
-        <button mat-icon-button matSuffix (click)="filterTable()">
+        <button
+          mat-icon-button
+          matSuffix
+          [disabled]="isLoading"
+          (click)="filterTable()"
+        >
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
@@ -26,7 +32,7 @@
         class="w-full"
       >
         <mat-label>Status Type</mat-label>
-        <mat-select formControlName="keyword">
+        <mat-select formControlName="keyword" [disabled]="isLoading">
           <mat-option *ngFor="let item of statusTypes" [value]="item">
             {{ item }}
           </mat-option>
@@ -37,7 +43,7 @@
     <div class="col-span-3">
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Search Type</mat-label>
-        <mat-select formControlName="searchType">
+        <mat-select formControlName="searchType" [disabled]="isLoading">
           <mat-option *ngFor="let item of filterFields" [value]="item.value">
             {{ item.label }}
           </mat-option>
@@ -46,7 +52,12 @@
     </div>
 
     <div class="col-span-5 gap-2">
-      <button mat-flat-button color="primary" (click)="filterTable()">
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="isLoading"
+        (click)="filterTable()"
+      >
         Search
       </button>
     </div>
@@ -60,37 +71,59 @@
     matSort
     (matSortChange)="onTableSortChange($event)"
   >
-    <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+    <ng-container *ngFor="let column of tableConfig">
+      <ng-container [matColumnDef]="column.path">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ column.header }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="column.path !== 'status'; else statusCell">
+            {{ element[column.path] }}
+          </ng-container>
+          <ng-template #statusCell>
+            <div class="badge__container">
+              <div
+                class="badge"
+                [ngClass]="{
+                  'badge--active': element.status === 'Active',
+                  'badge--inactive': element.status === 'Inactive',
+                  'badge--deleted': element.status === 'Deleted'
+                }"
+              >
+                <span>{{ element.status }}</span>
+              </div>
+            </div>
+          </ng-template>
+        </td>
+      </ng-container>
     </ng-container>
 
-    <ng-container matColumnDef="lastName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-      <td mat-cell *matCellDef="let element">
-        <div class="badge__container">
-          <div
-            class="badge"
-            [ngClass]="{
-              'badge--active': element.status === 'Active',
-              'badge--inactive': element.status === 'Inactive',
-              'badge--deleted': element.status === 'Deleted'
-            }"
+    <ng-container *matNoDataRow>
+      <ng-container *ngIf="!isLoading">
+        <tr class="empty-table">
+          <td
+            class="mat-cell"
+            [attr.colspan]="displayedColumns.length"
+            class="text-center py-8"
           >
-            <span>{{ element.status }}</span>
-          </div>
-        </div>
-      </td>
+            No data found
+          </td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="isLoading">
+        <tr class="empty-table" *ngFor="let row of loadingRowNumber">
+          <td class="mat-cell" *ngFor="let column of displayedColumns">
+            <div class="pl-1 pr-10">
+              <ngx-skeleton-loader
+                [theme]="{
+                  height: '20px',
+                  marginTop: '4px',
+                  marginBottom: '0px'
+                }"
+              ></ngx-skeleton-loader>
+            </div>
+          </td></tr
+      ></ng-container>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -103,6 +136,8 @@
 </div>
 
 <mat-paginator
+  class="mt-4"
+  [disabled]="isLoading"
   [length]="tableResponse?.total || 0"
   [pageSize]="query.perPage || 10"
   [pageSizeOptions]="[10, 25, 50, 75]"

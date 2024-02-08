@@ -42,7 +42,7 @@ td.mat-cell {
   color: var(--gray-600);
 }
 
-.mat-row:hover {
+.mat-row:not(.empty-table):hover {
   background-color: var(--gray-100);
   cursor: pointer;
 }

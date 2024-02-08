@@ -6,7 +6,8 @@ import { STATUS } from '@core/constants/STATUS.constant';
 import { User } from '@core/interfaces/models/User.interface';
 import { ConfirmationDialogService } from '@shared/components/confirmation-dialog/confirmation-dialog.service';
 import { SnackbarService } from '@shared/components/snackbar/snackbar.service';
-import { filter, switchMap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { filter, finalize, switchMap } from 'rxjs/operators';
 import { UPSERT_TENANT_CONFIG } from './upsert-tenant.config';
 
 export interface UpsertTenantConfig {
@@ -30,6 +31,7 @@ export class UpsertTenantComponent {
   config: UpsertTenantConfig;
   isUpdate: boolean;
   isTenantDeleted: boolean;
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public tenant: User,
@@ -66,6 +68,7 @@ export class UpsertTenantComponent {
         filter((confirm) => confirm),
         switchMap(() => {
           const body = this.tenantFormGroup.getRawValue();
+          this._setLoadingState(true);
           this.snackbarService.openLoadingSnackbar('Saving tenant...');
 
           if (this.isUpdate) {
@@ -73,6 +76,9 @@ export class UpsertTenantComponent {
           }
 
           return this.userService.createUser(body);
+        }),
+        finalize(() => {
+          this._setLoadingState(false);
         }),
       )
       .subscribe(
@@ -98,12 +104,16 @@ export class UpsertTenantComponent {
       .pipe(
         filter((confirm) => confirm),
         switchMap(() => {
+          this._setLoadingState(true);
           this.snackbarService.openLoadingSnackbar('Restoring tenant...');
 
           return this.userService.patchUserStatus(
             STATUS.ACTIVE,
             this.tenant._id,
           );
+        }),
+        finalize(() => {
+          this._setLoadingState(false);
         }),
       )
       .subscribe(
@@ -126,12 +136,16 @@ export class UpsertTenantComponent {
       .pipe(
         filter((confirm) => confirm),
         switchMap(() => {
+          this._setLoadingState(true);
           this.snackbarService.openLoadingSnackbar('Deleting tenant...');
 
           return this.userService.patchUserStatus(
             STATUS.DELETED,
             this.tenant._id,
           );
+        }),
+        finalize(() => {
+          this._setLoadingState(false);
         }),
       )
       .subscribe(
@@ -143,5 +157,14 @@ export class UpsertTenantComponent {
           this.serverErrorMessage = err.error.message;
         },
       );
+  }
+
+  private _setLoadingState(state: boolean) {
+    if (state) {
+      this.tenantFormGroup.disable();
+    } else {
+      this.tenantFormGroup.enable();
+    }
+    this.isLoading$.next(state);
   }
 }

@@ -15,6 +15,7 @@
     class="pt-6"
     [tableResponse]="tableResponse$ | async"
     [query]="query"
+    [isLoading]="(isLoading$ | async) || false"
     (tableChange)="onTableChange($event)"
     (onTenantClick)="onSelectTenant($event)"
   ></app-tenants-table>

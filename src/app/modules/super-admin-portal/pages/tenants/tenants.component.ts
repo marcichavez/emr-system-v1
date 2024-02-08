@@ -4,8 +4,8 @@ import { UserService } from '@core/api/user/user.service';
 import { TableResponse } from '@core/interfaces/TableResponse.interface';
 import { User } from '@core/interfaces/models/User.interface';
 import { SnackbarService } from '@shared/components/snackbar/snackbar.service';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, concatMap, filter } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { catchError, concatMap, filter, finalize } from 'rxjs/operators';
 import { UpsertTenantComponent } from './components/upsert-tenant/upsert-tenant.component';
 
 @Component({
@@ -14,9 +14,8 @@ import { UpsertTenantComponent } from './components/upsert-tenant/upsert-tenant.
   styleUrls: ['./tenants.component.scss'],
 })
 export class TenantsComponent {
-  selectedTenant!: User;
-
   tableResponse$: Observable<TableResponse<User>>;
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   query: Record<string, string | number> = {
     perPage: 10,
@@ -27,18 +26,18 @@ export class TenantsComponent {
     private userService: UserService,
     private snackbarService: SnackbarService,
   ) {
-    this.tableResponse$ = this.userService.getUsers(this.query);
+    this.tableResponse$ = this._fetchUsers();
   }
 
   onAddTenantClick() {
     this.openUpsertDialog().subscribe(() => {
-      this.tableResponse$ = this.userService.getUsers(this.query);
+      this.tableResponse$ = this._fetchUsers();
     });
   }
 
   onTableChange(query: Record<string, string | number>) {
     this.query = query;
-    this.tableResponse$ = this.userService.getUsers(this.query);
+    this.tableResponse$ = this._fetchUsers();
   }
 
   onSelectTenant(tenant: User) {
@@ -59,7 +58,7 @@ export class TenantsComponent {
         }),
       )
       .subscribe(() => {
-        this.tableResponse$ = this.userService.getUsers(this.query);
+        this.tableResponse$ = this._fetchUsers();
       });
   }
 
@@ -72,5 +71,12 @@ export class TenantsComponent {
       })
       .afterClosed()
       .pipe(filter((result) => result));
+  }
+
+  private _fetchUsers() {
+    this.isLoading$.next(true);
+    return this.userService
+      .getUsers(this.query)
+      .pipe(finalize(() => this.isLoading$.next(false)));
   }
 }
