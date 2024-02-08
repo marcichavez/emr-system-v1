@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ChangePasswordTokenResolver } from './resolvers/change-password-token.resolver';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
       },
       {
         path: 'change-password/:token',
+        resolve: [ChangePasswordTokenResolver],
         loadChildren: () =>
           import('./pages/change-password/change-password.module').then(
             (m) => m.ChangePasswordModule,

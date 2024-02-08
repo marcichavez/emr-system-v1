@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@core/interfaces/models/User.interface';
 import { UserActions } from '@core/states/user';
@@ -71,15 +71,21 @@ export class AuthService {
       );
   }
 
-  verifyResetPassToken(token: string) {
-    return this.http.get(environment.API_URL + `/auth/reset-password/${token}`);
+  verifyResetPasswordToken(token: string) {
+    const queryParams = new HttpParams({
+      fromObject: {
+        token,
+      },
+    });
+    return this.http.get<{
+      found: boolean;
+    }>(environment.API_URL + `/auth/reset-password`, {
+      params: queryParams,
+    });
   }
 
-  resetPassword(token: string, body: object) {
-    return this.http.put(
-      environment.API_URL + `/auth/reset-password/${token}`,
-      body,
-    );
+  resetPassword(body: object) {
+    return this.http.post(environment.API_URL + `/auth/reset-password`, body);
   }
 
   forgotPassword(email: string) {

@@ -35,7 +35,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
           console.error(err);
         } else if (
-          !request.url.includes('login') &&
+          !request.url.includes('auth') &&
           (err.status === 401 || err.status === 403)
         ) {
           this.snackbarService.openErrorSnackbar(err.error.message);

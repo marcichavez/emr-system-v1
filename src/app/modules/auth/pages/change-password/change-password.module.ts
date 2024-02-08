@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
+import { SharedModule } from '@shared/shared.module';
+import { FormMaterialsModule } from 'src/app/shared/modules/form-materials/form-materials.module';
 import { ChangePasswordRoutingModule } from './change-password-routing.module';
 import { ChangePasswordComponent } from './change-password.component';
-import { FormMaterialsModule } from 'src/app/shared/modules/form-materials/form-materials.module';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [ChangePasswordComponent],
@@ -12,7 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CommonModule,
     ChangePasswordRoutingModule,
     FormMaterialsModule,
-    MatSnackBarModule,
+    SharedModule,
   ],
 })
 export class ChangePasswordModule {}
