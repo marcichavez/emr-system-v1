@@ -1,1 +1,5 @@
-export const STATUSES = ['Active', 'Inactive', 'Deleted'];
+export enum STATUS {
+  ACTIVE = 'Active',
+  INACTIVE = 'Inactive',
+  DELETED = 'Deleted',
+}

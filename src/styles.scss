@@ -1,5 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import '/src/assets/styles/variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+  * {
+    font-family: 'Inter', sans-serif !important;
+  }
+
+  .material-icons {
+    font-family: 'Material Icons' !important;
+  }
+}
 
 html,
 body {
@@ -7,7 +18,6 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 .portal-page-title {
@@ -65,4 +75,57 @@ mat-card-subtitle {
 
 .text-success {
   color: $completed;
+}
+
+.snackbar {
+  &__container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--white);
+    span {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .close-btn {
+      cursor: pointer;
+      border-radius: 50%;
+    }
+  }
+}
+
+.error-snackbar {
+  background: var(--error-600) !important;
+}
+
+.success-snackbar {
+  background: var(--primary) !important;
+}
+
+.badge__container {
+  display: flex;
+  .badge {
+    border-radius: 14px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    &--active {
+      border: 1px solid var(--gray-500);
+      color: var(--gray-100);
+      background-color: var(--gray-600);
+    }
+
+    &--inactive {
+      border: 1px solid var(--gray-50);
+      color: var(--gray-50);
+      background-color: var(--gray-300);
+    }
+
+    &--deleted {
+      border: 1px solid var(--error-300);
+      color: var(--error-600);
+      background-color: var(--error-100);
+    }
+  }
 }

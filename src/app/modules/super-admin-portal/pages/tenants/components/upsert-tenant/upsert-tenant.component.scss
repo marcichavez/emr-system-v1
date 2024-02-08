@@ -1,0 +1,26 @@
+.form-title {
+  margin: 0 !important;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.underline-emphasis {
+  border-bottom: 2px dotted var(--gray-400);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  span {
+    font-size: x-small;
+    color: var(--gray-400);
+    font-weight: normal;
+  }
+  p {
+    color: var(--primary);
+    font-size: small;
+    font-weight: 600;
+    small {
+      color: var(--gray-400);
+      opacity: 0.6;
+    }
+  }
+}
