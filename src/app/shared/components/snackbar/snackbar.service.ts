@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { ErrorSnackbarComponent } from './components/error-snackbar/error-snackbar.component';
 import { LoadingSnackbarComponent } from './components/loading-snackbar/loading-snackbar.component';
+import { SuccessSnackbarComponent } from './components/success-snackbar/success-snackbar.component';
 
 @Injectable({
   providedIn: 'root',
@@ -28,18 +30,26 @@ export class SnackbarService {
   }
 
   openSuccessSnackbar(message: string) {
-    this.snackBar.open(message, 'Okay', {
-      horizontalPosition: 'left',
-      verticalPosition: 'bottom',
-      duration: 3000,
-    });
+    this._loadingSnackbarRef = this.snackBar.openFromComponent(
+      SuccessSnackbarComponent,
+      {
+        panelClass: 'success-snackbar',
+        data: {
+          message,
+        },
+      },
+    );
   }
 
   openErrorSnackbar(message: string) {
-    this.snackBar.open(message || 'Something went wrong', 'Okay', {
-      horizontalPosition: 'left',
-      verticalPosition: 'bottom',
-      duration: 3000,
-    });
+    this._loadingSnackbarRef = this.snackBar.openFromComponent(
+      ErrorSnackbarComponent,
+      {
+        panelClass: 'error-snackbar',
+        data: {
+          message: message || 'Something went wrong',
+        },
+      },
+    );
   }
 }
