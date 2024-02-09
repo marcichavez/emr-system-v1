@@ -93,6 +93,40 @@ export class UpsertEmployeeComponent {
       );
   }
 
+  onRestoreEmployee() {
+    this.confirmationDialogService
+      .openConfirmationDialog({
+        title: 'Restore Employee Confirmation',
+        message: 'Are you sure you want to restore this employee?',
+      })
+      .pipe(
+        filter((confirm) => confirm),
+        switchMap(() => {
+          this._setLoadingState(true);
+          this.snackbarService.openLoadingSnackbar('Restoring employee...');
+
+          return this.employeeService.patchEmployeeStatus(
+            STATUS.ACTIVE,
+            this.employee._id,
+          );
+        }),
+        finalize(() => {
+          this._setLoadingState(false);
+        }),
+      )
+      .subscribe(
+        () => {
+          this.snackbarService.openSuccessSnackbar(
+            'Employee has been restored',
+          );
+          this.dialogRef.close(true);
+        },
+        (err) => {
+          this.serverErrorMessage = err.error.message;
+        },
+      );
+  }
+
   onDeleteEmployee() {
     this.confirmationDialogService
       .openConfirmationDialog({

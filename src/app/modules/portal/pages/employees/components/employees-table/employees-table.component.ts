@@ -46,6 +46,10 @@ export class EmployeesTableComponent {
       value: 'email',
     },
     {
+      label: 'Occupation',
+      value: 'occupation',
+    },
+    {
       label: 'Status',
       value: 'status',
     },
@@ -53,7 +57,13 @@ export class EmployeesTableComponent {
 
   filterForm: FormGroup;
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'status'];
+  displayedColumns: string[] = [
+    'firstName',
+    'lastName',
+    'email',
+    'occupation',
+    'status',
+  ];
 
   statusTypes = Object.values(STATUS);
 
@@ -102,6 +112,13 @@ export class EmployeesTableComponent {
         perPage: 10,
       });
     }
+  }
+
+  onClearFilter() {
+    this.filterForm.reset();
+    this.tableChange.emit({
+      perPage: 10,
+    });
   }
 
   onPageChange(event: PageEvent) {

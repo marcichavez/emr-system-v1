@@ -1,9 +1,5 @@
 :host ::ng-deep {
   .filter-container {
-    .mat-form-field-appearance-outline .mat-form-field-outline {
-      background-color: #fff;
-    }
-
     .mat-form-field-wrapper {
       padding: 0;
     }
@@ -21,4 +17,11 @@
 .mat-row:not(.empty-table):hover {
   background-color: var(--gray-100);
   cursor: pointer;
+}
+
+td.mat-cell {
+  padding-top: 10px;
+  padding-bottom: 8px;
+  font-size: 13px;
+  color: var(--gray-600);
 }

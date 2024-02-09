@@ -63,6 +63,15 @@
   </div>
   <div mat-dialog-actions class="flex">
     <button
+      *ngIf="isUpdate && isEmployeeDeleted"
+      mat-button
+      color="warn"
+      [disabled]="data.isLoading"
+      (click)="onRestoreEmployee()"
+    >
+      Restore
+    </button>
+    <button
       *ngIf="isUpdate && !isEmployeeDeleted"
       mat-button
       color="warn"
