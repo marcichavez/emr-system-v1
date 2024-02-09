@@ -8,6 +8,11 @@ const routes: Routes = [
     component: PortalComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'patients-masterlist',
+        pathMatch: 'full',
+      },
+      {
         path: 'patients-masterlist',
         loadChildren: () =>
           import('./pages/patients-masterlist/patients-masterlist.module').then(
@@ -19,6 +24,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./pages/appointments/appointments.module').then(
             (m) => m.AppointmentsModule,
+          ),
+      },
+      {
+        path: 'employees',
+        loadChildren: () =>
+          import('./pages/employees/employees.module').then(
+            (m) => m.EmployeesModule,
           ),
       },
     ],
