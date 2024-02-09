@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '@modules/auth/guards/auth.guard';
 import { PortalComponent } from './portal.component';
 
 const routes: Routes = [
   {
     path: '',
     component: PortalComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: '',
