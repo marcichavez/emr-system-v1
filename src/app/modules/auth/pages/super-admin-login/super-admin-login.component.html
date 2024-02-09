@@ -4,12 +4,7 @@
 <form [formGroup]="loginForm" class="login-form">
   <mat-form-field class="w-full" appearance="outline">
     <mat-label>Email</mat-label>
-    <input
-      matInput
-      type="email"
-      formControlName="email"
-      (input)="onInputChange()"
-    />
+    <input matInput type="email" formControlName="email" />
   </mat-form-field>
 
   <mat-form-field class="w-full" appearance="outline">
@@ -18,7 +13,6 @@
       matInput
       [type]="isPasswordVisible ? 'text' : 'password'"
       formControlName="password"
-      (input)="onInputChange()"
     />
     <button
       matSuffix
@@ -34,7 +28,7 @@
     mat-raised-button
     color="primary"
     (click)="onSubmit()"
-    [disabled]="loginBtnDisabled"
+    [disabled]="!loginForm.valid"
   >
     {{ loginBtnLabel }}
   </button>

@@ -20,7 +20,6 @@ export class SuperAdminLoginComponent {
   });
 
   loginBtnLabel: string = 'Login';
-  loginBtnDisabled: boolean = true;
   isPasswordVisible: boolean = false;
   constructor(
     private authService: AuthService,
@@ -28,12 +27,9 @@ export class SuperAdminLoginComponent {
     private router: Router,
   ) {}
 
-  onInputChange() {
-    this.loginBtnDisabled = !this.loginForm.valid;
-  }
-
   onSubmit() {
-    this.loginBtnDisabled = true;
+    this.loginForm.disable();
+
     const { email, password } = this.loginForm.getRawValue();
 
     this.authService.superAdminLogin(email, password).subscribe(
@@ -43,6 +39,7 @@ export class SuperAdminLoginComponent {
         this.router.navigate(['/super-admin/portal']);
       },
       (err: HttpErrorResponse) => {
+        this.loginForm.enable();
         this.snackBarService.openErrorSnackbar(err.error.message);
       },
     );
