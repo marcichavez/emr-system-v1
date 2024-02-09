@@ -1,0 +1,21 @@
+<div class="flex flex-col gap-2">
+  <div class="flex items-center">
+    <button
+      mat-flat-button
+      color="primary"
+      class="add-button"
+      (click)="onAddEmployee()"
+    >
+      Add Employee
+    </button>
+  </div>
+
+  <app-employees-table
+    [tableResponse]="tableResponse$ | async"
+    [query]="query"
+    [isLoading]="(isLoading$ | async) || false"
+    (tableChange)="onTableChange($event)"
+    (onEmployeeClick)="onSelectEmployee($event)"
+  >
+  </app-employees-table>
+</div>
