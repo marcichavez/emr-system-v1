@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
+    this.snackBarService.openLoadingSnackbar('Logging in...');
     this.loginForm.disable();
     const { email, password } = this.loginForm.getRawValue();
 
@@ -38,6 +39,8 @@ export class LoginComponent implements OnInit {
         //put redirect here
         this.loginBtnLabel = 'Entering Portal...';
         this.router.navigate(['/portal']);
+        this.snackBarService.closeLoadingSnackbar();
+        this.snackBarService.openSuccessSnackbar('Successfully logged in');
       },
       (err: HttpErrorResponse) => {
         this.loginForm.enable();
