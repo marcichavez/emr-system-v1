@@ -1,10 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { STATUS } from '@core/constants/STATUS.constant';
 import { TableResponse } from '@core/interfaces/TableResponse.interface';
 import { User } from '@core/interfaces/models/User.interface';
+import { pairwise } from 'rxjs/operators';
 import { TENANT_ABLE_CONFIG } from './tenants-table.config';
 
 export interface TableConfig {
@@ -17,7 +25,7 @@ export interface TableConfig {
   templateUrl: './tenants-table.component.html',
   styleUrls: ['./tenants-table.component.scss'],
 })
-export class TenantsTableComponent implements OnInit {
+export class TenantsTableComponent implements OnChanges {
   @Input()
   tableResponse: TableResponse<User> | null = null;
   @Input()
@@ -72,18 +80,27 @@ export class TenantsTableComponent implements OnInit {
       searchType: [this.filterFields[0].value],
     });
 
-    let oldSearchType = '';
-    this.filterForm.get('searchType')?.valueChanges.subscribe((value) => {
-      if (oldSearchType === 'status') {
-        this.filterForm.get('keyword')?.reset('');
-      } else if (value === 'status') {
-        this.filterForm.get('keyword')?.reset('Active');
-      }
-      oldSearchType = value;
-    });
+    this.filterForm
+      .get('searchType')
+      ?.valueChanges.pipe(pairwise())
+      .subscribe(([oldValue, newValue]) => {
+        if (oldValue === 'status') {
+          this.filterForm.get('keyword')?.reset('');
+        } else if (newValue === 'status') {
+          this.filterForm.get('keyword')?.reset('Active');
+        }
+      });
   }
 
-  ngOnInit(): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.isLoading) {
+      if (changes.isLoading.currentValue) {
+        this.filterForm.disable();
+      } else {
+        this.filterForm.enable();
+      }
+    }
+  }
 
   onSelectTenant(tenant: User) {
     this.onTenantClick.emit(tenant);

@@ -14,7 +14,6 @@
           matInput
           formControlName="keyword"
           (keyup.enter)="filterTable()"
-          [disabled]="isLoading"
         />
         <button
           mat-icon-button
@@ -32,7 +31,7 @@
         class="w-full"
       >
         <mat-label>Status Type</mat-label>
-        <mat-select formControlName="keyword" [disabled]="isLoading">
+        <mat-select formControlName="keyword">
           <mat-option *ngFor="let item of statusTypes" [value]="item">
             {{ item }}
           </mat-option>
@@ -43,7 +42,7 @@
     <div class="col-span-3">
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Search Type</mat-label>
-        <mat-select formControlName="searchType" [disabled]="isLoading">
+        <mat-select formControlName="searchType">
           <mat-option *ngFor="let item of filterFields" [value]="item.value">
             {{ item.label }}
           </mat-option>
