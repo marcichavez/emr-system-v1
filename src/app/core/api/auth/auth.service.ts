@@ -34,6 +34,25 @@ export class AuthService {
       );
   }
 
+  login(email: string, password: string) {
+    return this.http
+      .post<
+        User & { token?: string }
+      >(environment.API_URL + `/auth/login`, { email, password })
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('auth', response.token || '');
+          delete response.token;
+
+          this.store.dispatch(
+            UserActions.setUser({
+              user: response,
+            }),
+          );
+        }),
+      );
+  }
+
   logout() {
     return this.http
       .post(

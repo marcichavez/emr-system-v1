@@ -20,7 +20,7 @@
       (click)="isPasswordVisible = !isPasswordVisible"
     >
       <mat-icon>
-        {{ isPasswordVisible ? "visibility_off" : "visibility_on" }}
+        {{ isPasswordVisible ? 'visibility_off' : 'visibility_on' }}
       </mat-icon>
     </button>
   </mat-form-field>
@@ -28,7 +28,7 @@
     mat-raised-button
     color="primary"
     (click)="onSubmit()"
-    [disabled]="loginBtnDisabled"
+    [disabled]="!loginForm.valid"
   >
     {{ loginBtnLabel }}
   </button>
