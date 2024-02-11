@@ -54,6 +54,7 @@ export class UpsertTenantComponent {
       occupation: ['', [Validators.required]],
       licenseNumber: [''],
       email: ['', [Validators.required, Validators.email]],
+      isClinician: [false, [Validators.required]],
     });
 
     if (this.isUpdate) {
