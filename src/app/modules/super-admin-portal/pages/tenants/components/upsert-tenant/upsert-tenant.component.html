@@ -51,10 +51,19 @@
               <input matInput formControlName="licenseNumber" />
             </mat-form-field>
           </div>
-          <div class="col-span-full">
+          <div class="col-span">
             <mat-form-field appearance="fill" class="w-full">
               <mat-label>Email Address</mat-label>
               <input matInput formControlName="email" />
+            </mat-form-field>
+          </div>
+          <div class="col-span">
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label>Is Clinician</mat-label>
+              <mat-select formControlName="isClinician">
+                <mat-option [value]="true"> Yes </mat-option>
+                <mat-option [value]="false"> No </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
         </div>

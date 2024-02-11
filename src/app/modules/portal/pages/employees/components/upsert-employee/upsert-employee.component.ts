@@ -50,6 +50,7 @@ export class UpsertEmployeeComponent {
       occupation: ['', [Validators.required]],
       licenseNumber: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
+      isClinician: [true, [Validators.required]],
     });
 
     if (this.isUpdate) {
