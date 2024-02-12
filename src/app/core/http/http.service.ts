@@ -1,5 +1,6 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 import { HttpMethod } from '../interfaces/HttpMethod.interface';
 
 @Injectable({
@@ -9,40 +10,45 @@ export class HttpService {
   constructor(public http: HttpClient) {}
 
   get headers() {
-    var session_token = localStorage.getItem('SESSION_TOKEN');
-    var bearer_token = localStorage.getItem('SESSION_AUTH');
+    const authToken = localStorage.getItem('auth');
 
-    var headers = new HttpHeaders({
-      s_auth: session_token || '',
-      authorization: `Bearer ${bearer_token}` || '',
+    const headers = new HttpHeaders({
+      authorization: `Bearer ${authToken}`,
     });
     return { headers };
   }
 
-  start<T>(method: HttpMethod, endpoint: string, body?: any) {
-    var option = {
-      withCredentials: true,
-      ...this.headers,
-    };
+  start<T>(
+    method: HttpMethod,
+    endpoint: string,
+    body?: any,
+    query?: Record<string, any>,
+  ) {
+    const option = this.headers;
+
+    const url = `${environment.API_URL}${endpoint}`;
+    const queryParams = new HttpParams({
+      fromObject: query,
+    });
 
     switch (method) {
       case 'get': // get
-        return this.http.get<T>(endpoint, option);
+        return this.http.get<T>(url, { ...option, params: queryParams });
 
       case 'post': // insert
-        return this.http.post<T>(endpoint, body, option);
+        return this.http.post<T>(url, body, option);
 
       case 'put': // update all
-        return this.http.put<T>(endpoint, body, option);
+        return this.http.put<T>(url, body, option);
 
       case 'patch': // update some
-        return this.http.patch<T>(endpoint, body, option);
+        return this.http.patch<T>(url, body, option);
 
       case 'delete': // delete
-        return this.http.delete<T>(endpoint, option);
+        return this.http.delete<T>(url, option);
 
       default:
-        return this.http.get<T>(endpoint, option);
+        return this.http.get<T>(url, option);
     }
   }
 }

@@ -17,10 +17,10 @@ export class InventoryApiService {
       debounceTime(1000),
       map((res: any) => {
         res = res.filter((o: any) =>
-          o.genericName.toLowerCase().includes(lowerKeyword)
+          o.genericName.toLowerCase().includes(lowerKeyword),
         );
         return res.slice(0, 20) || [];
-      })
+      }),
     );
   }
 }

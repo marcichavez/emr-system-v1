@@ -1,12 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
+import { AuthGuard } from './guards/auth.guard';
+import { ChangePasswordTokenResolver } from './resolvers/change-password-token.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
+    canActivate: [AuthGuard],
     children: [
+      {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full',
+      },
+      {
+        path: 'super-admin/login',
+        loadChildren: () =>
+          import('./pages/super-admin-login/super-admin-login.module').then(
+            (m) => m.SuperAdminLoginModule,
+          ),
+      },
       {
         path: 'login',
         loadChildren: () =>
@@ -16,14 +31,15 @@ const routes: Routes = [
         path: 'forgot-password',
         loadChildren: () =>
           import('./pages/forgot-password/forgot-password.module').then(
-            (m) => m.ForgotPasswordModule
+            (m) => m.ForgotPasswordModule,
           ),
       },
       {
         path: 'change-password/:token',
+        resolve: [ChangePasswordTokenResolver],
         loadChildren: () =>
           import('./pages/change-password/change-password.module').then(
-            (m) => m.ChangePasswordModule
+            (m) => m.ChangePasswordModule,
           ),
       },
     ],

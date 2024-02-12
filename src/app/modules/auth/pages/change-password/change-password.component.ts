@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { FakeAuthService } from 'src/app/core/mocks/fake-auth/fake-auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '@core/api/auth/auth.service';
+import { SnackbarService } from '@shared/components/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-change-password',
@@ -19,51 +19,55 @@ export class ChangePasswordComponent implements OnInit {
     newPassword: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
   });
+  serverErrorMessage = '';
 
   forgotPasswordBtnDisabled = true;
   forgotPasswordBtnLabel = 'Submit New Password';
-
+  token: string;
   constructor(
-    private authService: FakeAuthService,
+    private authService: AuthService,
     private router: Router,
-    private snackbar: MatSnackBar
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private snackbarService: SnackbarService,
+  ) {
+    this.token = this.activatedRoute.snapshot.paramMap.get('token') || '';
+  }
 
   ngOnInit(): void {
-    this.forgotPasswordForm.valueChanges.subscribe((res) => {
-      let { newPassword, confirmPassword } = res;
-      this.forgotPasswordBtnDisabled = !this.authService.isPasswordConfirmed(
-        newPassword,
-        confirmPassword
-      );
+    this.forgotPasswordForm.valueChanges.subscribe((values) => {
+      const { newPassword, confirmPassword } = values;
+      this.forgotPasswordBtnDisabled = newPassword !== confirmPassword;
     });
   }
 
   onSubmit() {
-    let { newPassword, confirmPassword } = this.forgotPasswordForm.value;
+    const payload = {
+      token: this.token,
+      password: this.forgotPasswordForm.value.newPassword,
+    };
     this.forgotPasswordBtnDisabled = true;
-    this.authService
-      .resetPassword('1235', newPassword, confirmPassword)
-      .subscribe(
-        (res) => {
-          this.snackbar
-            .open('Password Successfully Change!', 'Okay', {
-              horizontalPosition: 'left',
-              verticalPosition: 'bottom',
-            })
-            .afterDismissed()
-            .subscribe(() => {
-              this.router.navigate(['auth', 'login']);
-            });
-        },
-        (err) => {
-          this.forgotPasswordBtnDisabled = false;
-          alert(
-            err.error.message ||
-              'Something went wrong while changin your password. Please try again later.'
+
+    this.snackbarService.openLoadingSnackbar('Changing your password...');
+    this.authService.resetPassword(payload).subscribe(
+      () => {
+        this.snackbarService.openSuccessSnackbar(
+          'You have changed your password successfully. Please login.',
+        );
+        this.router.navigate(['auth', 'login']);
+      },
+      (err) => {
+        this.forgotPasswordBtnDisabled = false;
+        if (err.status === 401) {
+          this.router.navigate(['auth', 'forgot-password']);
+          this.snackbarService.openErrorSnackbar(err.error.message);
+        } else {
+          this.serverErrorMessage = err.error.message;
+          this.snackbarService.openErrorSnackbar(
+            'Failed to reset password. Please check the form and try again.',
           );
         }
-      );
+      },
+    );
   }
 
   onClickBackToLoginBtn() {

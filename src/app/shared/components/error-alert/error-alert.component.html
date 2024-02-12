@@ -1,0 +1,11 @@
+<div
+  class="shadow-md ring-1 ring-gray-900/5 rounded-lg px-4 py-3 relative"
+  style="background-color: var(--error-100)"
+>
+  <button mat-icon-button class="close-button" (click)="onCloseClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <ul>
+    <li *ngFor="let errorMessage of serverErrorMessages">{{ errorMessage }}</li>
+  </ul>
+</div>

@@ -8,9 +8,8 @@ describe('AddPatientDrawerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddPatientDrawerComponent ]
-    })
-    .compileComponents();
+      declarations: [AddPatientDrawerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,4 +1,4 @@
-<mat-drawer-container autosize>
+<!-- <mat-drawer-container autosize>
   <mat-drawer #drawerLeft mode="over" class="left-drawer">
     <app-navigation-bar
       (urlChange)="urlChange($event)"
@@ -25,6 +25,40 @@
       {{ currentNavName }}
     </div>
     <section class="p-2 px-[2rem] pb-[10rem]">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+</mat-drawer-container> -->
+
+<mat-drawer-container class="h-screen w-screen">
+  <mat-drawer #drawerLeft mode="over" class="left-drawer">
+    <app-navigation-bar
+      (urlChange)="urlChange($event)"
+      [drawer]="drawerLeft"
+    ></app-navigation-bar>
+  </mat-drawer>
+
+  <mat-drawer
+    #drawerRight
+    disableClose
+    mode="over"
+    class="right-drawer"
+    position="end"
+  >
+    <app-add-patient-drawer [drawer]="drawerRight"></app-add-patient-drawer>
+  </mat-drawer>
+
+  <div class="h-full w-full flex flex-col overflow-hidden">
+    <div>
+      <app-header
+        [drawerLeft]="drawerLeft"
+        [drawerRight]="drawerRight"
+      ></app-header>
+      <div class="title-bar p-2 px-[2rem] opacity-80">
+        {{ currentNavName }}
+      </div>
+    </div>
+    <section class="overflow-auto">
       <router-outlet></router-outlet>
     </section>
   </div>

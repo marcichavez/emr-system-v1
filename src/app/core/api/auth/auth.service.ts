@@ -1,71 +1,119 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { URL } from 'src/app/configs/url/url';
+import { User } from '@core/interfaces/models/User.interface';
+import { UserActions } from '@core/states/user';
+import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private store: Store,
+  ) {}
 
-  setHeaders() {
-    let session_token = localStorage.getItem('SESSION_TOKEN')!;
-    let bearer_token = localStorage.getItem('SESSION_AUTH');
+  superAdminLogin(email: string, password: string) {
+    return this.http
+      .post<
+        User & { token?: string }
+      >(environment.API_URL + `/auth/super-admin/login`, { email, password })
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('auth', response.token || '');
+          delete response.token;
 
-    let headers = new HttpHeaders({
-      s_auth: session_token || '',
-      authorization: `Bearer ${bearer_token}` || '',
-    });
-    return { headers };
+          this.store.dispatch(
+            UserActions.setUser({
+              user: response,
+            }),
+          );
+        }),
+      );
   }
 
-  getHeaders() {
-    return {
-      withCredentials: true,
-      ...this.setHeaders(),
-    };
-  }
+  login(email: string, password: string) {
+    return this.http
+      .post<
+        User & { token?: string }
+      >(environment.API_URL + `/auth/login`, { email, password })
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('auth', response.token || '');
+          delete response.token;
 
-  login(email: string, password: string, type: string) {
-    return this.http.post(
-      URL + `/auth/login/${type}`,
-      { email, password },
-      this.getHeaders()
-    );
+          this.store.dispatch(
+            UserActions.setUser({
+              user: response,
+            }),
+          );
+        }),
+      );
   }
 
   logout() {
-    return this.http.get(URL + '/auth/logout', this.getHeaders());
+    return this.http
+      .post(
+        environment.API_URL + '/auth/logout',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('auth')}`,
+          },
+        },
+      )
+      .pipe(
+        tap(() => {
+          localStorage.removeItem('auth');
+          this.store.dispatch(UserActions.removeUser());
+        }),
+      );
   }
 
   me() {
-    return this.http.get(URL + '/auth/me', this.getHeaders());
+    return this.http
+      .get<User>(environment.API_URL + '/auth/me', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('auth')}`,
+        },
+      })
+      .pipe(
+        tap((response) => {
+          this.store.dispatch(
+            UserActions.setUser({
+              user: response,
+            }),
+          );
+        }),
+      );
   }
 
-  verifyResetPassToken(token: string) {
-    return this.http.get(
-      URL + `/auth/reset-password/${token}`,
-      this.getHeaders()
-    );
+  verifyResetPasswordToken(token: string) {
+    const queryParams = new HttpParams({
+      fromObject: {
+        token,
+      },
+    });
+    return this.http.get<{
+      found: boolean;
+    }>(environment.API_URL + `/auth/reset-password`, {
+      params: queryParams,
+    });
   }
 
-  resetPassword(token: string, body: object) {
-    return this.http.put(
-      URL + `/auth/reset-password/${token}`,
-      body,
-      this.getHeaders()
-    );
+  resetPassword(body: object) {
+    return this.http.post(environment.API_URL + `/auth/reset-password`, body);
   }
 
   forgotPassword(email: string) {
-    return this.http.post(URL + `/auth/forgot-password`, { email });
+    return this.http.post(environment.API_URL + `/auth/forgot-password`, {
+      email,
+    });
   }
 
   updatePassword(body: object) {
-    return this.http.put(
-      URL + '/auth/update-password',
-      body,
-      this.getHeaders()
-    );
+    return this.http.put(environment.API_URL + '/auth/update-password', body);
   }
 }
