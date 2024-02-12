@@ -2,11 +2,7 @@
   <h1>EMR</h1>
 </div>
 <section class="nav-section">
-  <div
-    class="nav-btn pt-3"
-    *ngFor="let navLink of navRouterLinks"
-    routerLinkActive="active"
-  >
+  <div *ngFor="let navLink of navRouterLinks">
     <div [routerLink]="[navLink.url]" class="px-4 flex justify-between">
       <div class="py-[2px]">
         <p>{{ navLink.name }}</p>

@@ -18,6 +18,13 @@
   color: white;
 }
 
-.main-panel {
-  height: calc(100vh - 14rem);
+// .main-panel {
+//   height: calc(100vh - 14rem);
+// }
+
+.fixed-title-bar {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  z-index: 1;
 }

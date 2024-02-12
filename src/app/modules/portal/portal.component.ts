@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { NavRouterlink } from 'src/app/core/interfaces/NavRouterLink.interface';
 
