@@ -22,6 +22,16 @@ export class NavigationBarComponent implements OnInit {
       url: 'appointments',
       icon: 'today',
     },
+    {
+      name: 'Employees',
+      url: 'employees',
+      icon: 'people',
+    },
+    {
+      name: 'Settings',
+      url: 'settings',
+      icon: 'settings',
+    },
   ];
   constructor(private router: Router) {
     router.events.subscribe((val) => {

@@ -63,7 +63,7 @@ describe('PhilhealthHelperService', () => {
   it('#_validateDataformat should return the first element as [Invalid PIN number format]', () => {
     claimDetails.pPIN = '12345678911';
     expect(service._validateDataformat(claimDetails)[0]).toBe(
-      'Invalid PIN number format'
+      'Invalid PIN number format',
     );
   });
 });

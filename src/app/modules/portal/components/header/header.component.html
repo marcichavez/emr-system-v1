@@ -2,7 +2,7 @@
   <!-- Menu -->
 
   <button mat-icon-button (click)="drawerLeft.toggle()" class="pr-2">
-    <mat-icon>chevron_{{ drawerLeft.opened ? "left" : "right" }}</mat-icon>
+    <mat-icon>chevron_{{ drawerLeft.opened ? 'left' : 'right' }}</mat-icon>
   </button>
 
   <!-- Clinics -->
@@ -13,7 +13,12 @@
   <button mat-icon-button class="account-btn" (click)="drawerRight.toggle()">
     <mat-icon>add</mat-icon>
   </button>
-  <button mat-icon-button class="account-btn" [routerLink]="['my-account']">
+  <button mat-icon-button class="account-btn" [matMenuTriggerFor]="profileMenu">
     <mat-icon>account_circle</mat-icon>
   </button>
+
+  <mat-menu #profileMenu="matMenu">
+    <button mat-menu-item>My Profile</button>
+    <button mat-menu-item (click)="onLogout()">Logout</button>
+  </mat-menu>
 </mat-toolbar>

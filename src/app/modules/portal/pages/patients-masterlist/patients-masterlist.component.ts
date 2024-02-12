@@ -95,7 +95,7 @@ export class PatientsMasterlistComponent implements OnInit {
 
   constructor(
     private phicApiService: PhilhealthApiService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -117,7 +117,7 @@ export class PatientsMasterlistComponent implements OnInit {
       },
       (err) => {
         alert(err.message);
-      }
+      },
     );
   }
 

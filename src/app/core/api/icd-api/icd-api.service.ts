@@ -19,10 +19,10 @@ export class IcdApiService {
         res = res.filter(
           (o: any) =>
             o.code.toLowerCase().includes(lowerKeyword) ||
-            o.desc.toLowerCase().includes(lowerKeyword)
+            o.desc.toLowerCase().includes(lowerKeyword),
         );
         return res.slice(0, 20) || [];
-      })
+      }),
     );
   }
 }

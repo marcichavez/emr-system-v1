@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FakeAuthService } from 'src/app/core/mocks/fake-auth/fake-auth.service';
+import { AuthService } from '@core/api/auth/auth.service';
+import { SnackbarService } from '@shared/components/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss'],
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent {
   forgotPasswordForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
   });
@@ -17,24 +18,25 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPasswordBtnLabel = 'Send Reset Link to my Email';
   linkSuccessSent = false;
 
-  constructor(private authService: FakeAuthService, private router: Router) {}
-
-  ngOnInit(): void {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private snackbarService: SnackbarService,
+  ) {}
 
   onSubmit() {
     this.authService
       .forgotPassword(this.forgotPasswordForm.value.email)
       .subscribe(
-        (res) => {
+        () => {
           this.linkSuccessSent = true;
-          console.log('Successfully sent reset password link');
-        },
-        (err) => {
-          alert(
-            err.error.message ||
-              'Error sending the reset password link. Please try again later.'
+          this.snackbarService.openSuccessSnackbar(
+            'Reset link has been sent to your email.',
           );
-        }
+        },
+        (e) => {
+          this.snackbarService.openErrorSnackbar(e.error.message);
+        },
       );
   }
 

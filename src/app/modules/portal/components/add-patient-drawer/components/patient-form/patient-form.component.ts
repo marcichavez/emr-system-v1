@@ -81,7 +81,7 @@ export class PatientFormComponent implements OnInit {
 */
   constructor(
     private locationHelper: LocationHelperService,
-    private patientApi: PatientApiService
+    private patientApi: PatientApiService,
   ) {}
 
   ngOnInit(): void {
@@ -95,7 +95,7 @@ export class PatientFormComponent implements OnInit {
         this.patientForm
           .get('fullAddress')
           ?.setValue(
-            this.locationHelper.fullAddress(address1, brgy, cityMun, prov, reg)
+            this.locationHelper.fullAddress(address1, brgy, cityMun, prov, reg),
           );
       }
     });
@@ -106,7 +106,7 @@ export class PatientFormComponent implements OnInit {
         this.guardianForm
           .get('fullAddress')
           ?.setValue(
-            this.locationHelper.fullAddress(address1, brgy, cityMun, prov, reg)
+            this.locationHelper.fullAddress(address1, brgy, cityMun, prov, reg),
           );
       }
     });
